@@ -1,0 +1,540 @@
+openapi: 3.0.0
+info:
+  description: Public API of the Yokoy Application
+  title: Yokoy Card account Cost center API
+  version: 1.41.0
+servers:
+- description: API server scoped to organization with ID `organizationId`
+  url: https://api.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+- description: API test server scoped to organization with ID `organizationId`
+  url: https://api.test.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+tags:
+- description: 'Cost objects (also called cost centers) is a hierarchical construct to which costs that occur within a company can be assigned. Cost objects are created at legal entity level and can be used for expenses, trips, and invoices.
+
+    Approvers and delegates should be specified using the Yokoy user ID. For any unrecognized IDs, Yokoy creates or updates the cost object attribute with the value `null`. For example, if you pass `Y6cp2G30M` as the `approverId` and no user exists for that ID, Yokoy updates the approver ID attribute as `null`.
+
+    '
+  name: Cost center
+paths:
+  /legal-entities/{legalEntityId}/cost-centers:
+    parameters:
+    - $ref: '#/components/parameters/LegalEntityIdInPath'
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Retrieves all cost objects for the legal entity (company) specified by its Yokoy unique ID in the path.
+      operationId: listCostObjects
+      parameters:
+      - description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters. All public fields are supported, except `created`, `lastModified`, `accessType` and `scopes`.
+        example: customInformation.customField eq foo and approvalLimit le 1000
+        in: query
+        name: filter
+        schema:
+          type: string
+      - $ref: '#/components/parameters/PaginationCount'
+      - $ref: '#/components/parameters/PaginationCursor'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  costCenters:
+                    items:
+                      $ref: '#/components/schemas/CostCenter'
+                    type: array
+                type: object
+          description: OK
+        '400':
+          $ref: '#/components/responses/InvalidFilter'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: List all cost objects
+      tags:
+      - Cost center
+    post:
+      description: 'Creates a new cost object for the legal entity specified by its Yokoy unique ID in the path and returns the created entity.
+
+        The request body should contain `code`, `name`, and `statusActive` attributes. If you don‘t include these attributes, the cost object is created with `Draft` status. You can use the `statusActive` attribute to activate a cost object afterwards.
+
+        To set an expiry date for the delegate, edit the cost object in Yokoy (**Admin > Cost objects**).
+
+        '
+      operationId: createCostObject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CostCenter'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostCenter'
+          description: Created
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Create a cost object
+      tags:
+      - Cost center
+  /legal-entities/{legalEntityId}/cost-centers/{costCenterId}:
+    parameters:
+    - $ref: '#/components/parameters/LegalEntityIdInPath'
+    - description: Yokoy unique ID of the cost object.
+      example: Mt34DVcI8R2sdLutWViu
+      in: path
+      name: costCenterId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    delete:
+      description: Deletes a cost cobject specified by its Yokoy unique ID in the path.
+      operationId: deleteCostObject
+      responses:
+        '204':
+          description: Cost object deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Remove a cost object by ID
+      tags:
+      - Cost center
+    get:
+      description: Returns a cost object specified by its Yokoy unique ID in the path.
+      operationId: getCostObject
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostCenter'
+          description: OK
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Get a cost object by ID
+      tags:
+      - Cost center
+    patch:
+      description: Update a cost object by replacing some attributes. The cost object and legal entity are specified in the path by their unique IDs. Only attributes specified in the request body are updated. The whole entity is returned. Optionally, you can specify a list of users that should be explicitly granted access to this cost object via the `userAccessGrants` property.
+      operationId: modifyCostObject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - additionalProperties: true
+                description: Dictionary of cost object attributes to update. Explicit null values mark optional attributes for deletion. Mandatory attributes are marked as null.
+                type: object
+              - properties:
+                  userAccessGrants:
+                    description: A list of users that should be explicitly granted access to this cost object. This option is only allowed if the configured access type of the cost object is `specificUsers`.
+                    example:
+                    - userId: 9L7rovNzNhTCsJSTkbfq
+                    - userId: 0bbdZUtXFDD74cQVq5Mb
+                    items:
+                      properties:
+                        userId:
+                          type: string
+                      required:
+                      - userId
+                      type: object
+                    type: array
+                type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostCenter'
+          description: OK
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Modify a cost object
+      tags:
+      - Cost center
+    put:
+      description: Updates a specific cost object by replacing all attributes. The legal entity and cost object are specified in the path by their unique IDs. The request body should contain `code`, `name`, and `statusActive` attributes. Otherwise, the cost object is flagged as inactive. Any other cost object attributes that are not specified in the request body are updated with null. The whole entity is returned.
+      operationId: updateCostObject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CostCenter'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostCenter'
+          description: OK
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Update a cost object
+      tags:
+      - Cost center
+components:
+  parameters:
+    PaginationCursor:
+      description: 'Optional cursor for paginating. When provided, the API fetches a subsequent page of items.
+
+        The subsequent page is identified by the value given in `nextCursor` in the previous response.
+
+        `cursor` can only be used if the `count` attribute is passed as a query parameter.
+
+        '
+      example: 06x2u4nagAMEq3gGMoch
+      in: query
+      name: cursor
+      required: false
+      schema:
+        type: string
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
+    YokoyCorrelationId:
+      description: Correlation ID that can be used to trace a request in the flow.
+      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
+      in: header
+      name: X-Yk-Correlation-Id
+      required: false
+      schema:
+        type: string
+    LegalEntityIdInPath:
+      description: Yokoy unique ID of the legal entity (company).
+      example: aB9jQoE3HE
+      in: path
+      name: legalEntityId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    PaginationCount:
+      description: 'Optional count for paginating. When provided, the results are paginated. Without `count`, no pagination is provided.
+
+        The maximum number of items that can be included in a paginated response is `100`.
+
+        When paginated, the response includes the `itemsPerPage` attribute.
+
+        If the number of items available is greater than or equal to `count`, it also includes the `nextCursor` attribute, which can be used to fetch the subsequent page of items.
+
+        '
+      example: 30
+      in: query
+      name: count
+      required: false
+      schema:
+        maximum: 100
+        type: number
+  schemas:
+    CostCenter:
+      properties:
+        accessType:
+          description: "Defines the users that can submit expenses, trips, and invoices to the cost object.\n - `all`: Any Yokoy user can use this cost object.\n - `finance`: Only finance users can use this cost object.\n - `specificUsers`: Only finance users and an explicitly defined list of users are allowed. Users can be specified with the `userAccessGrants` property of the cost object PATCH endpoint.\n"
+          enum:
+          - all
+          - finance
+          - specificUsers
+          example: specificUsers
+          type: string
+        approvalLimit:
+          description: Approval limit in the the legal entity‘s currency.
+          example: 999999
+          minimum: 0.0
+          nullable: true
+          type: number
+        approverId:
+          description: Yokoy user ID that identifies the cost object's approver.
+          example: 9L7rovNzNhTCsJSTkbfq
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+        autoApprovalLimit:
+          description: Auto approval limit in the legal entity‘s currency.
+          example: 100000.0
+          minimum: 0.0
+          nullable: true
+          type: number
+        code:
+          description: Code (ERP). External account number associated with the cost object.
+          example: C33998
+          type: string
+        customInformation:
+          additionalProperties:
+            description: Dictionary of custom information attributes associated with the cost object.
+            example:
+              externalId: 00001C
+            type: string
+          nullable: true
+          type: object
+        delegateExpiry:
+          description: Expiry date and time of the cost object's delegate.
+          example: Fri, 14 Aug 2020 21:59:59 GMT
+          nullable: true
+          readOnly: true
+          type: string
+        delegateId:
+          description: Yokoy user ID that identifies the cost object‘s delegate.
+          example: h9cQajbG
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+        description:
+          description: Description of the cost object.
+          example: IT costs related to employees, hardware, and software.
+          nullable: true
+          type: string
+        id:
+          description: Yokoy unique ID of the cost object (cost center).
+          example: uhmkC9zMzn
+          pattern: '[\w-]+'
+          readOnly: true
+          type: string
+        name:
+          description: Name of the cost object.
+          example: IT department
+          type: string
+        parentId:
+          description: Yokoy unique ID of the parent cost object.
+          example: 9rL5X8PJ
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+        scopes:
+          description: Scopes of the cost object. Defines whether cost objects can be used in travel, expenses, invoices or both.
+          example:
+          - travel
+          - expenses
+          - invoices
+          items:
+            enum:
+            - travel
+            - expenses
+            - invoices
+            type: string
+          nullable: true
+          type: array
+        statusActive:
+          description: Status of the cost object. Only active cost objects can be used in travel, expenses, trips, and invoices.
+          example: true
+          type: boolean
+      required:
+      - code
+      - name
+      type: object
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+  responses:
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+    ValidationError:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'ValidationError: name is mandatory'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    Conflict:
+      content:
+        application/json:
+          example:
+            code: 409
+            message: Request conflict with the current state of the target resource.
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: Request conflict with the current state of the target resource.
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
+    TooManyRequests:
+      content:
+        application/json:
+          example:
+            code: 429
+            message: Too many requests
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed by the server due to too many concurrent requests.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+  securitySchemes:
+    OAuth2:
+      description: "Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.\n\n**1. Obtain an access token**\n\nPerform a `POST` request to\n`https://accounts.yokoy.ai/oauth2/token`. Pass the client ID\nand client secret as username and password in a basic auth\nheader. Set the content-type to\n`application/x-www-form-urlencoded` and specify\n`grant_type=client_credentials` in the body.\n\n> Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.\n\nExample request for the client ID `ClientId` and client\nsecret `ClientSecret`:\n```\nPOST https://accounts.yokoy.ai/oauth2/token\nAuthorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0\nContent-Type: application/x-www-form-urlencoded\ngrant_type=client_credentials\n```\nIn this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is\nobtained by base64-encoding the string\n`ClientId:ClientSecret`, as required for basic access authentication.\n\n> Note: Yokoy does not require or use scopes.\n\n\nThe JSON response contains the access token in the attribute\n`access_token`. The response also contains the expiration in\nseconds.\n\nExample response:\n```\n{\n    \"access_token\": \"SOME_KEY\",\n    \"expires_in\": 3900,\n    \"token_type\": \"Bearer\"\n}\n```\n\n**2. Pass the bearer token**\n\nPass the access token from step 1 as a bearer token in subsequent requests to the API.\n\nExample header field for the example response from step 1:\n```\nAuthorization: Bearer 4lDvPkrBF87WHuyvlINQD\n```\n\nFor more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].\n"
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+      type: oauth2

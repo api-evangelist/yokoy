@@ -1,0 +1,589 @@
+openapi: 3.0.0
+info:
+  description: Public API of the Yokoy Application
+  title: Yokoy Card account User API
+  version: 1.41.0
+servers:
+- description: API server scoped to organization with ID `organizationId`
+  url: https://api.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+- description: API test server scoped to organization with ID `organizationId`
+  url: https://api.test.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+tags:
+- description: 'Users in Yokoy reflect the fundamental roles of submitter, approver, and finance user. Mandatory user information depends on the specific organization requirements and Yokoy features enabled.
+
+    Email addresses must be unique for the organization. You cannot create two users with the same email address. If the email address provided already exists in the organization, the API returns an error.
+
+
+    Bank information can be provided as part of POST, PUT, and PATCH requests, however, the response does not return this information for security reasons.
+
+
+    **Note**: You can‘t use the User endpoints to determine the roles and permissions assigned to a user. You can only use the endpoints to create a new user.
+
+    Roles and permissions are granted to a user in Yokoy (**Admin > Finance/HR roles**). You must have previously created the user before assigning roles and permissions.
+
+
+    - **Booking strategy**: You can export expenses based on the user selected currency (instead of the company currency or the original expense currency). If you choose this option, you need to provide the user''s currency.
+
+    - **Approval strategy**: If you plan to approve expenses using a line manager approval strategy, then you need to enter a line manager for each user.
+
+    - **Expense accounting**: If expenses are to be posted via the employee vendor account, the field `employeeId` should reflect employee vendor account number. If you want to track the employee number, you should set up a custom field to add this information.
+
+    - **User policy**: You can assign rank-specific expense policies to certain users and user groups to determine applicable expense rules, per diem and mileage rates, as well as expense categories. If you choose this option, then you need to enter the policy ID.
+
+
+    For any unrecognized IDs, Yokoy creates or updates the user attribute with the value `null`. For example, if you pass `Y6cp2G30M` as the `lineManagerId` and no user exists for that ID, Yokoy updates the line manager ID attribute as `null`.
+
+
+    To guarantee spend data traceability, when you delete a user via the Yokoy API, the email is changed to an email address with the format: `deleted_user_` + user ID. For example, `deleted_user_lK6jo1GmSkXJzSyZSA2f@localhost.invalid`. The user is still displayed in **HR > User management** with a deleted tag and can’t be re-activated or edited. The user can still be retrieved via the Yokoy API using the Yokoy user ID. However, the user is not returned if you retrieve all users using a GET method. Deleted users can’t be re-activated in any way.
+
+    '
+  name: User
+paths:
+  /users:
+    parameters:
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Retrieves all users for the organization ID passed as a parameter in the path.
+      operationId: listUsers
+      parameters:
+      - $ref: '#/components/parameters/QueryFilter'
+      - $ref: '#/components/parameters/PaginationCount'
+      - $ref: '#/components/parameters/PaginationCursor'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  users:
+                    items:
+                      $ref: '#/components/schemas/User'
+                    type: array
+                type: object
+          description: OK
+        '400':
+          $ref: '#/components/responses/InvalidFilter'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: List all users for the organization
+      tags:
+      - User
+    post:
+      description: Creates a new user for the organization and returns the created entity (excluding bank information).
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/User'
+              - $ref: '#/components/schemas/UserBankInformation'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: Created
+        '400':
+          content:
+            application/json:
+              example:
+                code: 400
+                message: 'ValidationError: Email is mandatory'
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request was not valid.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Create a user
+      tags:
+      - User
+  /users/{userId}:
+    parameters:
+    - description: Yokoy unique ID for the user.
+      example: 9L7rovNzNhTCsJSTkbfq
+      in: path
+      name: userId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    delete:
+      description: Deletes a user identified by its Yokoy unique ID.
+      operationId: deleteUser
+      responses:
+        '204':
+          description: User deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Delete a user
+      tags:
+      - User
+    get:
+      description: Retrieves a user identified by its Yokoy unique ID.
+      operationId: getUser
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Get a user by ID
+      tags:
+      - User
+    patch:
+      description: Updates a user identified by replacing some attributes. The user is identified by its Yokoy unique ID passed as a path parameter. The whole entity (excluding bank information) is returned.
+      operationId: modifyUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: true
+              description: Dictionary of user attributes to update. Explicit null values mark attributes for deletion.
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+        '400':
+          content:
+            application/json:
+              example:
+                code: 400
+                message: 'ValidationError: email is mandatory'
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request was not valid.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Modify a user
+      tags:
+      - User
+    put:
+      description: Updates a user, replacing attributes provided in the payload. The whole entity (excluding bank information) is returned.
+      operationId: updateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/User'
+              - $ref: '#/components/schemas/UserBankInformation'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+        '400':
+          content:
+            application/json:
+              example:
+                code: 400
+                message: 'ValidationError: email is mandatory'
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request was not valid.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Update a user
+      tags:
+      - User
+components:
+  parameters:
+    PaginationCursor:
+      description: 'Optional cursor for paginating. When provided, the API fetches a subsequent page of items.
+
+        The subsequent page is identified by the value given in `nextCursor` in the previous response.
+
+        `cursor` can only be used if the `count` attribute is passed as a query parameter.
+
+        '
+      example: 06x2u4nagAMEq3gGMoch
+      in: query
+      name: cursor
+      required: false
+      schema:
+        type: string
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
+      in: query
+      name: filter
+      schema:
+        type: string
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
+    YokoyCorrelationId:
+      description: Correlation ID that can be used to trace a request in the flow.
+      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
+      in: header
+      name: X-Yk-Correlation-Id
+      required: false
+      schema:
+        type: string
+    PaginationCount:
+      description: 'Optional count for paginating. When provided, the results are paginated. Without `count`, no pagination is provided.
+
+        The maximum number of items that can be included in a paginated response is `100`.
+
+        When paginated, the response includes the `itemsPerPage` attribute.
+
+        If the number of items available is greater than or equal to `count`, it also includes the `nextCursor` attribute, which can be used to fetch the subsequent page of items.
+
+        '
+      example: 30
+      in: query
+      name: count
+      required: false
+      schema:
+        maximum: 100
+        type: number
+  responses:
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
+    TooManyRequests:
+      content:
+        application/json:
+          example:
+            code: 429
+            message: Too many requests
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed by the server due to too many concurrent requests.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+  schemas:
+    UserBankInformation:
+      properties:
+        BIC:
+          description: Branch Identifier Code of the user‘s bank account.
+          example: BARCGB22XXX
+          nullable: true
+          type: string
+        IBAN:
+          description: IBAN of the user‘s bank account.
+          example: CH9300762011623852957
+          nullable: true
+          type: string
+        accountHolderName:
+          description: Account holder name associated with the user‘s bank account.
+          example: Jo Smith
+          nullable: true
+          type: string
+      type: object
+    User:
+      properties:
+        costCenterId:
+          description: Yokoy unique ID of the associated cost object.
+          example: Mt34DVcI8R2sdLutWViu
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+        created:
+          description: Timestamp (date and time) when the user was created. Expressed in ISO 8601 format. Coordinated Universal Time (UTC).
+          example: '2022-11-15T17:08:45.478Z'
+          format: date-time
+          type: string
+        currency:
+          description: User's currency. Relevant when bookings are converted to the employee's currency. ISO 4217 three-letter code.
+          example: CHF
+          nullable: true
+          type: string
+        customInformation:
+          additionalProperties:
+            type: string
+          description: Dictionary of custom information attributes associated with the user.
+          example:
+            externalId: E111
+          nullable: true
+          type: object
+        email:
+          description: User's email address. Used to log into Yokoy. The email address must be unique for the organization.
+          example: alex.perez@example.com
+          format: email
+          type: string
+        employeeId:
+          description: 'Creditor account number of the user to be used to book any privately paid expenses. It can be a vendor account (for expenses booked on Accounts Payable) or a transit account (for General Ledger). Otherwise, this field can be used for a unique identifier.
+
+            '
+          example: 5599
+          type: string
+        firstName:
+          description: Given name or preferred name of the user.
+          example: Alex
+          type: string
+        id:
+          description: Yokoy ID of the user.
+          example: 9L7rovNzNhTCsJSTkbfq
+          pattern: '[\w-]+'
+          readOnly: true
+          type: string
+        invitationOnCreation:
+          description: Send an invitation to access Yokoy to the user when created.
+          example: false
+          nullable: true
+          type: boolean
+        language:
+          description: Preferred language for using Yokoy. Expressed as ISO 639 two-letter language code (except German (CH) and English (UK)).
+          enum:
+          - de
+          - de-ch
+          - en
+          - en-gb
+          - es
+          - fr
+          - nl
+          - pl
+          - zh
+          - ja
+          example: en
+          nullable: true
+          type: string
+        lastModified:
+          description: Timestamp (date and time) when the user was last modified. Expressed in ISO 8601 format. Coordinated Universal Time (UTC).
+          example: '2022-11-15T17:08:45.478Z'
+          format: date-time
+          type: string
+        lastName:
+          description: Family name of the user.
+          example: Perez
+          type: string
+        legalEntityId:
+          description: Yokoy ID of the legal entity to which the user belongs.
+          example: aB9jQoE3HE
+          pattern: '[\w-]+'
+          type: string
+        lineManagerDelegateId:
+          description: Yokoy unique ID of the user who can approve on behalf of the line manager.
+          example: MExmmEkr2KqE9onO0BDN
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+        lineManagerId:
+          description: Yokoy unique ID of the user who is the user's line manager.
+          example: OYwMfJJcAdOtUvT292a7
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+        lineManagerThreshold:
+          description: Approval limit in the legal entity's currency.
+          example: 1000.0
+          minimum: 0.0
+          nullable: true
+          type: number
+        notifyAssistant:
+          description: Send a notification (if enabled in Company settings) to the assistant identified in `submissionDelegateId`.
+          example: true
+          nullable: true
+          type: boolean
+        policyId:
+          description: Yokoy unique ID of the associated employee policy ID.
+          example: 0QP9qtsCUJ1rkt5s6qtI
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+        statusActive:
+          description: Status of the user. If active, the user can log into Yokoy.
+          example: true
+          type: boolean
+        submissionDelegateId:
+          description: Yokoy unique ID of the user who can act on the user's behalf as an assistant.
+          example: IfukBQl9lopuuwJRASnS
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+      required:
+      - firstName
+      - lastName
+      - legalEntityId
+      - email
+      - employeeId
+      - statusActive
+      type: object
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+  securitySchemes:
+    OAuth2:
+      description: "Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.\n\n**1. Obtain an access token**\n\nPerform a `POST` request to\n`https://accounts.yokoy.ai/oauth2/token`. Pass the client ID\nand client secret as username and password in a basic auth\nheader. Set the content-type to\n`application/x-www-form-urlencoded` and specify\n`grant_type=client_credentials` in the body.\n\n> Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.\n\nExample request for the client ID `ClientId` and client\nsecret `ClientSecret`:\n```\nPOST https://accounts.yokoy.ai/oauth2/token\nAuthorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0\nContent-Type: application/x-www-form-urlencoded\ngrant_type=client_credentials\n```\nIn this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is\nobtained by base64-encoding the string\n`ClientId:ClientSecret`, as required for basic access authentication.\n\n> Note: Yokoy does not require or use scopes.\n\n\nThe JSON response contains the access token in the attribute\n`access_token`. The response also contains the expiration in\nseconds.\n\nExample response:\n```\n{\n    \"access_token\": \"SOME_KEY\",\n    \"expires_in\": 3900,\n    \"token_type\": \"Bearer\"\n}\n```\n\n**2. Pass the bearer token**\n\nPass the access token from step 1 as a bearer token in subsequent requests to the API.\n\nExample header field for the example response from step 1:\n```\nAuthorization: Bearer 4lDvPkrBF87WHuyvlINQD\n```\n\nFor more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].\n"
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+      type: oauth2

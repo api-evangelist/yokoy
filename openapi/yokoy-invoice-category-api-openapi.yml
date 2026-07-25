@@ -1,0 +1,411 @@
+openapi: 3.0.0
+info:
+  description: Public API of the Yokoy Application
+  title: Yokoy Card account Invoice category API
+  version: 1.41.0
+servers:
+- description: API server scoped to organization with ID `organizationId`
+  url: https://api.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+- description: API test server scoped to organization with ID `organizationId`
+  url: https://api.test.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+tags:
+- description: Categories for invoices (equivalent to GL accounts in financial systems). These categories only apply to invoices. For expenses and trips, use expense categories.
+  name: Invoice category
+paths:
+  /legal-entities/{legalEntityId}/invoice-categories:
+    parameters:
+    - $ref: '#/components/parameters/LegalEntityIdInPath'
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Retrieves all invoice categories for the legal entity identified in the path.
+      operationId: listInvoiceCategories
+      parameters:
+      - $ref: '#/components/parameters/QueryFilter'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  invoice-categories:
+                    items:
+                      $ref: '#/components/schemas/InvoiceCategory'
+                    type: array
+                type: object
+          description: OK
+        '400':
+          $ref: '#/components/responses/InvalidFilter'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: List all invoice categories
+      tags:
+      - Invoice category
+    post:
+      description: Creates a new invoice category and returns the created entity.
+      operationId: createInvoiceCategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceCategory'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceCategory'
+          description: Created
+        '400':
+          $ref: '#/components/responses/HttpValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Create an invoice category
+      tags:
+      - Invoice category
+  /legal-entities/{legalEntityId}/invoice-categories/{categoryId}:
+    parameters:
+    - $ref: '#/components/parameters/LegalEntityIdInPath'
+    - description: Yokoy unique ID of the invoice category.
+      example: hm0qUnb8s
+      in: path
+      name: categoryId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Retrieves an invoice category identified by its Yokoy unique ID.
+      operationId: getInvoiceCategory
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceCategory'
+          description: OK
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Get an invoice category by ID
+      tags:
+      - Invoice category
+    patch:
+      description: Updates an invoice category by replacing some attributes. The whole entity is returned.
+      operationId: modifyInvoiceCategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: true
+              description: Dictionary of invoice category attributes to update. Explicit null values mark attributes for deletion.
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceCategory'
+          description: OK
+        '400':
+          $ref: '#/components/responses/HttpValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Modify an invoice category
+      tags:
+      - Invoice category
+    put:
+      description: Updates an invoice category by replacing all attributes. The whole entity is returned.
+      operationId: updateInvoiceCategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceCategory'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceCategory'
+          description: OK
+        '400':
+          $ref: '#/components/responses/HttpValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Update an invoice category
+      tags:
+      - Invoice category
+components:
+  parameters:
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
+      in: query
+      name: filter
+      schema:
+        type: string
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
+    YokoyCorrelationId:
+      description: Correlation ID that can be used to trace a request in the flow.
+      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
+      in: header
+      name: X-Yk-Correlation-Id
+      required: false
+      schema:
+        type: string
+    LegalEntityIdInPath:
+      description: Yokoy unique ID of the legal entity (company).
+      example: aB9jQoE3HE
+      in: path
+      name: legalEntityId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+  schemas:
+    InvoiceCategory:
+      properties:
+        accountReference:
+          description: Account reference (ERP) of the invoice category.
+          example: saas
+          type: string
+        customInformation:
+          additionalProperties:
+            type: string
+          description: Dictionary of custom information associated with the category.
+          example:
+            externalId: InvCat1
+          nullable: true
+          type: object
+        description:
+          description: Description of the invoice category.
+          example: Any costs for Software for internal purposes.
+          nullable: true
+          type: string
+        exportCostObject:
+          default: true
+          description: Indicates if the cost object should be included during export.
+          example: true
+          type: boolean
+        id:
+          description: Yokoy unique ID of the invoice category.
+          example: hm0qUnb8s
+          pattern: '[\w-]+'
+          readOnly: true
+          type: string
+        isTaxOnly:
+          default: false
+          description: Determines whether the line item is a tax-only item. This means that the total amount of the invoice line item is entirely tax. There is no net amount.
+          example: true
+          nullable: true
+          type: boolean
+        name:
+          description: Name of the invoice category.
+          example: Software costs
+          type: string
+        statusActive:
+          description: Status of the invoice category, whether the invoice category is active. Only active categories can be used in an invoice.
+          example: true
+          type: boolean
+      type: object
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    HttpError:
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - field
+      - message
+      type: object
+  responses:
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    TooManyRequests:
+      content:
+        application/json:
+          example:
+            code: 429
+            message: Too many requests
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed by the server due to too many concurrent requests.
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
+    HttpValidationError:
+      content:
+        application/json:
+          example:
+            code: 400
+            errors:
+            - field: Yokoy Field
+              message: Yokoy Field is mandatory
+            message: Validation Error
+          schema:
+            $ref: '#/components/schemas/HttpError'
+            additionalProperties: true
+      description: The request was not valid.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+  securitySchemes:
+    OAuth2:
+      description: "Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.\n\n**1. Obtain an access token**\n\nPerform a `POST` request to\n`https://accounts.yokoy.ai/oauth2/token`. Pass the client ID\nand client secret as username and password in a basic auth\nheader. Set the content-type to\n`application/x-www-form-urlencoded` and specify\n`grant_type=client_credentials` in the body.\n\n> Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.\n\nExample request for the client ID `ClientId` and client\nsecret `ClientSecret`:\n```\nPOST https://accounts.yokoy.ai/oauth2/token\nAuthorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0\nContent-Type: application/x-www-form-urlencoded\ngrant_type=client_credentials\n```\nIn this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is\nobtained by base64-encoding the string\n`ClientId:ClientSecret`, as required for basic access authentication.\n\n> Note: Yokoy does not require or use scopes.\n\n\nThe JSON response contains the access token in the attribute\n`access_token`. The response also contains the expiration in\nseconds.\n\nExample response:\n```\n{\n    \"access_token\": \"SOME_KEY\",\n    \"expires_in\": 3900,\n    \"token_type\": \"Bearer\"\n}\n```\n\n**2. Pass the bearer token**\n\nPass the access token from step 1 as a bearer token in subsequent requests to the API.\n\nExample header field for the example response from step 1:\n```\nAuthorization: Bearer 4lDvPkrBF87WHuyvlINQD\n```\n\nFor more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].\n"
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+      type: oauth2

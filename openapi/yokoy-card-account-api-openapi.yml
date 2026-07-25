@@ -1,0 +1,331 @@
+openapi: 3.0.0
+info:
+  description: Public API of the Yokoy Application
+  title: Yokoy Card account API
+  version: 1.41.0
+servers:
+- description: API server scoped to organization with ID `organizationId`
+  url: https://api.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+- description: API test server scoped to organization with ID `organizationId`
+  url: https://api.test.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+tags:
+- description: 'Card account associated to one of Yokoy''s card programs. Only active card accounts are allowed to order new cards.
+
+    '
+  name: Card account
+paths:
+  /legal-entities/{legalEntityId}/card-accounts:
+    get:
+      description: Retrieves all card accounts for the legal entity.
+      operationId: listCardAccounts
+      parameters:
+      - $ref: '#/components/parameters/LegalEntityIdInPath'
+      - $ref: '#/components/parameters/QueryFilter'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  cardAccounts:
+                    items:
+                      $ref: '#/components/schemas/CardAccount'
+                    type: array
+                type: object
+          description: OK
+        '400':
+          $ref: '#/components/responses/InvalidFilter'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: List all card accounts
+      tags:
+      - Card account
+  /legal-entities/{legalEntityId}/card-accounts/{cardAccountId}:
+    get:
+      description: Retrieves a card account identified by its Yokoy unique ID.
+      operationId: getCardAccount
+      parameters:
+      - $ref: '#/components/parameters/LegalEntityIdInPath'
+      - description: Yokoy unique ID of the card account.
+        example: ZwdGXln3gohDDdMeDUsW
+        in: path
+        name: cardAccountId
+        required: true
+        schema:
+          pattern: '[\w-]+'
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardAccount'
+          description: OK
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Get card account by ID
+      tags:
+      - Card account
+  /legal-entities/{legalEntityId}/card-accounts/{cardAccountId}/balance:
+    get:
+      description: Retrieves the current balance of a card account identified by its Yokoy unique ID. Only available for Yokoy Platinum Visa.
+      operationId: getBalance
+      parameters:
+      - $ref: '#/components/parameters/LegalEntityIdInPath'
+      - description: Yokoy unique ID of the card account.
+        example: ZwdGXln3gohDDdMeDUsW
+        in: path
+        name: cardAccountId
+        required: true
+        schema:
+          pattern: '[\w-]+'
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardAccountBalance'
+          description: OK
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Get card account balance
+      tags:
+      - Card account
+components:
+  parameters:
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
+      in: query
+      name: filter
+      schema:
+        type: string
+    LegalEntityIdInPath:
+      description: Yokoy unique ID of the legal entity (company).
+      example: aB9jQoE3HE
+      in: path
+      name: legalEntityId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+  schemas:
+    CardAccountBalance:
+      properties:
+        available:
+          description: Available balance of the card account that can be used for purchases. It corresponds to the balance plus the reservations.
+          example: 8641.42
+          type: number
+        balance:
+          description: Current total balance of the card account.
+          example: 10000
+          type: number
+        reservations:
+          description: Reserved amount of the card account that is currently blocked by merchants or not yet cleared. This must be a negative number.
+          example: -1358.58
+          type: number
+      required:
+      - balance
+      - available
+      - reservations
+      type: object
+    CardAccount:
+      properties:
+        accountNumber:
+          description: 'Associated account number. Unactivated accounts are indicated by an empty value.
+
+            For CHF/EUR accounts, it corresponds to account''s IBAN.
+
+            For GBP accounts, it corresponds to the account''s account number. If the currency is GBP, then property `sortCode` is also provided. For other currencies, this property is not provided.
+
+            '
+          example: GB00MOCK00000000000000
+          type: string
+        created:
+          description: Timestamp (date and time) when the card account was created. Expressed in ISO 8601 format. Coordinated Universal Time (UTC).
+          example: '2024-02-29T11:08:45.478Z'
+          format: date-time
+          nullable: true
+          type: string
+        currency:
+          description: Card account currency. ISO 4217 three-letter code.
+          example: GBP
+          type: string
+        id:
+          description: Yokoy unique ID of a card account.
+          example: abc_ABC-09
+          pattern: '[\w-]+'
+          type: string
+        lastModified:
+          description: Timestamp (date and time) when the card account was last modified. Expressed in ISO 8601 format. Coordinated Universal Time (UTC).
+          example: '2024-03-15T17:08:45.478Z'
+          format: date-time
+          nullable: true
+          type: string
+        provider:
+          description: Associated card program
+          enum:
+          - Yokoy Business Prepaid Mastercard
+          - Yokoy Platinum Visa
+          example: Yokoy Platinum Visa
+          type: string
+        sortCode:
+          description: Exclusive of GBP accounts. It corresponds to account's sort code.
+          example: 00-00-00
+          nullable: true
+          type: string
+        status:
+          description: "Status of the card account.\n  - `0`: Account was requested.\n  - `1`: Account is open. Cards can be ordered.\n  - `2`: Account is closed. Cards can no longer be ordered.\n  - `3`: Account request was denied.\n"
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          type: number
+      required:
+      - id
+      - currency
+      - status
+      - accountNumber
+      - provider
+      type: object
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+  responses:
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    TooManyRequests:
+      content:
+        application/json:
+          example:
+            code: 429
+            message: Too many requests
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed by the server due to too many concurrent requests.
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+  securitySchemes:
+    OAuth2:
+      description: "Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.\n\n**1. Obtain an access token**\n\nPerform a `POST` request to\n`https://accounts.yokoy.ai/oauth2/token`. Pass the client ID\nand client secret as username and password in a basic auth\nheader. Set the content-type to\n`application/x-www-form-urlencoded` and specify\n`grant_type=client_credentials` in the body.\n\n> Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.\n\nExample request for the client ID `ClientId` and client\nsecret `ClientSecret`:\n```\nPOST https://accounts.yokoy.ai/oauth2/token\nAuthorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0\nContent-Type: application/x-www-form-urlencoded\ngrant_type=client_credentials\n```\nIn this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is\nobtained by base64-encoding the string\n`ClientId:ClientSecret`, as required for basic access authentication.\n\n> Note: Yokoy does not require or use scopes.\n\n\nThe JSON response contains the access token in the attribute\n`access_token`. The response also contains the expiration in\nseconds.\n\nExample response:\n```\n{\n    \"access_token\": \"SOME_KEY\",\n    \"expires_in\": 3900,\n    \"token_type\": \"Bearer\"\n}\n```\n\n**2. Pass the bearer token**\n\nPass the access token from step 1 as a bearer token in subsequent requests to the API.\n\nExample header field for the example response from step 1:\n```\nAuthorization: Bearer 4lDvPkrBF87WHuyvlINQD\n```\n\nFor more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].\n"
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+      type: oauth2

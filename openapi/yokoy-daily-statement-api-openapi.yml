@@ -1,0 +1,287 @@
+openapi: 3.0.0
+info:
+  description: Public API of the Yokoy Application
+  title: Yokoy Card account Daily statement API
+  version: 1.41.0
+servers:
+- description: API server scoped to organization with ID `organizationId`
+  url: https://api.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+- description: API test server scoped to organization with ID `organizationId`
+  url: https://api.test.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+tags:
+- description: 'Daily CAMT statement files associated with a card account. Statements provide a daily summary of transactions in a standardized banking format.
+
+    '
+  name: Daily statement
+paths:
+  /legal-entities/{legalEntityId}/card-accounts/{cardAccountId}/daily-statements:
+    get:
+      description: Retrieves daily statement references for the card account identified by its Yokoy unique ID.
+      operationId: listDailyStatements
+      parameters:
+      - $ref: '#/components/parameters/LegalEntityIdInPath'
+      - description: Yokoy unique ID of the card account.
+        example: ZwdGXln3gohDDdMeDUsW
+        in: path
+        name: cardAccountId
+        required: true
+        schema:
+          pattern: '[\w-]+'
+          type: string
+      - $ref: '#/components/parameters/QueryFilter'
+      - $ref: '#/components/parameters/PaginationCount'
+      - $ref: '#/components/parameters/PaginationCursor'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  dailyStatementReferences:
+                    items:
+                      $ref: '#/components/schemas/DailyStatementReference'
+                    type: array
+                  nextCursor:
+                    $ref: '#/components/schemas/PaginationNextCursor'
+                required:
+                - dailyStatementReferences
+                type: object
+          description: OK
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: List daily statements
+      tags:
+      - Daily statement
+  /legal-entities/{legalEntityId}/card-accounts/{cardAccountId}/daily-statements/{statementId}:
+    get:
+      description: Downloads the CAMT statement file for the given statement ID.
+      operationId: getDailyStatement
+      parameters:
+      - $ref: '#/components/parameters/LegalEntityIdInPath'
+      - description: Yokoy unique ID of the card account.
+        example: ZwdGXln3gohDDdMeDUsW
+        in: path
+        name: cardAccountId
+        required: true
+        schema:
+          pattern: '[\w-]+'
+          type: string
+      - description: Unique ID of the daily statement.
+        example: '2025-02-05'
+        in: path
+        name: statementId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            text/xml:
+              schema:
+                type: string
+          description: OK
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Download daily statement
+      tags:
+      - Daily statement
+components:
+  parameters:
+    PaginationCursor:
+      description: 'Optional cursor for paginating. When provided, the API fetches a subsequent page of items.
+
+        The subsequent page is identified by the value given in `nextCursor` in the previous response.
+
+        `cursor` can only be used if the `count` attribute is passed as a query parameter.
+
+        '
+      example: 06x2u4nagAMEq3gGMoch
+      in: query
+      name: cursor
+      required: false
+      schema:
+        type: string
+    PaginationCount:
+      description: 'Optional count for paginating. When provided, the results are paginated. Without `count`, no pagination is provided.
+
+        The maximum number of items that can be included in a paginated response is `100`.
+
+        When paginated, the response includes the `itemsPerPage` attribute.
+
+        If the number of items available is greater than or equal to `count`, it also includes the `nextCursor` attribute, which can be used to fetch the subsequent page of items.
+
+        '
+      example: 30
+      in: query
+      name: count
+      required: false
+      schema:
+        maximum: 100
+        type: number
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
+      in: query
+      name: filter
+      schema:
+        type: string
+    LegalEntityIdInPath:
+      description: Yokoy unique ID of the legal entity (company).
+      example: aB9jQoE3HE
+      in: path
+      name: legalEntityId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+  responses:
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+    TooManyRequests:
+      content:
+        application/json:
+          example:
+            code: 429
+            message: Too many requests
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed by the server due to too many concurrent requests.
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+  schemas:
+    PaginationNextCursor:
+      description: 'Cursor to be used to fetch the next set of items.
+
+        It is only resulted in calls that pass `count`in the query parameters to retrieve paginated results. When there are no further results, the attribute is not returned.
+
+        '
+      example: 06x2u4nagAMEq3gGMoch
+      type: string
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    DailyStatementReference:
+      properties:
+        date:
+          description: Date of the daily statement.
+          example: '2025-02-05'
+          format: date
+          type: string
+        id:
+          description: Unique identifier of the daily statement.
+          example: '2025-02-05'
+          type: string
+        type:
+          description: Statement format type.
+          example: camt053
+          type: string
+        url:
+          description: URL to download the statement file.
+          example: https://example.com/statements/2025-02-05
+          type: string
+      required:
+      - id
+      - date
+      - type
+      type: object
+  securitySchemes:
+    OAuth2:
+      description: "Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.\n\n**1. Obtain an access token**\n\nPerform a `POST` request to\n`https://accounts.yokoy.ai/oauth2/token`. Pass the client ID\nand client secret as username and password in a basic auth\nheader. Set the content-type to\n`application/x-www-form-urlencoded` and specify\n`grant_type=client_credentials` in the body.\n\n> Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.\n\nExample request for the client ID `ClientId` and client\nsecret `ClientSecret`:\n```\nPOST https://accounts.yokoy.ai/oauth2/token\nAuthorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0\nContent-Type: application/x-www-form-urlencoded\ngrant_type=client_credentials\n```\nIn this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is\nobtained by base64-encoding the string\n`ClientId:ClientSecret`, as required for basic access authentication.\n\n> Note: Yokoy does not require or use scopes.\n\n\nThe JSON response contains the access token in the attribute\n`access_token`. The response also contains the expiration in\nseconds.\n\nExample response:\n```\n{\n    \"access_token\": \"SOME_KEY\",\n    \"expires_in\": 3900,\n    \"token_type\": \"Bearer\"\n}\n```\n\n**2. Pass the bearer token**\n\nPass the access token from step 1 as a bearer token in subsequent requests to the API.\n\nExample header field for the example response from step 1:\n```\nAuthorization: Bearer 4lDvPkrBF87WHuyvlINQD\n```\n\nFor more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].\n"
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+      type: oauth2

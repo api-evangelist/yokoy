@@ -1,0 +1,357 @@
+openapi: 3.0.0
+info:
+  description: Public API of the Yokoy Application
+  title: Yokoy Card account Legal entity API
+  version: 1.41.0
+servers:
+- description: API server scoped to organization with ID `organizationId`
+  url: https://api.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+- description: API test server scoped to organization with ID `organizationId`
+  url: https://api.test.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+tags:
+- description: Legal entity or company. An organization can have multiple legal entities.
+  name: Legal entity
+paths:
+  /legal-entities:
+    parameters:
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Returns all legal entities for the organization specified by its Yokoy unique ID in the path.
+      operationId: listLegalEntities
+      parameters:
+      - $ref: '#/components/parameters/QueryFilter'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  legalEntities:
+                    items:
+                      $ref: '#/components/schemas/LegalEntity'
+                    type: array
+                type: object
+          description: OK
+        '400':
+          $ref: '#/components/responses/InvalidFilter'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: List all legal entities
+      tags:
+      - Legal entity
+  /legal-entities/{legalEntityId}:
+    parameters:
+    - $ref: '#/components/parameters/LegalEntityIdInPath'
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Returns the legal entity specified by its Yokoy unique ID in the path.
+      operationId: getLegalEntity
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LegalEntity'
+          description: OK
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Get a legal entity (company) by ID
+      tags:
+      - Legal entity
+components:
+  parameters:
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
+      in: query
+      name: filter
+      schema:
+        type: string
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
+    YokoyCorrelationId:
+      description: Correlation ID that can be used to trace a request in the flow.
+      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
+      in: header
+      name: X-Yk-Correlation-Id
+      required: false
+      schema:
+        type: string
+    LegalEntityIdInPath:
+      description: Yokoy unique ID of the legal entity (company).
+      example: aB9jQoE3HE
+      in: path
+      name: legalEntityId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+  responses:
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    TooManyRequests:
+      content:
+        application/json:
+          example:
+            code: 429
+            message: Too many requests
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed by the server due to too many concurrent requests.
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+  schemas:
+    LegalEntity:
+      properties:
+        categories:
+          items:
+            properties:
+              accountReference:
+                description: Account (ERP). Expense account on which the expense is booked.
+                example: '3200'
+                type: string
+              customInformation:
+                additionalProperties:
+                  type: string
+                description: Dictionary of custom information attributes associated with the expense category.
+                example:
+                  externalId: Cat1
+                nullable: true
+                type: object
+              id:
+                description: Yokoy unique ID of the expense category.
+                example: 9L7rovNzNhTCsJSTkbfq
+                pattern: '[\w-]+'
+                type: string
+              name:
+                description: Name of the expense category.
+                example: Lunch
+                type: string
+              statusActive:
+                description: Status of the expense category. Only active categories can be used for new expenses.
+                example: true
+                type: boolean
+            required:
+            - name
+            - accountReference
+            - statusActive
+            type: object
+          type: array
+        code:
+          description: Code (ERP). The legal entity's account in the ERP system.
+          example: '11'
+          type: string
+        id:
+          description: Yokoy unique ID of the legal entity (company).
+          example: aB9jQoE3HE
+          pattern: '[\w-]+'
+          readOnly: true
+          type: string
+        language:
+          description: 'Main language of the legal entity. Expressed as ISO 639 two-letter language code (exceptions: German (CH) and English (UK)).
+
+            '
+          enum:
+          - de
+          - de-ch
+          - en
+          - en-gb
+          - es
+          - fr
+          - nl
+          - pl
+          - zh
+          - ja
+          example: de
+          type: string
+        name:
+          description: Name of the legal entity's name.
+          example: Company A - CH
+          type: string
+        policies:
+          items:
+            properties:
+              code:
+                description: Code (ERP) of the employee policy. ERP reference.
+                example: policy0
+                type: string
+              id:
+                description: Yokoy ID of the employee policy.
+                example: 06x2u4nagAMEq3gGoMch
+                pattern: '[\w-]+'
+                type: string
+              name:
+                description: Name of the employee policy.
+                example: Employee Policy
+                type: string
+              statusActive:
+                description: Status of the employee policy.
+                example: true
+                type: boolean
+            required:
+            - name
+            - code
+            - statusActive
+            type: object
+          type: array
+        taxRates:
+          items:
+            properties:
+              code:
+                description: Code (ERP) of the tax rate.
+                example: tax77
+                type: string
+              customInformation:
+                additionalProperties:
+                  type: string
+                description: Dictionary of custom information attributes associated with the tax rate.
+                example:
+                  externalId: Tax1
+                nullable: true
+                type: object
+              id:
+                description: Yokoy unique ID of the tax rate.
+                example: 06x2u4nagAMEq3gGMoch
+                pattern: '[\w-]+'
+                type: string
+              name:
+                description: Name of the tax rates.
+                example: 7.7% Standard Rate
+                type: string
+              statusActive:
+                description: Status of the tax rate. Inactive tax rates cannot be used in expenses, trips, and invoices.
+                example: true
+                type: boolean
+            required:
+            - name
+            - code
+            - statusActive
+            type: object
+          nullable: true
+          type: array
+      required:
+      - code
+      - language
+      - policies
+      - categories
+      type: object
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+  securitySchemes:
+    OAuth2:
+      description: "Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.\n\n**1. Obtain an access token**\n\nPerform a `POST` request to\n`https://accounts.yokoy.ai/oauth2/token`. Pass the client ID\nand client secret as username and password in a basic auth\nheader. Set the content-type to\n`application/x-www-form-urlencoded` and specify\n`grant_type=client_credentials` in the body.\n\n> Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.\n\nExample request for the client ID `ClientId` and client\nsecret `ClientSecret`:\n```\nPOST https://accounts.yokoy.ai/oauth2/token\nAuthorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0\nContent-Type: application/x-www-form-urlencoded\ngrant_type=client_credentials\n```\nIn this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is\nobtained by base64-encoding the string\n`ClientId:ClientSecret`, as required for basic access authentication.\n\n> Note: Yokoy does not require or use scopes.\n\n\nThe JSON response contains the access token in the attribute\n`access_token`. The response also contains the expiration in\nseconds.\n\nExample response:\n```\n{\n    \"access_token\": \"SOME_KEY\",\n    \"expires_in\": 3900,\n    \"token_type\": \"Bearer\"\n}\n```\n\n**2. Pass the bearer token**\n\nPass the access token from step 1 as a bearer token in subsequent requests to the API.\n\nExample header field for the example response from step 1:\n```\nAuthorization: Bearer 4lDvPkrBF87WHuyvlINQD\n```\n\nFor more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].\n"
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+      type: oauth2

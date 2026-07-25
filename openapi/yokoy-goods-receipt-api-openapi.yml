@@ -1,0 +1,478 @@
+openapi: 3.0.0
+info:
+  description: Public API of the Yokoy Application
+  title: Yokoy Card account Goods receipt API
+  version: 1.41.0
+servers:
+- description: API server scoped to organization with ID `organizationId`
+  url: https://api.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+- description: API test server scoped to organization with ID `organizationId`
+  url: https://api.test.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+tags:
+- description: Goods receipt are usually provided by suppliers when the goods of an order are delivered. Yokoy uses goods receipts to perform three-way matching (controlling invoice spending by checking quantities invoiced against the quantities delivered in the goods receipt).
+  name: Goods receipt
+paths:
+  /legal-entities/{legalEntityId}/invoice-goods-receipts:
+    parameters:
+    - $ref: '#/components/parameters/LegalEntityIdInPath'
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Retrieves all goods receipt for the legal entity identified in the path.
+      operationId: listGRs
+      parameters:
+      - $ref: '#/components/parameters/QueryFilter'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  invoice-goods-receipts:
+                    items:
+                      $ref: '#/components/schemas/GoodsReceipt'
+                    type: array
+                type: object
+          description: OK
+        '400':
+          $ref: '#/components/responses/InvalidFilter'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: List all goods receipts
+      tags:
+      - Goods receipt
+    post:
+      description: Creates a new invoice goods receipt and returns the created entity.
+      operationId: createGR
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoodsReceipt'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoodsReceipt'
+          description: Created
+        '400':
+          $ref: '#/components/responses/HttpValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Create a goods receipt
+      tags:
+      - Goods receipt
+  /legal-entities/{legalEntityId}/invoice-goods-receipts/{goodsReceiptId}:
+    parameters:
+    - $ref: '#/components/parameters/LegalEntityIdInPath'
+    - description: Yokoy unique ID of the goods receipt.
+      example: 9L7rovNzNhTCsJSTkbfq
+      in: path
+      name: goodsReceiptId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Retrieves a goods receipt identified by its Yokoy unique ID.
+      operationId: getGR
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoodsReceipt'
+          description: OK
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Get a goods receipt by ID
+      tags:
+      - Goods receipt
+    patch:
+      description: Updates a goods receipt by replacing some attributes. The goods receipt is specified by its Yokoy unique ID. The whole entity is returned.
+      operationId: modifyGR
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: true
+              description: Dictionary of invoice goods receipt attributes to update. Explicit null values mark attributes for deletion.
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoodsReceipt'
+          description: OK
+        '400':
+          $ref: '#/components/responses/HttpValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Modify a goods receipt
+      tags:
+      - Goods receipt
+    put:
+      description: Updates an invoice goods receipt by replacing all attributes. The goods receipt is identified by its Yokoy unique ID. The whole entity is returned.
+      operationId: UpdateGR
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoodsReceipt'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoodsReceipt'
+          description: OK
+        '400':
+          $ref: '#/components/responses/HttpValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Update a goods receipt
+      tags:
+      - Goods receipt
+components:
+  schemas:
+    DateString:
+      example: '2024-02-21'
+      format: date
+      pattern: ^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$
+      type: string
+    GoodsReceipt:
+      properties:
+        amount:
+          description: The goods receipt's amount. Calculated from the inner items.
+          example: 35
+          minimum: 0
+          readOnly: true
+          type: number
+        currency:
+          description: Currency of the goods receipt. ISO 4217 three-letter code.
+          example: CHF
+          type: string
+        externalId:
+          description: External ID of the goods receipt, displayed as delivery note in the invoice matcher.
+          example: external-1234567890
+          nullable: true
+          type: string
+        goodsReceiptNumber:
+          description: Goods receipt number.
+          example: '1234567890'
+          type: string
+        id:
+          description: Yokoy unique ID of the goods receipt.
+          example: cKrD9ni5D8
+          pattern: '[\w-]+'
+          readOnly: true
+          type: string
+        items:
+          items:
+            $ref: '#/components/schemas/GoodsReceiptItem'
+          type: array
+        postingDate:
+          allOf:
+          - $ref: '#/components/schemas/DateString'
+          - description: Posting date of the goods receipt. Expressed in `YYYY-MM-DD` format.
+            nullable: true
+      required:
+      - id
+      - goodsReceiptNumber
+      - currency
+      - items
+      type: object
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    HttpError:
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - field
+      - message
+      type: object
+    GoodsReceiptItem:
+      properties:
+        amount:
+          description: Amount of the goods receipt item.
+          example: 35
+          minimum: 0
+          type: number
+        externalId:
+          description: External ID of the goods receipt item.
+          example: external-1234567890
+          nullable: true
+          type: string
+        id:
+          description: 'Yokoy ID of the goods receipt item. For new items, Yokoy generates the ID. For existing items, you can reference that ID.
+
+            '
+          example: -QkwYQo0ij
+          pattern: '[\w-]+'
+          readOnly: true
+          type: string
+        itemNumber:
+          description: Number of the goods receipt item.
+          example: '1234567890'
+          nullable: true
+          type: string
+        itemPrice:
+          description: Item price of the goods receipt line item.
+          minimum: 0
+          nullable: true
+          readOnly: false
+          type: number
+        purchaseOrderId:
+          description: Yokoy ID of the purchase order associated with the goods receipt line item.
+          type: string
+        purchaseOrderItemId:
+          description: Yokoy ID of the purchase order line item associated with the goods receipt line item.
+          type: string
+        quantity:
+          description: Quantity of the goods receipt line item.
+          example: 123
+          minimum: 0
+          nullable: false
+          type: number
+        status:
+          default: active
+          description: Status of the goods receipt, indicating its current state.
+          enum:
+          - active
+          - inactive
+          - deleted
+          - blocked
+          example: active
+          type: string
+        unit:
+          description: Unit of the goods receipt line item.
+          example: kg
+          nullable: true
+          type: string
+      required:
+      - id
+      - statusActive
+      - purchaseOrderId
+      - purchaseOrderItemId
+      - amount
+      type: object
+  parameters:
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
+      in: query
+      name: filter
+      schema:
+        type: string
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
+    YokoyCorrelationId:
+      description: Correlation ID that can be used to trace a request in the flow.
+      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
+      in: header
+      name: X-Yk-Correlation-Id
+      required: false
+      schema:
+        type: string
+    LegalEntityIdInPath:
+      description: Yokoy unique ID of the legal entity (company).
+      example: aB9jQoE3HE
+      in: path
+      name: legalEntityId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+  responses:
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    TooManyRequests:
+      content:
+        application/json:
+          example:
+            code: 429
+            message: Too many requests
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed by the server due to too many concurrent requests.
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
+    HttpValidationError:
+      content:
+        application/json:
+          example:
+            code: 400
+            errors:
+            - field: Yokoy Field
+              message: Yokoy Field is mandatory
+            message: Validation Error
+          schema:
+            $ref: '#/components/schemas/HttpError'
+            additionalProperties: true
+      description: The request was not valid.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+  securitySchemes:
+    OAuth2:
+      description: "Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.\n\n**1. Obtain an access token**\n\nPerform a `POST` request to\n`https://accounts.yokoy.ai/oauth2/token`. Pass the client ID\nand client secret as username and password in a basic auth\nheader. Set the content-type to\n`application/x-www-form-urlencoded` and specify\n`grant_type=client_credentials` in the body.\n\n> Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.\n\nExample request for the client ID `ClientId` and client\nsecret `ClientSecret`:\n```\nPOST https://accounts.yokoy.ai/oauth2/token\nAuthorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0\nContent-Type: application/x-www-form-urlencoded\ngrant_type=client_credentials\n```\nIn this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is\nobtained by base64-encoding the string\n`ClientId:ClientSecret`, as required for basic access authentication.\n\n> Note: Yokoy does not require or use scopes.\n\n\nThe JSON response contains the access token in the attribute\n`access_token`. The response also contains the expiration in\nseconds.\n\nExample response:\n```\n{\n    \"access_token\": \"SOME_KEY\",\n    \"expires_in\": 3900,\n    \"token_type\": \"Bearer\"\n}\n```\n\n**2. Pass the bearer token**\n\nPass the access token from step 1 as a bearer token in subsequent requests to the API.\n\nExample header field for the example response from step 1:\n```\nAuthorization: Bearer 4lDvPkrBF87WHuyvlINQD\n```\n\nFor more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].\n"
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+      type: oauth2

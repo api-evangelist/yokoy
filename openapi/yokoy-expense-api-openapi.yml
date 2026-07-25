@@ -1,0 +1,827 @@
+openapi: 3.0.0
+info:
+  description: Public API of the Yokoy Application
+  title: Yokoy Card account Expense API
+  version: 1.41.0
+servers:
+- description: API server scoped to organization with ID `organizationId`
+  url: https://api.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+- description: API test server scoped to organization with ID `organizationId`
+  url: https://api.test.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+tags:
+- description: 'An expense is a cost incurred during the performance of a business activity. Employees can create reimbursable or non-reimbursable expenses. The Expense endpoints let you query all expense types managed in Yokoy: receipt, receiptless, mileage, and per diem. You can query individual expenses included as part of a trip.
+
+    '
+  name: Expense
+paths:
+  /expenses:
+    parameters:
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Returns all expenses for the legal entity specified as a path parameter.
+      operationId: listExpenses
+      parameters:
+      - $ref: '#/components/parameters/QueryFilter'
+      - $ref: '#/components/parameters/PaginationCount'
+      - $ref: '#/components/parameters/PaginationCursor'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  expenses:
+                    items:
+                      $ref: '#/components/schemas/Expense'
+                    type: array
+                type: object
+          description: OK
+        '400':
+          $ref: '#/components/responses/InvalidFilter'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: List all expenses
+      tags:
+      - Expense
+  /expenses/{expenseId}:
+    parameters:
+    - description: Yokoy unique ID of the expense.
+      example: aB9jQoE3HE
+      in: path
+      name: expenseId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Retrieves an expense identified by its Yokoy unique ID.
+      operationId: getExpense
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Expense'
+          description: OK
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Get expense by ID
+      tags:
+      - Expense
+  /expenses/{expenseId}/attachments/{attachmentName}:
+    parameters:
+    - description: Yokoy unique ID of the expense.
+      example: aB9jQoE3HE
+      in: path
+      name: expenseId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    - description: Name of an attachment from attachments array
+      example: attachment.jpeg
+      in: path
+      name: attachmentName
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Retrieves an expense attachment. The expense is identified by its Yokoy unique ID and the attachment by its name. The response contains a URL redirect to the location of the receipt. The URL redirect expires after 15 minutes for security reasons. The response header contains the content type that indicates the type of file. For example, `application/pdf` or `image/jpeg`.
+      operationId: getExpenseAttachment
+      responses:
+        '302':
+          $ref: '#/components/responses/Found'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Get expense attachment
+      tags:
+      - Expense
+  /expenses/{expenseId}/receipt:
+    parameters:
+    - description: Yokoy unique ID of the expense.
+      example: aB9jQoE3HE
+      in: path
+      name: expenseId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Retrieves the receipt of an expense identified by its Yokoy unique ID. The response contains a URL redirect to the location of the receipt. The URL link expires after 15 minutes for security reasons. The response header contains the content type that indicates the type of file. For example, `application/pdf` or `image/jpeg`.
+      operationId: getExpenseReceipt
+      responses:
+        '302':
+          $ref: '#/components/responses/Found'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Get expense receipt
+      tags:
+      - Expense
+components:
+  schemas:
+    TaxItem:
+      properties:
+        gross:
+          description: Gross amount subject to the tax rate in the expense currency.
+          example: 150.0
+          type: number
+        rateId:
+          description: Yokoy's unique ID of the tax rate.
+          example: 06x2u4nagAMEq3gGMoch
+          pattern: '[\w-]+'
+          type: string
+        tax:
+          description: Tax amount in the expense currency.
+          example: 15.0
+          type: number
+      type: object
+    CostCenterItem:
+      properties:
+        id:
+          description: Yokoy unique ID of the cost object (cost center).
+          example: CZwA376CfxtOyjg43LRU
+          pattern: '[\w-]+'
+          type: string
+        pctWeight:
+          description: Percentage of the cost to be assigned to the cost object.
+          maximum: 100.0
+          minimum: 0.0
+          type: number
+      type: object
+    EventLogEntry:
+      properties:
+        actionType:
+          description: Type of event.
+          enum:
+          - approve
+          - archive
+          - backToReview
+          - export
+          - needsRevision
+          - recall
+          - reject
+          - review
+          - submit
+          - revertExport
+          - imported
+          - exportReverted
+          - forwardApproval
+          example: needsRevision
+          type: string
+        comment:
+          description: Comment made by the user who triggered the event.
+          example: Please re-upload the invoice instead of the payment receipt.
+          pattern: '[\w-]+'
+          type: string
+        name:
+          description: Name of the user who triggered the event.
+          example: Alex Perez
+          nullable: true
+          type: string
+        timestamp:
+          description: Timestamp (date and time) of the event. Expressed in ISO 8601 format. Coordinated Universal Time (UTC).
+          example: '2022-11-15T17:08:45.478Z'
+          format: date-time
+          type: string
+        userId:
+          description: Yokoy unique ID of the user.
+          example: 9L7rovNzNhTCsJSTkbfq
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+      type: object
+    Expense:
+      properties:
+        additionalCategoryItems:
+          items:
+            $ref: '#/components/schemas/AdditionalCategoryItem'
+          type: array
+        additionalCharges:
+          description: Additional charges to be added to the total amount (for example, tip, personal card fees, FX conversion fees).
+          example: 10.0
+          minimum: 0.0
+          nullable: true
+          type: number
+        approverIds:
+          description: List of users who have already approved the expense.
+          items:
+            description: Yokoy unique ID of the approver.
+            example: 9L7rovNzNhTCsJSTkbfq
+            pattern: '[\w-]+'
+            type: string
+          type: array
+        attachments:
+          description: Array of URLs that redirect to the supporting documents attached to the expense.
+          items:
+            example: https://api.test.yokoy.ai/v1/organizations/H39F_g9-bqmFqSCrwDyqo/expenses/LNjzLHG75e/attachments/2024-04-16T13:25:25.278Z-1.pdf
+            type: string
+          nullable: true
+          type: array
+        categoryId:
+          description: Yokoy unique ID of the category. This is the primary/first category tagged in the expense.
+          example: Eg4KzzqxpWvjqHE2H7mH
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+        costCenterItems:
+          items:
+            $ref: '#/components/schemas/CostCenterItem'
+          nullable: true
+          type: array
+        country:
+          description: Country where expense occurred. Expressed as an ISO 3166 Alpha-2 code.
+          example: US
+          type: string
+        created:
+          description: Timestamp (date and time) of when the expense was created. Expressed in ISO 8601 format. Coordinated Universal Time (UTC)
+          example: '2022-11-15T17:08:45.478Z'
+          format: date-time
+          type: string
+        currency:
+          description: Original expense currency. ISO 4217 three-letter code.
+          example: EUR
+          type: string
+        currentApproverIds:
+          description: List of users that still need to approve the expense. As users approve the expense, their IDs are added to `approverIds` and removed from this array.
+          items:
+            description: Yokoy unique ID of the current approver.
+            example: 9L7rovNzNhTCsJSTkbfq
+            pattern: '[\w-]+'
+            type: string
+          type: array
+        customInformation:
+          additionalProperties:
+            type: string
+          description: Dictionary of custom information attributes associated with the expense.
+          example:
+            bookingType: ASDF1234
+          nullable: true
+          type: object
+        description:
+          description: Description including business purpose (free text descriptions added by users).
+          example: Hotel expense for business meeting
+          type: string
+        eventLog:
+          items:
+            $ref: '#/components/schemas/EventLogEntry'
+          nullable: true
+          type: array
+        expenseDate:
+          description: Date when the expense occurred (date on receipt or invoice). Expressed in `YYYY-MM-DD` format.
+          example: '2022-01-21'
+          type: string
+        expenseEndDate:
+          description: End date of an expense related to an extended stay (e.g. hotel stay, flight). Expressed in `YYYY-MM-DD` format.
+          example: '2022-01-27'
+          type: string
+        expenseStartDate:
+          description: Start date of an expense related to an extended stay (e.g. hotel stay, flight). Expressed in `YYYY-MM-DD` format.
+          example: '2022-01-23'
+          type: string
+        expenseType:
+          description: Type of expense. Expenses can be receipt, receiptless, per diems, or mileage claims.
+          enum:
+          - receipt
+          - receiptless
+          - perDiem
+          - mileage
+          example: receipt
+          type: string
+        exportJobId:
+          description: Yokoy unique ID of the last export job that the expense has been included in, if any.
+          example: jdfg8s8
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+        fxRates:
+          description: Foreign exchange reference rates used by Yokoy to convert expense amounts from the expense currency to other currencies. All currencies are quoted against the US dollar (base currency). ISO 4217 three-letter code.
+          example: '{ "USD": 1, "EUR": 0.925917, "CHF": 0.902285, "JPY": 151.345}'
+          nullable: true
+          type: object
+        id:
+          description: Yokoy unique ID of the expense.
+          example: uhmkC9zMzn
+          pattern: '[\w-]+'
+          readOnly: true
+          type: string
+        incomeTaxableAmounts:
+          description: 'Array of income taxable amounts calculated for the expense. See <a href="https://help.yokoy.ai/en/articles/278893-calculating-taxable-amounts-on-company-benefits">Calculating taxable amounts on company benefits</a>.
+
+            '
+          items:
+            $ref: '#/components/schemas/IncomeTaxableAmount'
+          nullable: true
+          type: array
+        isCreditNote:
+          description: Determines if the expense is a credit note (equivalent to negative expense amount) or not.
+          example: false
+          nullable: true
+          type: boolean
+        lastModified:
+          description: Timestamp (date and time) of when the expense was last modified. Expressed in ISO 8601 format. Coordinated Universal Time (UTC).
+          example: '2022-11-15T17:08:45.478Z'
+          format: date-time
+          type: string
+        legalEntityId:
+          description: Yokoy unique ID of the legal entity to which the expense is assigned.
+          example: aB9jQoE3HE
+          type: string
+        numberOfParticipants:
+          description: Number of participants.
+          example: 2
+          nullable: false
+          type: number
+        participantNames:
+          description: Participant names separated by ', '.
+          example: John Doe, Alex Perez
+          nullable: false
+          type: string
+        participants:
+          description: List of participants involved in the expense, separated by organization employees (`internal`) and third-party participants (`external`).
+          nullable: true
+          properties:
+            external:
+              description: List of external participants.
+              items:
+                properties:
+                  company:
+                    description: Name of the participant‘s company.
+                    example: Yokoy
+                    nullable: true
+                    type: string
+                  email:
+                    description: Participant's email address.
+                    example: user1@example.com
+                    nullable: true
+                    type: string
+                  name:
+                    description: Participant's first and last name.
+                    example: Alex Perez
+                    nullable: false
+                    type: string
+                type: object
+              type: array
+            internal:
+              description: List of Yokoy user IDs of internal participants.
+              example:
+              - 0TUxyxkqXvd88e1y2Pz9
+              items:
+                description: Yokoy unique ID of the user.
+                nullable: false
+                type: string
+              type: array
+          type: object
+        paymentMethod:
+          description: Expense payment method. It can be privately paid, company card, or travel provider.
+          enum:
+          - paidPrivately
+          - companyCreditCard
+          - travelProvider
+          example: paidPrivately
+          type: string
+        perDiemAmounts:
+          description: Breakdown of the per diem amount calculation. Only applicable to per diem expenses.
+          example:
+            additions: 0
+            baseAmount: 1.11
+            baseRate: 1.11
+            deductions: -1.1
+            modificationAmounts:
+              fy0IyGGt1Apw8L26i3Pd:
+                amount: -1.1
+                modificationId: fy0IyGGt1Apw8L26i3Pd
+            modifications:
+            - amount: -1.1
+              modificationId: fy0IyGGt1Apw8L26i3Pd
+          nullable: true
+          properties:
+            additions:
+              description: Supplements that are added to the per diem base amount.
+              example: 10.0
+              type: number
+            baseAmount:
+              description: Per diem base amount, excluding any applicable modifications (supplement or deduction).
+              example: 100.0
+              type: number
+            baseRate:
+              description: Base rate used to calculate the per diem base amount.
+              example: 50.0
+              type: number
+            deductions:
+              description: Deductions that are subtracted from the per diem base amount.
+              example: 0.0
+              type: number
+            modificationAmounts:
+              additionalProperties:
+                description: Dictionary of partial amounts of the per diem modifications applied to the per diem base amount. Each key corresponds to a modification ID.
+                properties:
+                  amount:
+                    type: number
+                  modificationId:
+                    type: string
+                required:
+                - amount
+                - modificationId
+                type: object
+              deprecated: true
+              description: Deprecated. Use `modifications`.
+              type: object
+            modifications:
+              description: Array of per diem modifications applied to the per diem base amount.
+              items:
+                properties:
+                  amount:
+                    description: Amount of the per diem modification.
+                    type: number
+                  modificationId:
+                    description: Yokoy unique ID of the per diem modification.
+                    type: string
+                required:
+                - amount
+                - modificationId
+                type: object
+              type: array
+          required:
+          - baseAmount
+          - additions
+          - deductions
+          - modificationAmounts
+          - modifications
+          type: object
+        postingDate:
+          description: Date when expense is posted to the general ledger. Expressed in `YYYY-MM-DD` format.
+          example: '2022-01-30'
+          type: string
+        receipt:
+          description: URL to the receipt used to create the expense.
+          example: https://api.yokoy.ai/organizations/AbcDeF1234/expenses/aB9jQoE3HE/receipt
+          nullable: true
+          type: string
+        status:
+          description: Status of the expense.
+          enum:
+          - draft
+          - needsRevision
+          - forApproval
+          - forReview
+          - forExpenseExport
+          - rejected
+          - expenseExported
+          - forTransactionExport
+          - transactionExported
+          - readyForTripSubmission
+          - travelDraft
+          example: draft
+          type: string
+        tags:
+          additionalProperties:
+            description: Yokoy tag ID associated with the tag dimension.
+            type: string
+          description: Tags associated with the expense. Expressed as a key pair with the tag dimension ID (tagDimension1) and tag ID (tagValue2).
+          example: '{ "ecfoBGOJtV6xLEjFIaJP": "ugxFgyEUq3KvyZLxhuGd", "tagDimension2": "tagValue2"}'
+          nullable: true
+          type: object
+        taxItems:
+          items:
+            $ref: '#/components/schemas/TaxItem'
+          nullable: true
+          type: array
+        taxNumber:
+          description: Merchant tax number extracted from the expense or invoice.
+          example: CHE-172.979.264
+          type: string
+        taxableAmount:
+          description: Taxable part of the total per diem amount. Only applicable to per diem expenses.
+          example: 400.0
+          minimum: 0.0
+          nullable: true
+          type: number
+        totalAmount:
+          description: Expense amount in the original expense currency (excluding additional charges).
+          example: 990.0
+          minimum: 0.0
+          nullable: true
+          type: number
+        totalClaim:
+          description: Total claim in the original expense currency (including additional charges).
+          example: 1000.0
+          minimum: 0.0
+          nullable: true
+          type: number
+        tripId:
+          description: Yokoy unique ID of the trip (primary/first category tagged in the expense).
+          example: h9cQajbG
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+        userId:
+          description: Yokoy unique ID of the user.
+          example: 9L7rovNzNhTCsJSTkbfq
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+      required:
+      - id
+      - status
+      - totalAmount
+      - totalClaim
+      type: object
+    AdditionalCategoryItem:
+      properties:
+        categoryId:
+          description: Yokoy unique ID of the expense category.
+          example: 1WOspYIfp6
+          pattern: '[\w-]+'
+          type: string
+        costCenterId:
+          description: Yokoy unique ID of the cost object.
+          example: Mt34DVcI8R2sdLutWViu
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+        gross:
+          description: Gross amount allocated to the additional category. For each additional category, the gross amount is subtracted from the total claim.
+          example: 10.0
+          type: number
+        taxRateId:
+          description: Yokoy unique ID of the tax rate object.
+          example: 06x2u4nagAMEq3gGMoch
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+      type: object
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    IncomeTaxableAmount:
+      properties:
+        aggregatedExpenses:
+          description: Previously exported expenses included in income tax calculation.
+          example:
+          - amount: 200.0
+            expenseId: 9L7rovNzNhTCsJSTkbfq
+            incomeTaxableAmount: 100.0
+          - amount: 50.0
+            expenseId: 4VrKKvgzVr
+            incomeTaxableAmount: 50.0
+          items:
+            properties:
+              amount:
+                description: Amount of the aggregated expense included in the income tax calculation.
+                example: 150.0
+                type: number
+              expenseId:
+                description: Yokoy unique ID of the expense.
+                example: 9L7rovNzNhTCsJSTkbfq
+                type: string
+              incomeTaxableAmount:
+                description: Taxable amount of the aggregate expense included in the income tax calculation.
+                example: 150.0
+                type: number
+            type: object
+          type: array
+        categoryId:
+          description: Yokoy unique ID of the category.
+          example: Eg4KzzqxpWvjqHE2H7mH
+          type: string
+        currency:
+          description: Currency of the taxable amount subject to income tax. ISO 4217 three-letter code.
+          example: EUR
+          type: string
+        incomeTaxRuleId:
+          description: Unique ID of the income tax rule.
+          example: 8472f8a3-794f-43fa-a886-c3082a74b441
+          type: string
+        incomeTaxableAmount:
+          description: Taxable amount of the expense subject to income tax.
+          example: 150.0
+          type: number
+        payrollCode:
+          description: Payroll code associated to the income tax rule.
+          example: code-0000
+          type: string
+        userId:
+          description: Yokoy unique ID of the user.
+          example: 9L7rovNzNhTCsJSTkbfq
+          type: string
+      type: object
+  responses:
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+    TooManyRequests:
+      content:
+        application/json:
+          example:
+            code: 429
+            message: Too many requests
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed by the server due to too many concurrent requests.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+    Found:
+      description: Redirect URL of a requested resource.
+      headers:
+        Location:
+          schema:
+            type: string
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+  parameters:
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
+    YokoyCorrelationId:
+      description: Correlation ID that can be used to trace a request in the flow.
+      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
+      in: header
+      name: X-Yk-Correlation-Id
+      required: false
+      schema:
+        type: string
+    PaginationCursor:
+      description: 'Optional cursor for paginating. When provided, the API fetches a subsequent page of items.
+
+        The subsequent page is identified by the value given in `nextCursor` in the previous response.
+
+        `cursor` can only be used if the `count` attribute is passed as a query parameter.
+
+        '
+      example: 06x2u4nagAMEq3gGMoch
+      in: query
+      name: cursor
+      required: false
+      schema:
+        type: string
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
+      in: query
+      name: filter
+      schema:
+        type: string
+    PaginationCount:
+      description: 'Optional count for paginating. When provided, the results are paginated. Without `count`, no pagination is provided.
+
+        The maximum number of items that can be included in a paginated response is `100`.
+
+        When paginated, the response includes the `itemsPerPage` attribute.
+
+        If the number of items available is greater than or equal to `count`, it also includes the `nextCursor` attribute, which can be used to fetch the subsequent page of items.
+
+        '
+      example: 30
+      in: query
+      name: count
+      required: false
+      schema:
+        maximum: 100
+        type: number
+  securitySchemes:
+    OAuth2:
+      description: "Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.\n\n**1. Obtain an access token**\n\nPerform a `POST` request to\n`https://accounts.yokoy.ai/oauth2/token`. Pass the client ID\nand client secret as username and password in a basic auth\nheader. Set the content-type to\n`application/x-www-form-urlencoded` and specify\n`grant_type=client_credentials` in the body.\n\n> Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.\n\nExample request for the client ID `ClientId` and client\nsecret `ClientSecret`:\n```\nPOST https://accounts.yokoy.ai/oauth2/token\nAuthorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0\nContent-Type: application/x-www-form-urlencoded\ngrant_type=client_credentials\n```\nIn this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is\nobtained by base64-encoding the string\n`ClientId:ClientSecret`, as required for basic access authentication.\n\n> Note: Yokoy does not require or use scopes.\n\n\nThe JSON response contains the access token in the attribute\n`access_token`. The response also contains the expiration in\nseconds.\n\nExample response:\n```\n{\n    \"access_token\": \"SOME_KEY\",\n    \"expires_in\": 3900,\n    \"token_type\": \"Bearer\"\n}\n```\n\n**2. Pass the bearer token**\n\nPass the access token from step 1 as a bearer token in subsequent requests to the API.\n\nExample header field for the example response from step 1:\n```\nAuthorization: Bearer 4lDvPkrBF87WHuyvlINQD\n```\n\nFor more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].\n"
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+      type: oauth2

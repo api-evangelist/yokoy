@@ -1,0 +1,669 @@
+openapi: 3.0.0
+info:
+  description: Public API of the Yokoy Application
+  title: Yokoy Card account Finance export API
+  version: 1.41.0
+servers:
+- description: API server scoped to organization with ID `organizationId`
+  url: https://api.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+- description: API test server scoped to organization with ID `organizationId`
+  url: https://api.test.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+tags:
+- description: 'Finance export mechanism in Yokoy. The Yokoy API exposes three different endpoints for the management of finance exports:
+
+    1. `/export-tasks` to trigger an export (separate endpoints for the expense and the invoice module).
+
+    This action is equivalent to clicking the "Export" button under Finance > Export within the Yokoy application.
+
+    As a result of a successful export, the expenses/invoices are set to the exported state.
+
+    2. `/export-tasks/{exportTaskId}` to poll the details (in particular the status) of the asynchronous export job.
+
+    3. `/export-tasks/{exportTaskId}/artefacts` to fetch the artefacts for those export facilities that support this functionality.
+
+
+    To generate the standard Yokoy export artefacts, the export facility "Yokoy Standard Export (API)" must be selected in Yokoy (Admin > Integrations).
+
+    The data model of the standard export artefacts (ExpenseExportArtefact and InvoiceExportArtefact) is described in the <a href="https://api.yokoy.ai/v1/swagger.json">following OpenAPI specification</a>.
+
+    '
+  name: Finance export
+paths:
+  /legal-entities/{legalEntityId}/expense-export-facilities/{exportFacility}/export-tasks:
+    parameters:
+    - $ref: '#/components/parameters/LegalEntityIdInPath'
+    - description: 'Type of expense that determines the export facility to be used. There are three standard types:
+
+        - `expense` for single expenses, per diems and mileage expenses,
+
+        - `card` for card transactions,
+
+        - `travel` for travel expenses from third-party solutions.
+
+        '
+      in: path
+      name: exportFacility
+      required: true
+      schema:
+        enum:
+        - expense
+        - card
+        - travel
+        example: expense
+        type: string
+    post:
+      description: Triggers an expense export in Yokoy. It returns the ID of the export job.
+      operationId: triggerExpenseExport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                documentIds:
+                  description: 'List of Yokoy expense IDs to be exported.
+
+                    Required if `exportScope` is `documentIds`. It returns an error if the array length is less than one.
+
+                    '
+                  example:
+                  - aB9jQoE3HE
+                  items:
+                    type: string
+                  type: array
+                earliestPostingDate:
+                  description: "Earliest allowed posting date. For expenses with an earlier posting date, the posting date is replaced with the earliest allowed posting date (to avoid posting to already closed books).\nThe earlier posting date must follow these rules:\n  - it must be an ISO date in the format YYYY-MM-DD (e.g. 2025-03-18)\n  - it must be within 1 year (both past and future) of when an export was triggered.\n  For example, if the date on which you trigger the export job is 2025-03-18, then any date between `2024-03-18` and `2026-03-18` is valid.\n"
+                  example: '2023-03-31'
+                  pattern: \d{4}-\d{2}-\d{2}
+                  type: string
+                exportScope:
+                  description: 'Determines the expenses to be exported. You can export either all expenses in the scope of the export facility that are ready for export (`all`) or a determined set of expenses that are specified by their Yokoy unique IDs (`documentIds`).
+
+                    '
+                  enum:
+                  - all
+                  - documentIds
+                  example: all
+                  type: string
+                exporterId:
+                  description: Yokoy unique ID of the user on behalf of which the export job is run. The user must have the finance role for the legal entity to trigger an export.
+                  example: zbRCb62OlcF8WcuOKVs9
+                  type: string
+              required:
+              - exportScope
+              - exporterId
+              - earliestPostingDate
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  resource:
+                    description: Task ID of the export job
+                    example: h6tplNlvNxnHUpeAwd7D
+                    type: string
+                type: object
+          description: OK
+        '204':
+          description: Nothing to export
+        '400':
+          content:
+            application/json:
+              example:
+                code: 400
+                message: Invalid request body
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The provided request body is invalid
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/InsufficientData'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Trigger expense export
+      tags:
+      - Finance export
+  /legal-entities/{legalEntityId}/export-tasks:
+    parameters:
+    - $ref: '#/components/parameters/LegalEntityIdInPath'
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Returns information on all the export jobs that have been triggered for a legal entity. Use query filters to restrict the number of export jobs returned.
+      operationId: listExportJobs
+      parameters:
+      - $ref: '#/components/parameters/ExportTaskQueryFilter'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/ExpenseExportTaskInformation'
+                - $ref: '#/components/schemas/InvoiceExportTaskInformation'
+          description: OK
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: List all export jobs
+      tags:
+      - Finance export
+  /legal-entities/{legalEntityId}/export-tasks/{exportTaskId}:
+    parameters:
+    - $ref: '#/components/parameters/LegalEntityIdInPath'
+    - description: Export job ID that identifies the task when triggering the export.
+      example: aB9jQoE3HE
+      in: path
+      name: exportTaskId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Returns the status of the asynchronous export job.
+      operationId: getExportStatus
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/ExpenseExportTaskInformation'
+                - $ref: '#/components/schemas/InvoiceExportTaskInformation'
+          description: OK
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Get export job status
+      tags:
+      - Finance export
+  /legal-entities/{legalEntityId}/export-tasks/{exportTaskId}/artefacts:
+    parameters:
+    - $ref: '#/components/parameters/LegalEntityIdInPath'
+    - description: Yokoy unique ID of the export job task.
+      example: aB9jQoE3HE
+      in: path
+      name: exportTaskId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Retrieves the export artefacts where the selected export facility supports this feature.
+      operationId: getExportArefacts
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  Resources:
+                    items:
+                      oneOf:
+                      - $ref: '#/components/schemas/ExpenseExportArtefact'
+                      - $ref: '#/components/schemas/InvoiceExportArtefact'
+                    type: array
+                type: object
+          description: OK
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Get export artefacts
+      tags:
+      - Finance export
+  /legal-entities/{legalEntityId}/invoice-export-facilities/{exportFacility}/export-tasks:
+    parameters:
+    - $ref: '#/components/parameters/LegalEntityIdInPath'
+    - description: 'ID of the invoice export facility. The ID can be found in **Admin > Integrations** in the **Invoice export** tab by opening the wizard for the required export facility.
+
+
+        This export facility must be active in Yokoy.
+
+        '
+      example: dfP59n4vLVvO6KWj27pS
+      in: path
+      name: exportFacility
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    post:
+      description: Triggers an invoice export in Yokoy. It returns the ID of the export job.
+      operationId: triggerInvoiceExport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                documentIds:
+                  description: List of Yokoy invoice IDs to be exported (only required if `exportScope` is `documentIds`)
+                  items:
+                    type: string
+                  type: array
+                earliestPostingDate:
+                  description: 'Earliest allowed posting date. For invoices with an earlier posting date, the posting date is replaced with the earliest allowed posting date (to avoid posting to already closed books).
+
+                    The earlier posting date must follow these rules:
+
+                    - it must be an ISO date in the format YYYY-MM-DD (e.g. 2025-03-18)
+
+                    - it must be within 1 year (both past and future) of when an export was triggered.
+
+                    For example, if the date on which you trigger the export job is 2025-03-18, then any date between `2024-03-18` and `2026-03-18` is valid.
+
+                    '
+                  example: '2023-03-31'
+                  pattern: \d{4}-\d{2}-\d{2}
+                  type: string
+                exportScope:
+                  description: Determines the expenses to be exported. You can export either all invoices in the scope of the export facility that are ready for export are exported (`all`) or a determined set of invoices that are specified by their Yokoy unique IDs (`documentIds`).
+                  enum:
+                  - all
+                  - documentIds
+                  example: all
+                  type: string
+                exporterId:
+                  description: Yokoy unique ID of the user on behalf of which the export job is run. The user must have the finance role for the legal entity to trigger an export.
+                  example: zbRCb62OlcF8WcuOKVs9
+                  type: string
+              required:
+              - exportScope
+              - exporterId
+              - earliestPostingDate
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  resource:
+                    description: Task ID of the export job
+                    example: h6tplNlvNxnHUpeAwd7D
+                    type: string
+                type: object
+          description: OK
+        '204':
+          description: Nothing to export
+        '400':
+          content:
+            application/json:
+              example:
+                code: 400
+                message: Invalid request body
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The provided request body is invalid
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Trigger invoice export
+      tags:
+      - Finance export
+components:
+  schemas:
+    InvoiceExportArtefact:
+      properties:
+        generatedFiles:
+          description: List of file names of the additional files generated with the export.
+          items:
+            example: summary.pdf
+            type: string
+          type: array
+        id:
+          description: Yokoy unique ID of the artefact.
+          example: 5l2jRoqlA6DfsgApHnEZ
+          type: string
+        originalFormat:
+          description: Original format of the serialized artefact.
+          example: application/json
+          type: string
+        relatedDocumentIds:
+          description: List of Yokoy invoice IDs contained in the artefact.
+          items:
+            description: Yokoy ID of the exported invoice.
+            example: 9L7rovNzNhTCsJSTkbfq
+            type: string
+          type: array
+        serializedArtefact:
+          description: Serialized artefact of the form `InvoiceExportPayload`.
+          example: '{"journalEntry":{"journalEntryType":"invoice","lineItems":[{"account":"6630","categoryId":"aquNlTt8v2NOqzOruWtE","amountNet":18.5,"amountGross":18.5,"costCenterCode":"1234","costCenterId":"4neg0miskYbpOvKkMBd4","amountGrossOriginalCurrency":18.5,"amountNetOriginalCurrency":18.5}],"taxItems":[],"currency":"EUR","originalCurrency":"EUR","supplierId":"9L7rovNzNhTCsJSTkbfq","postingDate":"2023-01-01"}}'
+          type: string
+      type: object
+    ExpenseExportTaskInformation:
+      properties:
+        resource:
+          properties:
+            created:
+              description: Timestamp (date and time) when the export was triggered. Expressed in ISO 8601 format. Coordinated Universal Time (UTC).
+              example: '2022-04-01T17:08:45.478Z'
+              format: date-time
+              type: string
+            earliestPostingDate:
+              description: Earliest allowed posting date specified for the export. Expressed in `YYYY-MM-DD`.
+              example: '2023-03-31'
+              pattern: \d{4}-\d{2}-\d{2}
+              type: string
+            exporterId:
+              description: Yokoy unique ID of the user on behalf of whom the export is performed.
+              example: 9L7rovNzNhTCsJSTkbfq
+              type: string
+            exporterName:
+              description: Last name of the user on behalf of whom the export is performed.
+              example: Perez
+              type: string
+            facilityId:
+              description: Yokoy unique ID of the export facility (corresponding to the expense type).
+              enum:
+              - expense
+              - card
+              - travel
+              example: expense
+              type: string
+            generatedFiles:
+              description: List of file names of the additional files generated with the export.
+              items:
+                example: summary.pdf
+                type: string
+              type: array
+            id:
+              description: ID of the export job.
+              example: h6tplNlvNxnHUpeAwd7D
+              type: string
+            isPending:
+              description: Status of the export job, whether the export job is still pending.
+              example: true
+              type: boolean
+            method:
+              description: Method used to trigger the export.
+              enum:
+              - api
+              - manual
+              - automatic
+              example: api
+              type: string
+          type: object
+      type: object
+    ExpenseExportArtefact:
+      properties:
+        generatedFiles:
+          description: List of file names of additional files generated in the context of the export.
+          items:
+            example: summary.pdf
+            type: string
+          type: array
+        id:
+          description: Yokoy unique ID of the artefact.
+          example: q1cOJIRODTjLDwM1aX4B
+          type: string
+        originalFormat:
+          description: Original format of the serialized artefact.
+          example: application/json
+          type: string
+        relatedDocumentIds:
+          description: List of Yokoy expense IDs contained in the artefact.
+          items:
+            description: Yokoy ID of the exported expense.
+            example: aB9jQoE3HE
+            type: string
+          type: array
+        serializedArtefact:
+          description: Serialized artefact of the form `ExpenseExportPayload`.
+          example: '{"journalEntry":{"journalEntryType":"expense","lineItems":[{"account":"6630","categoryId":"aquNlTt8v2NOqzOruWtE","amountNet":18.5,"amountGross":18.5,"costCenterCode":"1234","costCenterId":"4neg0miskYbpOvKkMBd4","amountGrossOriginalExpenseCurrency":18.5,"amountNetOriginalExpenseCurrency":18.5}],"taxItems":[],"creditorItem":{"account":"123","amount":18.5,"amountOriginalExpenseCurrency":18.5},"currency":"EUR","originalExpenseCurrency":"EUR"}}'
+          type: string
+      type: object
+    InvoiceExportTaskInformation:
+      properties:
+        resource:
+          properties:
+            created:
+              description: Timestamp (date and time) when the export was triggered. Expressed in ISO 8601 format. Coordinated Universal Time (UTC).
+              example: '2022-04-01T17:08:45.478Z'
+              format: date-time
+              type: string
+            earliestPostingDate:
+              description: Earliest allowed posting date specified for the export.
+              example: '2023-03-31'
+              pattern: \d{4}-\d{2}-\d{2}
+              type: string
+            exporterId:
+              description: Yokoy unique ID of the user on behalf of whom the export job is performed.
+              example: 9L7rovNzNhTCsJSTkbfq
+              type: string
+            exporterName:
+              description: Last name of the user on behalf of whom the export job is performed.
+              example: Yokoy
+              type: string
+            facilityId:
+              description: Yokoy unique ID of the invoice export facility.
+              example: dfP59n4vLVvO6KWj27pS
+              type: string
+            generatedFiles:
+              description: List of file names of the additional files generated with the export.
+              items:
+                example: summary.pdf
+                type: string
+              type: array
+            id:
+              description: ID of the export job.
+              example: h6tplNlvNxnHUpeAwd7D
+              type: string
+            isPending:
+              description: Status of the export job, whether the export job is still pending.
+              example: true
+              type: boolean
+            method:
+              description: Method used to trigger the export job.
+              enum:
+              - api
+              - manual
+              - automatic
+              example: api
+              type: string
+          type: object
+      type: object
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+  responses:
+    InsufficientData:
+      content:
+        application/json:
+          example:
+            code: 422
+            message: Insufficient data
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed due to insufficient data.
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
+    TooManyRequests:
+      content:
+        application/json:
+          example:
+            code: 429
+            message: Too many requests
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed by the server due to too many concurrent requests.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+  parameters:
+    ExportTaskQueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters. The fields to filter differ from other endpoints. The filterable attributes for this endpoint are `created`, `fullDate`, `postingDate`, `type`, `facilityId` and `exportMethod`.
+      example: created ge 2025-01-23 and facilityId eq expense
+      in: query
+      name: filter
+      schema:
+        type: string
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
+    YokoyCorrelationId:
+      description: Correlation ID that can be used to trace a request in the flow.
+      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
+      in: header
+      name: X-Yk-Correlation-Id
+      required: false
+      schema:
+        type: string
+    LegalEntityIdInPath:
+      description: Yokoy unique ID of the legal entity (company).
+      example: aB9jQoE3HE
+      in: path
+      name: legalEntityId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+  securitySchemes:
+    OAuth2:
+      description: "Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.\n\n**1. Obtain an access token**\n\nPerform a `POST` request to\n`https://accounts.yokoy.ai/oauth2/token`. Pass the client ID\nand client secret as username and password in a basic auth\nheader. Set the content-type to\n`application/x-www-form-urlencoded` and specify\n`grant_type=client_credentials` in the body.\n\n> Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.\n\nExample request for the client ID `ClientId` and client\nsecret `ClientSecret`:\n```\nPOST https://accounts.yokoy.ai/oauth2/token\nAuthorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0\nContent-Type: application/x-www-form-urlencoded\ngrant_type=client_credentials\n```\nIn this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is\nobtained by base64-encoding the string\n`ClientId:ClientSecret`, as required for basic access authentication.\n\n> Note: Yokoy does not require or use scopes.\n\n\nThe JSON response contains the access token in the attribute\n`access_token`. The response also contains the expiration in\nseconds.\n\nExample response:\n```\n{\n    \"access_token\": \"SOME_KEY\",\n    \"expires_in\": 3900,\n    \"token_type\": \"Bearer\"\n}\n```\n\n**2. Pass the bearer token**\n\nPass the access token from step 1 as a bearer token in subsequent requests to the API.\n\nExample header field for the example response from step 1:\n```\nAuthorization: Bearer 4lDvPkrBF87WHuyvlINQD\n```\n\nFor more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].\n"
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+      type: oauth2

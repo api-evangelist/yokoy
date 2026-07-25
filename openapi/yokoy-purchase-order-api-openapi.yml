@@ -1,0 +1,596 @@
+openapi: 3.0.0
+info:
+  description: Public API of the Yokoy Application
+  title: Yokoy Card account Purchase order API
+  version: 1.41.0
+servers:
+- description: API server scoped to organization with ID `organizationId`
+  url: https://api.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+- description: API test server scoped to organization with ID `organizationId`
+  url: https://api.test.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+tags:
+- description: Purchase orders are legal orders that companies send to their suppliers to buy items, services, products. Yokoy uses purchase orders to perform two-way and three-way matching (matching invoice line items with purchase order line items).
+  name: Purchase order
+paths:
+  /legal-entities/{legalEntityId}/invoice-purchase-orders:
+    parameters:
+    - $ref: '#/components/parameters/LegalEntityIdInPath'
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Retrieves all purchase orders for the legal entity identified in the path.
+      operationId: listPOs
+      parameters:
+      - $ref: '#/components/parameters/QueryFilter'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  invoice-purchase-orders:
+                    items:
+                      $ref: '#/components/schemas/PurchaseOrder'
+                    type: array
+                type: object
+          description: OK
+        '400':
+          $ref: '#/components/responses/InvalidFilter'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: List all purchase orders
+      tags:
+      - Purchase order
+    post:
+      description: Creates a new purchase order and returns the created entity.
+      operationId: createPO
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurchaseOrder'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrder'
+          description: Created
+        '400':
+          $ref: '#/components/responses/HttpValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Create a purchase order
+      tags:
+      - Purchase order
+  /legal-entities/{legalEntityId}/invoice-purchase-orders/{purchaseOrderId}:
+    parameters:
+    - $ref: '#/components/parameters/LegalEntityIdInPath'
+    - description: Yokoy unique ID of the purchase order.
+      example: 9L7rovNzNhTCsJSTkbfq
+      in: path
+      name: purchaseOrderId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Retrieves a purchase order identified by its Yokoy unique ID.
+      operationId: getPO
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrder'
+          description: OK
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Get a purchase order by ID
+      tags:
+      - Purchase order
+    patch:
+      description: Updates a invoice purchase order by replacing some attributes. The purchase order is specified by its Yokoy unique ID. The whole entity is returned.
+      operationId: modifyPO
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: true
+              description: Dictionary of purchase order attributes to update. Explicit null values mark attributes for deletion.
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrder'
+          description: OK
+        '400':
+          $ref: '#/components/responses/HttpValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Modify a purchase order
+      tags:
+      - Purchase order
+    put:
+      description: Updates an invoice purchase order by replacing all attributes. The purchase order is specified by its Yokoy unique ID. The whole entity is returned.
+      operationId: updatePO
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurchaseOrder'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrder'
+          description: OK
+        '400':
+          $ref: '#/components/responses/HttpValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Update a purchase order
+      tags:
+      - Purchase order
+components:
+  schemas:
+    DateString:
+      example: '2024-02-21'
+      format: date
+      pattern: ^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$
+      type: string
+    PurchaseOrderItem:
+      properties:
+        categoryId:
+          description: Yokoy unique ID of the invoice category associated with the line item. It must link to an existing invoice category.
+          example: hm0qUnb8s
+          nullable: true
+          type: string
+        costObjectId:
+          description: Yokoy unique ID of the cost object associated with the line item. It must link to an existing cost object.
+          example: Y6cp2G30M
+          type: string
+        customInformation:
+          additionalProperties:
+            type: string
+          description: Dictionary of custom information associated with the purchase order item.
+          example:
+            externalId: I123
+          nullable: true
+          type: object
+        description:
+          description: Description of the PO line item.
+          example: Headless screw (grub screw) Flat End Cl 45H
+          nullable: true
+          type: string
+        eanupc:
+          description: EAN or UPC or barcode of the item.
+          example: 1234 5678 90
+          nullable: true
+          type: string
+        externalId:
+          description: External ID of the PO line item.
+          example: external-1234567890
+          nullable: true
+          type: string
+        grossAmount:
+          description: Gross amount of the PO line item.
+          example: 226.06
+          minimum: 0
+          type: number
+        id:
+          description: 'Yokoy unique ID of the purchase order.
+
+            For new items, Yokoy generates the ID. For existing items, you can reference that ID.
+
+            '
+          example: 9L7rovNzNhTCsJSTkbfq
+          pattern: '[\w-]+'
+          type: string
+        itemNumber:
+          description: Position of the PO line item.
+          example: '1234567890'
+          nullable: true
+          type: string
+        itemPrice:
+          description: Item price of the PO line item.
+          example: 6.0
+          minimum: 0
+          nullable: true
+          readOnly: false
+          type: number
+        materialId:
+          description: ERP ID of the material associated with line item.
+          example: '45678952'
+          nullable: true
+          type: string
+        netAmount:
+          description: Net amount of the PO line item.
+          example: 186.0
+          minimum: 0
+          type: number
+        quantity:
+          description: Quantity of the PO line item.
+          example: 31
+          minimum: 0
+          nullable: false
+          type: number
+        requireGoodsReceipt:
+          description: If enabled, Yokoy performs three way matching for this item, and requires a goods receipt. If no goods receipt data is sent, the line item cannot be matched.
+          example: true
+          type: boolean
+        status:
+          default: active
+          description: Status of the purchase order item, indicating its current state.
+          enum:
+          - active
+          - inactive
+          - deleted
+          - blocked
+          example: active
+          type: string
+        statusActive:
+          deprecated: true
+          description: Status of the purchase order item, whether the purchase order item is active. Deprecated. Use `status` instead. If both `status` and `statusActive` are provided, the value of `status` is taken.
+          example: true
+          nullable: false
+          type: boolean
+        supplierMaterialId:
+          description: Description/ID that the supplier provided for the goods/service stated in the PO line item.
+          example: SCREW X1231
+          nullable: true
+          type: string
+        taxRateId:
+          description: Yokoy unique ID of the tax rate associated with the line item. It must link to an existing tax rate.
+          example: 06x2u4nagAMEq3gGMoch
+          nullable: true
+          type: string
+        unit:
+          description: Unit of the PO line item.
+          example: kg
+          nullable: true
+          type: string
+      type: object
+    PurchaseOrder:
+      properties:
+        currency:
+          description: Currency of the purchase order. ISO 4217 three-letter code.
+          example: CHF
+          type: string
+        customInformation:
+          additionalProperties:
+            type: string
+          description: Dictionary of custom information associated with the purchase order.
+          example:
+            externalId: I123
+          nullable: true
+          type: object
+        description:
+          description: Description of the purchase order.
+          example: PO - Metal rod supply for Company A.
+          nullable: true
+          type: string
+        externalId:
+          description: External ID of the purchase order.
+          example: external-1234567890
+          nullable: true
+          type: string
+        grossAmount:
+          description: Gross amount of the purchase order. This is calculated from the purchase order's line items.
+          example: 466.82
+          minimum: 0
+          readOnly: true
+          type: number
+        id:
+          description: Yokoy unique ID of the purchase order.
+          example: 9L7rovNzNhTCsJSTkbfq
+          pattern: '[\w-]+'
+          readOnly: true
+          type: string
+        items:
+          description: Purchase order line items
+          items:
+            $ref: '#/components/schemas/PurchaseOrderItem'
+          nullable: false
+          type: array
+        netAmount:
+          description: The purchase order's net amount. This is calculated from the purchase order's line items.
+          example: 421.96
+          minimum: 0
+          readOnly: true
+          type: number
+        paymentTermsId:
+          description: Payment terms associated with the purchase order. It must link to an existing invoice payment term.
+          example: 44UX9MYYP
+          nullable: true
+          type: string
+        purchaseOrderNumber:
+          description: Number of the purchase order.
+          example: PO-1234567890
+          type: string
+        purchaseOrderOwnerId:
+          description: Yokoy unique ID of the user responsible for the purchase order.
+          example: 9L7rovNzNhTCsJSTkbfq
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+        quantity:
+          description: Sum of the quantities of all PO line items.
+          example: 123
+          nullable: false
+          readOnly: true
+          type: number
+        status:
+          default: active
+          description: Status of the purchase order. Purchase orders can‘t be deleted from Yokoy. However, you can make a PO inactive so it is not taken into account for matching.
+          enum:
+          - active
+          - inactive
+          - expired
+          - deleted
+          - blocked
+          example: active
+          type: string
+        statusActive:
+          deprecated: true
+          description: 'Status of the purchase order. Purchase orders can‘t be deleted from Yokoy. However, you can make a PO inactive so it is not taken into account for matching.
+
+            Deprecated. Use `status` instead. If both `status` and `statusActive` are provided, the value of `status` is taken.
+
+            '
+          example: true
+          nullable: false
+          type: boolean
+        supplierId:
+          description: Yokoy ID of the legal entity supplier associated with the purchase order. It must link to an existing legal entity supplier.
+          example: bbebb9a0-87ef-439c-9ac3-e320e47d85d5
+          pattern: '[\w-]+'
+          type: string
+        validityEndDate:
+          allOf:
+          - $ref: '#/components/schemas/DateString'
+          - description: Validity end date for the purchase order.
+            nullable: true
+        validityStartDate:
+          allOf:
+          - $ref: '#/components/schemas/DateString'
+          - description: Validity start date for the purchase order.
+            nullable: true
+      required:
+      - id
+      - purchaseOrderNumber
+      - supplierId
+      - statusActive
+      - currency
+      - items
+      type: object
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    HttpError:
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - field
+      - message
+      type: object
+  parameters:
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
+      in: query
+      name: filter
+      schema:
+        type: string
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
+    YokoyCorrelationId:
+      description: Correlation ID that can be used to trace a request in the flow.
+      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
+      in: header
+      name: X-Yk-Correlation-Id
+      required: false
+      schema:
+        type: string
+    LegalEntityIdInPath:
+      description: Yokoy unique ID of the legal entity (company).
+      example: aB9jQoE3HE
+      in: path
+      name: legalEntityId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+  responses:
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    TooManyRequests:
+      content:
+        application/json:
+          example:
+            code: 429
+            message: Too many requests
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed by the server due to too many concurrent requests.
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
+    HttpValidationError:
+      content:
+        application/json:
+          example:
+            code: 400
+            errors:
+            - field: Yokoy Field
+              message: Yokoy Field is mandatory
+            message: Validation Error
+          schema:
+            $ref: '#/components/schemas/HttpError'
+            additionalProperties: true
+      description: The request was not valid.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+  securitySchemes:
+    OAuth2:
+      description: "Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.\n\n**1. Obtain an access token**\n\nPerform a `POST` request to\n`https://accounts.yokoy.ai/oauth2/token`. Pass the client ID\nand client secret as username and password in a basic auth\nheader. Set the content-type to\n`application/x-www-form-urlencoded` and specify\n`grant_type=client_credentials` in the body.\n\n> Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.\n\nExample request for the client ID `ClientId` and client\nsecret `ClientSecret`:\n```\nPOST https://accounts.yokoy.ai/oauth2/token\nAuthorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0\nContent-Type: application/x-www-form-urlencoded\ngrant_type=client_credentials\n```\nIn this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is\nobtained by base64-encoding the string\n`ClientId:ClientSecret`, as required for basic access authentication.\n\n> Note: Yokoy does not require or use scopes.\n\n\nThe JSON response contains the access token in the attribute\n`access_token`. The response also contains the expiration in\nseconds.\n\nExample response:\n```\n{\n    \"access_token\": \"SOME_KEY\",\n    \"expires_in\": 3900,\n    \"token_type\": \"Bearer\"\n}\n```\n\n**2. Pass the bearer token**\n\nPass the access token from step 1 as a bearer token in subsequent requests to the API.\n\nExample header field for the example response from step 1:\n```\nAuthorization: Bearer 4lDvPkrBF87WHuyvlINQD\n```\n\nFor more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].\n"
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+      type: oauth2

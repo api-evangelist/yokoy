@@ -1,0 +1,953 @@
+openapi: 3.0.0
+info:
+  description: Public API of the Yokoy Application
+  title: Yokoy Card account Supplier API
+  version: 1.41.0
+servers:
+- description: API server scoped to organization with ID `organizationId`
+  url: https://api.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+- description: API test server scoped to organization with ID `organizationId`
+  url: https://api.test.yokoy.ai/v1/organizations/{organizationId}
+  variables:
+    organizationId:
+      default: AbcDeF1234
+      description: Yokoy organization ID
+tags:
+- description: 'Companies that supply your company with goods, services, items. The Supplier entity contains information on the name, address, and bank accounts of the supplier.
+
+    Suppliers can be set up for different legal entities with default settings at each legal entity level.
+
+    Suppliers must first be created for the organization at `/suppliers` with their basic definition such as name, address, tax number and bank accounts.
+
+    Then they can be created legal entity-level at `/legal-entities/{entityId}/suppliers` with the organization supplier ID in `supplierId`. Without creating a legal entity supplier, the supplier does not appear in Yokoy (in **Invoice processor > Suppliers**).
+
+    Legal entity suppliers can be updated/created just for certain applicable fields.
+
+    To add (POST) or update (PATCH or PUT) a complete legal entity supplier record (e.g. the name of the supplier, contact or banking information), you need to add or update the organization supplier first. These changes are automatically progpaged to the legal entity suppliers (i.e. the same supplier may supply several legal entities) linked to that organization supplier. Then in a subsequent call to the legal entity supplier endpoint, you can update the legal entity supplier.
+
+
+    **NOTE**: When the `Enable InternalSupplierID` setting is active at organization level, the `internalSupplierId` attribute is mandatory to point the right supplier.
+
+    It must use the following pattern: `externalId` of the organization supplier + ''_'' + Yokoy ID of the legal entity.
+
+    '
+  name: Supplier
+paths:
+  /legal-entities/{legalEntityId}/suppliers:
+    parameters:
+    - $ref: '#/components/parameters/LegalEntityIdInPath'
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Retrieves all suppliers for a legal entity.
+      operationId: listEntitySupplier
+      parameters:
+      - $ref: '#/components/parameters/QueryFilter'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  suppliers:
+                    items:
+                      $ref: '#/components/schemas/Supplier'
+                    type: array
+                type: object
+          description: OK
+        '400':
+          $ref: '#/components/responses/InvalidFilter'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: List all suppliers (legal entity)
+      tags:
+      - Supplier
+    post:
+      description: Adds an organization supplier to a legal entity, specifying entity-specific information.
+      operationId: createEntitySupplier
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LegalEntitySupplier'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Supplier'
+          description: Created
+        '400':
+          $ref: '#/components/responses/HttpValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Add a supplier (legal entity)
+      tags:
+      - Supplier
+  /legal-entities/{legalEntityId}/suppliers/{supplierId}:
+    parameters:
+    - $ref: '#/components/parameters/LegalEntityIdInPath'
+    - description: Yokoy unique ID of the legal entity supplier.
+      example: bbebb9a0-87ef-439c-9ac3-e320e47d85d5
+      in: path
+      name: supplierId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Retrieves a legal entity supplier identified by its Yokoy legal entity supplier ID.
+      operationId: getEntitySupplier
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Supplier'
+          description: OK
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Get a supplier by ID (legal entity)
+      tags:
+      - Supplier
+    patch:
+      description: Updates a legal entity supplier that is identified by its Yokoy legal entity supplier ID, replacing some entity specific attributes. The whole entity is returned. To change the name, address, or contact person for a legal entity supplier, you must update the organization level supplier. Changes to the legal entity supplier are made automatically from the organization supplier.
+      operationId: modifyEntitySupplier
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LegalEntitySupplier'
+              - description: First modify the organization supplier. Then modify the legal entity supplier to update all relevant fields. Explicit null values mark attributes for deletion.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Supplier'
+          description: OK
+        '400':
+          $ref: '#/components/responses/HttpValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Modify a supplier (legal entity)
+      tags:
+      - Supplier
+    put:
+      description: Updates a legal entity supplier that is identified by its Yokoy unique ID, replacing all entity-specific attributes. The whole entity is returned. To change the name, address, or contact person for a legal entity supplier, you must update the organization level supplier. Changes to the legal entity supplier are made automatically from the organization supplier.
+      operationId: updateEntitySupplier
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LegalEntitySupplier'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Supplier'
+          description: OK
+        '400':
+          $ref: '#/components/responses/HttpValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Update a supplier (legal entity)
+      tags:
+      - Supplier
+  /suppliers:
+    parameters:
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: 'Returns all suppliers set up in the organization. Organization suppliers provide the basic details of the supplier, such as name, address, and contacts. To create, update or modify a legal entity supplier (for example, to include the name of the supplier, contact or banking information), you need to first call the organization suppliers endpoint.
+
+        With a subsequent call to the legal entity supplier endpoint, you can then update the default settings of the supplier at legal entity level.
+
+        **NOTE**: When the `Enable InternalSupplierID` setting is active at organization level, the `internalSupplierId` attribute is mandatory to point the right supplier.
+
+        It must have the format: `externalId` of the organization supplier + ''_'' + Yokoy `legalEntityId`. For example, `S33998_aB9jQoE3HE`.
+
+        '
+      operationId: listOrgSuppliers
+      parameters:
+      - $ref: '#/components/parameters/QueryFilter'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  organization-suppliers:
+                    items:
+                      $ref: '#/components/schemas/OrganizationSupplier'
+                    type: array
+                type: object
+          description: OK
+        '400':
+          $ref: '#/components/responses/InvalidFilter'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: List all suppliers (organization)
+      tags:
+      - Supplier
+    post:
+      description: 'Companies that supply your company with goods, services, and/or items. The supplier contains general
+
+        information of the supplier (ie. name, address, bank accounts, payment terms, etc.) and can be set up with
+
+        default settings that are specific per legal entity. Suppliers need to be created first at an organization
+
+        level and then added at a company (legal entity) level. Without creating a legal entity supplier, the
+
+        supplier does not appear in Yokoy (in **Invoice processor > Suppliers**). For more information, see
+
+        (/docs/tutorials/upload-suppliers).
+
+        '
+      operationId: createOrgSupplier
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationSupplier'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationSupplier'
+          description: Created
+        '400':
+          $ref: '#/components/responses/HttpValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Create a supplier (organization)
+      tags:
+      - Supplier
+  /suppliers/{supplierId}:
+    parameters:
+    - description: Yokoy unique ID of the organization-level supplier.
+      example: 8ef7a04a-ce91-4b60-a624-e209f748f86a
+      in: path
+      name: supplierId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    - $ref: '#/components/parameters/YokoyAuthMethod'
+    - $ref: '#/components/parameters/YokoyCorrelationId'
+    get:
+      description: Retrieves an organization-level supplier identified by its Yokoy unique ID.
+      operationId: getOrgSupplier
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationSupplier'
+          description: OK
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Get an organization supplier by ID
+      tags:
+      - Supplier
+    patch:
+      description: 'Updates a organization supplier by replacing some attributes. The supplier is identified by its Yokoy unique ID. The whole entity is returned.
+
+        **NOTE**: When the `Enable InternalSupplierID` setting is active at organization level, the `internalSupplierId` attribute is mandatory to point the right supplier.
+
+        It must use this format: `externalId` of the organization supplier + ''_'' + Yokoy `legalEntityId`. For example, `S33998_aB9jQoE3HE`
+
+        '
+      operationId: modifyOrgSupplier
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: true
+              description: Dictionary of organization supplier attributes to update. Explicit null values mark attributes for deletion.
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationSupplier'
+          description: OK
+        '400':
+          $ref: '#/components/responses/HttpValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Modify a supplier (organization)
+      tags:
+      - Supplier
+    put:
+      description: 'Updates an organization supplier by replacing all attributes. The organization supplier is identified by its Yokoy unique ID. The whole entity is returned.
+
+        **NOTE**: When the `Enable InternalSupplierID` setting is active at organization level, the `internalSupplierId` attribute is mandatory to point the right supplier.
+
+        It must use this pattern: `externalId` of the organization supplier + ''_'' + Yokoy `legalEntityId`. For example, `S33998_aB9jQoE3HE`.
+
+        '
+      operationId: updateOrgSupplier
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationSupplier'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationSupplier'
+          description: OK
+        '400':
+          $ref: '#/components/responses/HttpValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/GatewayError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - OAuth2: []
+      summary: Update a supplier (organization)
+      tags:
+      - Supplier
+components:
+  responses:
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+    TooManyRequests:
+      content:
+        application/json:
+          example:
+            code: 429
+            message: Too many requests
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed by the server due to too many concurrent requests.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    HttpValidationError:
+      content:
+        application/json:
+          example:
+            code: 400
+            errors:
+            - field: Yokoy Field
+              message: Yokoy Field is mandatory
+            message: Validation Error
+          schema:
+            $ref: '#/components/schemas/HttpError'
+            additionalProperties: true
+      description: The request was not valid.
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+  parameters:
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
+    YokoyCorrelationId:
+      description: Correlation ID that can be used to trace a request in the flow.
+      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
+      in: header
+      name: X-Yk-Correlation-Id
+      required: false
+      schema:
+        type: string
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
+      in: query
+      name: filter
+      schema:
+        type: string
+    LegalEntityIdInPath:
+      description: Yokoy unique ID of the legal entity (company).
+      example: aB9jQoE3HE
+      in: path
+      name: legalEntityId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+  schemas:
+    OrganizationSupplier:
+      properties:
+        bankAccounts:
+          items:
+            $ref: '#/components/schemas/InvoiceBankAccount'
+          nullable: true
+          type: array
+        city:
+          description: City where the supplier is located.
+          example: München
+          nullable: true
+          type: string
+        contacts:
+          default: []
+          items:
+            $ref: '#/components/schemas/SupplierContact'
+          nullable: true
+          type: array
+        countryCode:
+          description: Country where the supplier is located. Expressed as an ISO 3166 Alpha-2 code.
+          example: DE
+          nullable: true
+          type: string
+        customInformation:
+          additionalProperties: true
+          nullable: true
+          type: object
+        externalId:
+          description: External ID of the organization supplier. This must be unique within the organization and cannot be changed after creation.
+          example: S33998
+          type: string
+        id:
+          description: Yokoy ID of the organization supplier.
+          example: 8ef7a04a-ce91-4b60-a624-e209f748f86a
+          pattern: '[\w-]+'
+          readOnly: true
+          type: string
+        internalSupplierId:
+          description: ID of the internal supplier. Only mandatory when the `Enable InternalSupplierID` setting is active at organization level, | It must have the format of the organization supplier's external identifier + '_' + Yokoy legal entity ID.
+          example: S33998_aB9jQoE3HE
+          type: string
+        isTemplateOneTimeSupplier:
+          default: false
+          description: Determines whether the supplier is to be imported as a one-time vendor or not. One-time vendors are only supported in SAP systems. If the supplier is a template to be used for non-recurring one-time suppliers, you must set this attribute as `true`.
+          nullable: false
+          type: boolean
+        name:
+          description: Full company name of the supplier.
+          example: Acme INC
+          type: string
+        secondaryName:
+          description: Additional information about the supplier name.
+          example: Department A
+          nullable: true
+          type: string
+        shortName:
+          description: Short name of the supplier for display.
+          example: Acme
+          nullable: true
+          type: string
+        statusActive:
+          default: false
+          type: boolean
+        street:
+          description: Street where the supplier is located.
+          example: Isartorpl 8
+          nullable: true
+          type: string
+        taxNumber:
+          deprecated: true
+          description: Legal tax number of the supplier. Use `taxNumbers` instead.
+          example: '123456789'
+          nullable: true
+          type: string
+        taxNumbers:
+          default: []
+          description: An array of the supplier's legal tax numbers. Use this attribute instead of `taxNumber` after setting `taxNumber` to null.
+          example:
+          - CH123456789
+          - CH115222333
+          items:
+            nullable: false
+            type: string
+          nullable: true
+          type: array
+        url:
+          description: Website of the supplier.
+          example: https://www.example.com
+          nullable: true
+          type: string
+        zipCode:
+          description: Postal code where the supplier is located.
+          example: D18 V6K0
+          nullable: true
+          type: string
+      required:
+      - id
+      - externalId
+      - name
+      type: object
+    InvoiceBankAccount:
+      description: Information related to the payment of the invoice.
+      properties:
+        bankAccount:
+          description: Bank account number. Often used if no IBAN exists.
+          example: '987654321'
+          nullable: true
+          type: string
+        bankCountry:
+          description: Country of the bank.
+          example: UK
+          nullable: true
+          type: string
+        bankKey:
+          description: Bank key (also called branch code).
+          example: XXX
+          nullable: true
+          type: string
+        bankNumber:
+          description: Bank number (also called bank code).
+          example: UBSW
+          nullable: true
+          type: string
+        externalId:
+          description: External ID of the bank in ERP systems.
+          example: UBS12
+          nullable: true
+          type: string
+        iban:
+          description: IBAN (International Bank Account Number).
+          example: CH5604835012345678009
+          nullable: true
+          type: string
+        swiftCode:
+          description: Swift code (also called the BIC).
+          example: UBSWCHZHXXX
+          nullable: true
+          type: string
+      type: object
+    Supplier:
+      allOf:
+      - $ref: '#/components/schemas/OrganizationSupplier'
+      - $ref: '#/components/schemas/LegalEntitySupplier'
+    HttpError:
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - field
+      - message
+      type: object
+    SupplierContact:
+      properties:
+        email:
+          description: Email address of the supplier's contact.
+          example: quinn.leavy@example.com
+          type: string
+        firstName:
+          description: Given name of the supplier's contact.
+          example: Quinn
+          type: string
+        lastName:
+          description: Family name of the supplier's contact.
+          example: Leavy
+          type: string
+        phone:
+          description: Phone number of the supplier's contact.
+          example: +49 12 3456789
+          type: string
+        role:
+          description: Contact's role in the supplier company.
+          example: Sales representative
+          type: string
+      required:
+      - email
+      - firstName
+      - lastName
+      - phone
+      - role
+      type: object
+    LegalEntitySupplier:
+      properties:
+        autoSubmissionSettings:
+          $ref: '#/components/schemas/SupplierAutoSubmissionSettings'
+          nullable: true
+        codingType:
+          description: 'Determines how invoices from this supplier should be processed by Yokoy.
+
+            - `smart`: If selected, Yokoy tries to smart-code all invoices for the supplier.
+
+            - `supplierDefault`: If selected, Yokoy picks the default cost object and category that you have set up in the supplier settings.
+
+            - `entity`: If this option is selected, Yokoy follows whatever coding logic is determined for the company. If smart coding is enabled for the legal entity, Yokoy performs smart coding of the invoice. If smart coding is not enabled for the legal entity, then no smart coding is performed.
+
+            '
+          enum:
+          - smart
+          - supplierDefault
+          - entity
+          example: smart
+          nullable: true
+          type: string
+        customInformation:
+          additionalProperties: true
+          nullable: true
+          type: object
+        defaultApproverFirstName:
+          description: The first name of the default invoice approver.
+          example: Alex
+          nullable: true
+          type: string
+        defaultApproverId:
+          description: Yokoy unique ID of the default approver.
+          example: 9L7rovNzNhTCsJSTkbfq
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+        defaultApproverLastName:
+          description: The last name of the default invoice approver.
+          example: Doe
+          nullable: true
+          type: string
+        defaultCategoryId:
+          description: Yokoy unique ID of the default invoice category.
+          example: uhmkC9Mzzn
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+        defaultCategoryName:
+          description: Name of the default invoice category for this supplier.
+          example: Category A
+          nullable: true
+          type: string
+        defaultCostCenterId:
+          description: Yokoy unique ID of the default cost object.
+          example: Mt34DVcI8R2sdLutWViu
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+        defaultCostCenterName:
+          description: Name of the default cost object.
+          example: Default cost center
+          nullable: true
+          type: string
+        defaultPaymentTermId:
+          description: Yokoy unique ID of the default payment term.
+          example: uhmkC9Mzzn
+          nullable: true
+          pattern: '[\w-]+'
+          type: string
+        id:
+          description: Yokoy unique ID of supplier linked to a specific legal entity.
+          example: 8ef7a04a-ce91-4b60-a624-e209f748f86a
+          pattern: '[\w-]+'
+          readOnly: true
+          type: string
+        isInternalSupplier:
+          description: Identifies the supplier as intercompany supplier.
+          example: false
+          nullable: true
+          type: boolean
+        isPurchaseOrderSupplier:
+          description: Indicates if the supplier requires a purchase order for each invoice.
+          example: false
+          nullable: true
+          type: boolean
+        paymentTermIds:
+          description: Array of Yokoy IDs of payment terms.
+          example:
+          - 06x2u4nagAMEq3gGoMch
+          - 34e5u4nqgBMWq4gRalmX
+          items:
+            type: string
+          nullable: true
+          type: array
+        statusActive:
+          type: boolean
+        supplierId:
+          description: Yokoy ID of the organization supplier. It must reference an existing organization-level supplier.
+          example: 8ef7a04a-ce91-4b60-a624-e209f748f86a
+          type: string
+        triggerAutoMatchWithoutPO:
+          description: Trigger auto-match without purchase order number data. For PO suppliers (i.e. suppliers with invoices that must always have an associated PO), if set as `true`, Yokoy tries to match the invoice to a purchase order if no purchase order data is provided.
+          example: false
+          nullable: true
+          type: boolean
+      required:
+      - id
+      - legalEntityId
+      - supplierId
+      - statusActive
+      type: object
+    SupplierAutoSubmissionDocumentSettings:
+      properties:
+        amount:
+          description: 'Threshold amount (**Max. allowed amount**) below which the supplier document is submitted automatically by Yokoy when all other conditions are met.
+
+            The amount is converted to the currency of the legal entity.
+
+            A 0 or `null` amount means that all documents are auto-submitted.
+
+            '
+          example: 1000
+          minimum: 0
+          nullable: true
+          type: number
+        enabled:
+          example: false
+          type: boolean
+      required:
+      - enabled
+      type: object
+    SupplierAutoSubmissionSettings:
+      properties:
+        nonPoCreditNotes:
+          allOf:
+          - $ref: '#/components/schemas/SupplierAutoSubmissionDocumentSettings'
+          - description: Auto-submission settings for credit note without a PO documents
+            nullable: true
+        nonPoInvoices:
+          allOf:
+          - $ref: '#/components/schemas/SupplierAutoSubmissionDocumentSettings'
+          - description: Auto-submission settings for invoice documents without a PO
+            nullable: true
+        poCreditNotes:
+          allOf:
+          - $ref: '#/components/schemas/SupplierAutoSubmissionDocumentSettings'
+          - description: Auto-submission settings for credit note with a PO documents
+            nullable: true
+        poInvoices:
+          allOf:
+          - $ref: '#/components/schemas/SupplierAutoSubmissionDocumentSettings'
+          - description: Auto-submission settings for invoice documents with a PO
+            nullable: true
+        status:
+          description: 'Status of the auto-submission settings.
+
+            - `disabled`: Invoices and/or credit notes for the supplier are not auto-submitted. This overrides any auto-submission settings defined at company level.
+
+            - `enabled`: Invoices and/or credit notes for the supplier are auto-submitted using the auto-submission settings specified.
+
+            - `entity`: Invoices and/or credit notes may be auto-submitted according to the setting defined at company level.
+
+            '
+          enum:
+          - disabled
+          - enabled
+          - entity
+          example: entity
+          nullable: false
+          type: string
+      required:
+      - status
+      type: object
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+  securitySchemes:
+    OAuth2:
+      description: "Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.\n\n**1. Obtain an access token**\n\nPerform a `POST` request to\n`https://accounts.yokoy.ai/oauth2/token`. Pass the client ID\nand client secret as username and password in a basic auth\nheader. Set the content-type to\n`application/x-www-form-urlencoded` and specify\n`grant_type=client_credentials` in the body.\n\n> Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.\n\nExample request for the client ID `ClientId` and client\nsecret `ClientSecret`:\n```\nPOST https://accounts.yokoy.ai/oauth2/token\nAuthorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0\nContent-Type: application/x-www-form-urlencoded\ngrant_type=client_credentials\n```\nIn this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is\nobtained by base64-encoding the string\n`ClientId:ClientSecret`, as required for basic access authentication.\n\n> Note: Yokoy does not require or use scopes.\n\n\nThe JSON response contains the access token in the attribute\n`access_token`. The response also contains the expiration in\nseconds.\n\nExample response:\n```\n{\n    \"access_token\": \"SOME_KEY\",\n    \"expires_in\": 3900,\n    \"token_type\": \"Bearer\"\n}\n```\n\n**2. Pass the bearer token**\n\nPass the access token from step 1 as a bearer token in subsequent requests to the API.\n\nExample header field for the example response from step 1:\n```\nAuthorization: Bearer 4lDvPkrBF87WHuyvlINQD\n```\n\nFor more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].\n"
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+      type: oauth2
