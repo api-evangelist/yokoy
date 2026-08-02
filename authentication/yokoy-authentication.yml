@@ -1,0 +1,32 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/yokoy-openapi-original.json
+docs: https://developer.yokoy.ai/docs/overview/authentication
+credentials_docs: https://help.yokoy.ai/en/articles/110470-get-access-credentials-for-yokoy-api
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: OAuth2
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+    scopes: 0
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note:
+  sources:
+  - openapi/yokoy-openapi-original.json

@@ -1,8 +1,29 @@
 aid: yokoy
-name: yokoy
-description: yokoy is a company surfaced as a portfolio company of balderton-capital, speedinvest and
-  added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+name: Yokoy
+description: >-
+  Yokoy (now part of Perk / TravelPerk) is an AI-powered spend-management
+  platform for expenses, supplier invoices and corporate cards. Its public
+  REST API (OpenAPI 3.0, 105 operations) imports master and configuration data
+  into Yokoy and exports financial data — expenses, trips, invoices,
+  transactions, journal entries and FX rates — to third-party ERP and
+  accounting systems. Authentication uses the OAuth2 client-credentials flow;
+  every request is scoped to an organization ID and most resources to a legal
+  entity (company). The API spans expenses, invoices, trips, transactions,
+  company cards and card accounts, cost centers, categories, tax rates,
+  suppliers, users, policies, tags and finance-export tasks.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://yokoy.io/favicon.ico
 url: https://raw.githubusercontent.com/api-evangelist/yokoy/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -13,15 +34,815 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
-apis: []
+- Spend Management
+- Expense Management
+- Invoice Management
+- Finance Automation
+- Corporate Cards
+- Fintech
+- SaaS
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: yokoy:yokoy-card-account-api
+  name: Yokoy Card account API
+  description: >-
+    Card account associated to one of Yokoy's card programs. Only active card accounts are allowed to
+    order new cards.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Card account
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-card-account-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-company-card-api
+  name: Yokoy Company card API
+  description: Company card entity in Yokoy. Company cards can be Yokoy Pay cards or external cards.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Company card
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-company-card-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-cost-center-api
+  name: Yokoy Cost center API
+  description: >-
+    Cost objects (also called cost centers) is a hierarchical construct to which costs that occur within
+    a company can be assigned. Cost objects are created at legal entity level and can be used for expenses,
+    trips, and invoices.
+
+    Approvers and delegates should be specified using the Yokoy user ID. For any unrecognized IDs, Yokoy
+    creates or updates the cost object attribute with the value `null`. For example, if you pass `Y6cp2G30M`
+    as the `approverId` and no user exists for that ID, Yokoy updates the approver ID attribute as `null`.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Cost center
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-cost-center-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-daily-statement-api
+  name: Yokoy Daily statement API
+  description: >-
+    Daily CAMT statement files associated with a card account. Statements provide a daily summary of transactions
+    in a standardized banking format.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Daily statement
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-daily-statement-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-expense-api
+  name: Yokoy Expense API
+  description: >-
+    An expense is a cost incurred during the performance of a business activity. Employees can create
+    reimbursable or non-reimbursable expenses. The Expense endpoints let you query all expense types managed
+    in Yokoy: receipt, receiptless, mileage, and per diem. You can query individual expenses included
+    as part of a trip.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Expense
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-expense-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-expense-category-api
+  name: Yokoy Expense category API
+  description: >-
+    Categories for expenses (also called booking accounts). These categories only apply to expenses and
+    trips. For invoices, use supplier invoice categories.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Expense category
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-expense-category-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-external-invoice-api
+  name: Yokoy External invoice API
+  description: >-
+    Invoices that are not present in Yokoy, but that are used for matching in purchase orders and goods
+    receipts.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - External invoice
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-external-invoice-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-finance-export-api
+  name: Yokoy Finance export API
+  description: >-
+    Finance export mechanism in Yokoy. The Yokoy API exposes three different endpoints for the management
+    of finance exports:
+
+    1. `/export-tasks` to trigger an export (separate endpoints for the expense and the invoice module).
+
+    This action is equivalent to clicking the "Export" button under Finance > Export within the Yokoy
+    application.
+
+    As a result of a successful export, the expenses/invoices are set to the exported state.
+
+    2. `/export-tasks/{exportTaskId}` to poll the details (in particular the status) of the asynchronous
+    export job.
+
+    3. `/export-tasks/{exportTaskId}/artefacts` to fetch the artefacts for those export facilities that
+    support this functionality.
+
+
+    To generate the standard Yokoy export artefacts, the export facility "Yokoy Standard Export (API)"
+    must be selected in Yokoy (Admin > Integrations).
+
+    The data model of the standard export artefacts (ExpenseExportArtefact and InvoiceExportArtefact)
+    is described in the <a href="https://api.yokoy.ai/v1/swagger.json">following OpenAPI specification</a>.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Finance export
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-finance-export-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-fx-rates-api
+  name: Yokoy FX rates API
+  description: >-
+    Extend the offered and Yokoy-managed foreign exchange rates (Open Exchange Rates, CNB, NPB and NBS
+    national bank rates) with your own customer-specific FX rates. The created FX rate sources are equivalent
+    to Yokoy-managed FX rate sources and can be applied in **Admin > Company**, **General**. Currencies
+    are assigned on a legal entity level.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - FX rates
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-fx-rates-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-goods-receipt-api
+  name: Yokoy Goods receipt API
+  description: >-
+    Goods receipt are usually provided by suppliers when the goods of an order are delivered. Yokoy uses
+    goods receipts to perform three-way matching (controlling invoice spending by checking quantities
+    invoiced against the quantities delivered in the goods receipt).
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Goods receipt
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-goods-receipt-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-invoice-api
+  name: Yokoy Invoice API
+  description: >-
+    In the Yokoy API, invoices can only be created or retrieved. You can only update custom information
+    via API.
+
+    To update other attributes or delete the invoice, use the Yokoy web app.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Invoice
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-invoice-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-invoice-category-api
+  name: Yokoy Invoice category API
+  description: >-
+    Categories for invoices (equivalent to GL accounts in financial systems). These categories only apply
+    to invoices. For expenses and trips, use expense categories.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Invoice category
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-invoice-category-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-invoice-payment-terms-api
+  name: Yokoy Invoice payment terms API
+  description: >-
+    Payment terms determine the expectation of payment agreed between the company and the supplier. By
+    default, all payment terms can be used with any supplier of the legal entity. However, you can restrict
+    a payment term to a specific supplier by setting `supplierSpecific` to `true` and associating the
+    payment term ID in the Supplier master data.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Invoice payment terms
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-invoice-payment-terms-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-legal-entity-api
+  name: Yokoy Legal entity API
+  description: Legal entity or company. An organization can have multiple legal entities.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Legal entity
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-legal-entity-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-policy-api
+  name: Yokoy Policy API
+  description: >-
+    An employee policy determines the settings made available to a group of employees. A policy determines:
+
+    - **categories**: the categories available to users to select.
+
+    - **tags**: tags applicable to those users
+
+    - **expense rules**: the expense rules used to calculate expenses for those users.
+
+    - **per diems**: applicable rules per diems at a global level, irrespective of whether the conditions
+    are met for applicability.
+
+    - **mileage*: applicable rates at a global level, irrespective of the employee’s mileage counter or
+    border crossings.
+
+
+    You can use the API to set the categories available to users who have been assigned the policy. To
+    set tags, expense rules, per diems and mileage rates, use the Yokoy UI.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Policy
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-policy-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-purchase-order-api
+  name: Yokoy Purchase order API
+  description: >-
+    Purchase orders are legal orders that companies send to their suppliers to buy items, services, products.
+    Yokoy uses purchase orders to perform two-way and three-way matching (matching invoice line items
+    with purchase order line items).
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Purchase order
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-purchase-order-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-supplier-api
+  name: Yokoy Supplier API
+  description: >-
+    Companies that supply your company with goods, services, items. The Supplier entity contains information
+    on the name, address, and bank accounts of the supplier.
+
+    Suppliers can be set up for different legal entities with default settings at each legal entity level.
+
+    Suppliers must first be created for the organization at `/suppliers` with their basic definition such
+    as name, address, tax number and bank accounts.
+
+    Then they can be created legal entity-level at `/legal-entities/{entityId}/suppliers` with the organization
+    supplier ID in `supplierId`. Without creating a legal entity supplier, the supplier does not appear
+    in Yokoy (in **Invoice processor > Suppliers**).
+
+    Legal entity suppliers can be updated/created just for certain applicable fields.
+
+    To add (POST) or update (PATCH or PUT) a complete legal entity supplier record (e.g. the name of the
+    supplier, contact or banking information), you need to add or update the organization supplier first.
+    These changes are automatically progpaged to the legal entity suppliers (i.e. the same supplier may
+    supply several legal entities) linked to that organization supplier. Then in a subsequent call to
+    the legal entity supplier endpoint, you can update the legal entity supplier.
+
+
+    **NOTE**: When the `Enable InternalSupplierID` setting is active at organization level, the `internalSupplierId`
+    attribute is mandatory to point the right supplier.
+
+    It must use the following pattern: `externalId` of the organization supplier + '_' + Yokoy ID of the
+    legal entity.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Supplier
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-supplier-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-tag-api
+  name: Yokoy Tag API
+  description: >-
+    Tag is a custom dimension that can be added to each category that help map additional information
+    to that spend and use it at multiple levels, such as analytics or for accounting purposes.
+
+    Tags are often used to enhance Yokoy’s data model for:
+
+    - **management reporting** along multi-dimensional classifications (matrix model).
+
+    For example, project accounting next to cost accounting (cost centers and cost carriers/projects in
+    a matrix), activity-based controlling (ABC) alongside cost or project accounting, or asset management
+    (e.g. asset capitalisation schedules)
+
+    - **classifications** for processing purposes.
+
+    For example, approval groups independent of cost center or project accounting structure.
+
+    Each tag belongs to a tag dimension. Tag dimensions are created in Yokoy (**Admin > Company**).
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Tag
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-tag-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-tax-rates-api
+  name: Yokoy Tax rates API
+  description: >-
+    Tax rates. Tax rates apply to expenses, trips, and invoices. In Yokoy, you can consult them in **Admin
+    > VAT / Tax rates**. For invoices, you can set up advanced tax components to adjust to complex tax
+    scenarios. See [Set up advanced tax rates for invoices](https://help.yokoy.ai/en/articles/223727-set-up-advanced-tax-rates-for-invoices).
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Tax rates
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-tax-rates-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-transaction-api
+  name: Yokoy Transaction API
+  description: >-
+    A transaction is a cleared payment that is made using a credit, debit, or prepaid card. The card issuer
+    can be either Yokoy or a third party that has been integrated with Yokoy.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Transaction
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-transaction-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-trip-api
+  name: Yokoy Trip API
+  description: >-
+    A trip is a collection of various types of expenses that occurred on a business trip over a period
+    of time.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - Trip
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-trip-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
+- aid: yokoy:yokoy-user-api
+  name: Yokoy User API
+  description: >-
+    Users in Yokoy reflect the fundamental roles of submitter, approver, and finance user. Mandatory user
+    information depends on the specific organization requirements and Yokoy features enabled.
+
+    Email addresses must be unique for the organization. You cannot create two users with the same email
+    address. If the email address provided already exists in the organization, the API returns an error.
+
+
+    Bank information can be provided as part of POST, PUT, and PATCH requests, however, the response does
+    not return this information for security reasons.
+
+
+    **Note**: You can‘t use the User endpoints to determine the roles and permissions assigned to a user.
+    You can only use the endpoints to create a new user.
+
+    Roles and permissions are granted to a user in Yokoy (**Admin > Finance/HR roles**). You must have
+    previously created the user before assigning roles and permissions.
+
+
+    - **Booking strategy**: You can export expenses based on the user selected currency (instead of the
+    company currency or the original expense currency). If you choose this option, you need to provide
+    the user's currency.
+
+    - **Approval strategy**: If you plan to approve expenses using a line manager approval strategy, then
+    you need to enter a line manager for each user.
+
+    - **Expense accounting**: If expenses are to be posted via the employee vendor account, the field
+    `employeeId` should reflect employee vendor account number. If you want to track the employee number,
+    you should set up a custom field to add this information.
+
+    - **User policy**: You can assign rank-specific expense policies to certain users and user groups
+    to determine applicable expense rules, per diem and mileage rates, as well as expense categories.
+    If you choose this option, then you need to enter the policy ID.
+
+
+    For any unrecognized IDs, Yokoy creates or updates the user attribute with the value `null`. For example,
+    if you pass `Y6cp2G30M` as the `lineManagerId` and no user exists for that ID, Yokoy updates the line
+    manager ID attribute as `null`.
+
+
+    To guarantee spend data traceability, when you delete a user via the Yokoy API, the email is changed
+    to an email address with the format: `deleted_user_` + user ID. For example, `deleted_user_lK6jo1GmSkXJzSyZSA2f@localhost.invalid`.
+    The user is still displayed in **HR > User management** with a deleted tag and can’t be re-activated
+    or edited. The user can still be retrieved via the Yokoy API using the Yokoy user ID. However, the
+    user is not returned if you retrieve all users using a GET method. Deleted users can’t be re-activated
+    in any way.
+  humanURL: https://developer.yokoy.ai/api-reference/
+  baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/yokoy-user-api-openapi.yml
+  - type: Authentication
+    url: authentication/yokoy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/yokoy-scopes.yml
+  - type: Conventions
+    url: conventions/yokoy-conventions.yml
+  - type: ErrorCatalog
+    url: errors/yokoy-error-codes.yml
+  - type: DataModel
+    url: data-model/yokoy-data-model.yml
+  - type: Sandbox
+    url: sandbox/yokoy-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/yokoy-lifecycle.yml
+  - type: Conformance
+    url: conformance/yokoy-conformance.yml
 common:
+- type: DeveloperPortal
+  url: https://developer.yokoy.ai/
+- type: Documentation
+  url: https://developer.yokoy.ai/docs/overview
+- type: APIReference
+  url: https://developer.yokoy.ai/api-reference/
+- type: GettingStarted
+  url: https://developer.yokoy.ai/docs/overview/getting-started
+- type: Support
+  url: https://help.yokoy.ai/
+- type: ChangeLog
+  url: https://developer.yokoy.ai/docs/release-notes
+- type: StatusPage
+  url: https://status.perk.com/
+- type: Deprecation
+  url: lifecycle/yokoy-lifecycle.yml
+- type: Compliance
+  url: https://www.perk.com/security/
+- type: TrustCenter
+  url: https://trustcenter.perk.com/
+- type: Security
+  url: https://yokoy.io/.well-known/security.txt
+- type: VulnerabilityDisclosure
+  url: security/yokoy-vulnerability-disclosure.yml
+- type: SecurityTxt
+  url: well-known/yokoy-security.txt
+- type: WellKnown
+  url: well-known/yokoy-well-known.yml
+- type: DomainSecurity
+  url: security/yokoy-domain-security.yml
+- type: Authentication
+  url: authentication/yokoy-authentication.yml
+- type: Conventions
+  url: conventions/yokoy-conventions.yml
+- type: Lifecycle
+  url: lifecycle/yokoy-lifecycle.yml
+- type: Packages
+  url: packages/yokoy-packages.yml
+- type: MCPServer
+  url: mcp/yokoy-mcp.yml
+- type: LLMsTxt
+  url: llms/yokoy-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
 - type: Website
-  url: https://yokoy.io/en-ch/
+  url: https://yokoy.io/
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 23
+  pass: local-v1

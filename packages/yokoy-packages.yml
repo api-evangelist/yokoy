@@ -1,0 +1,17 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  Registry search across npm, PyPI, Maven Central, NuGet, pkg.go.dev, RubyGems,
+  Packagist and crates.io plus the Yokoy developer docs.
+official_sdks: false
+notes: >-
+  Yokoy publishes no first-party client SDK. The developer portal offers the
+  raw OpenAPI (api.yokoy.ai/v1/swagger.json) for code generation. Only a
+  community Go project exists; it is not maintained by Yokoy/Perk.
+packages:
+  - language: go
+    registry: github
+    name: dylanj/yokoy
+    url: https://github.com/dylanj/yokoy
+    official: false
+    description: Community Go tool that syncs Yokoy data to a PostgreSQL database.

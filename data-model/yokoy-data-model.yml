@@ -1,0 +1,65 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/yokoy-openapi-original.json
+description: >-
+  Entity-relationship graph derived from the Yokoy OpenAPI schemas ($ref links
+  and *Id reference fields). The organization is the top-level tenant; most
+  master data hangs off a LegalEntity (company).
+entities:
+  - name: LegalEntity
+    description: A company/legal entity within the organization; parent of most master data.
+  - name: Expense
+    relationships:
+      - { kind: belongs_to, target: LegalEntity, via: legalEntityId }
+      - { kind: belongs_to, target: Category, via: categoryId }
+      - { kind: has_many, target: CostCenterItem, via: costCenterItems }
+      - { kind: has_many, target: TaxItem, via: taxItems }
+      - { kind: has_many, target: EventLogEntry, via: eventLog }
+  - name: Invoice
+    relationships:
+      - { kind: belongs_to, target: Supplier, via: supplierId }
+      - { kind: belongs_to, target: InvoicePaymentTerms, via: paymentTermId }
+      - { kind: has_many, target: InvoiceLineItem, via: lineItems }
+      - { kind: has_one, target: InvoiceQrInformation, via: qrInfo }
+  - name: Transaction
+    relationships:
+      - { kind: belongs_to, target: LegalEntity, via: legalEntityId }
+      - { kind: belongs_to, target: CompanyCard, via: cardId }
+      - { kind: belongs_to, target: Expense, via: expenseId }
+  - name: Trip
+    relationships:
+      - { kind: belongs_to, target: LegalEntity, via: legalEntityId }
+      - { kind: belongs_to, target: User, via: userId }
+  - name: User
+    relationships:
+      - { kind: belongs_to, target: LegalEntity, via: legalEntityId }
+      - { kind: belongs_to, target: CostCenter, via: costCenterId }
+      - { kind: belongs_to, target: Policy, via: policyId }
+      - { kind: belongs_to, target: User, via: lineManagerId }
+  - name: CompanyCard
+    relationships:
+      - { kind: belongs_to, target: User, via: ownerId }
+  - name: CostCenter
+    relationships:
+      - { kind: belongs_to, target: CostCenter, via: parentId }
+      - { kind: belongs_to, target: User, via: approverId }
+  - name: PurchaseOrder
+    relationships:
+      - { kind: belongs_to, target: Supplier, via: supplierId }
+      - { kind: belongs_to, target: InvoicePaymentTerms, via: paymentTermsId }
+      - { kind: has_many, target: PurchaseOrderItem, via: items }
+  - name: GoodsReceipt
+    relationships:
+      - { kind: has_many, target: GoodsReceiptItem, via: items }
+  - name: ExternalInvoice
+    relationships:
+      - { kind: has_many, target: ExternalInvoiceItem, via: items }
+  - name: CardAccount
+  - name: Supplier
+  - name: Category
+  - name: TaxItem
+    relationships:
+      - { kind: belongs_to, target: AdvancedTaxRate, via: rateId }
+  - name: Policy
+  - name: Tag
+  - name: FxRateSource

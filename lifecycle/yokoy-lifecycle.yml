@@ -1,0 +1,20 @@
+generated: '2026-07-21'
+method: searched
+versioning:
+  scheme: uri-path
+  current: v1
+  spec_version: 1.41.0
+  docs: https://developer.yokoy.ai/api-reference/
+release_notes: https://developer.yokoy.ai/docs/release-notes
+status_page: https://status.perk.com/
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No published RFC-8594 Sunset/Deprecation header policy found; no operations flagged deprecated in the OpenAPI.
+sla:
+  url: null
+deprecated_operations: []
+notes: >-
+  API is served under a single URI-path major version (v1) with an internal
+  spec version (1.41.0). Operational status is published via the Perk status
+  page (status.perk.com) and dated release notes on the developer portal.

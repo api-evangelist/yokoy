@@ -1,0 +1,11 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.yokoy.ai/docs/release-notes
+scheme: dated-release-notes
+current_version: '1.41.0'
+notes: >-
+  Yokoy publishes dated release notes on its developer portal. The portal is a
+  JavaScript-rendered docs site, so individual dated entries were not machine-
+  extracted in this pass; the release-notes URL is the source of truth and the
+  spec's internal version is 1.41.0.
+entries: []

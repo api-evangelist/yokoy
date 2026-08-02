@@ -1,0 +1,58 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/yokoy-openapi-original.json
+format: custom
+envelope:
+  description: >-
+    Errors are returned as a JSON object with an integer `code` and a human
+    readable `message`. Validation failures use a variant with `field` and
+    `message` pairs identifying the offending input.
+  schema: "#/components/schemas/Error"
+  fields:
+    - name: code
+      type: integer
+      required: true
+    - name: message
+      type: string
+      required: true
+  validation_schema: "#/components/schemas/HttpError"
+  validation_fields:
+    - name: field
+      type: string
+    - name: message
+      type: string
+problems:
+  - status: 400
+    name: InvalidFilter / ValidationError
+    title: The request was not valid.
+    remediation: Check the query filter syntax and request body against the schema.
+  - status: 401
+    name: Unauthorized
+    title: The server was unable to establish the identity of the client.
+    remediation: Obtain a fresh bearer token from the OAuth2 client-credentials flow.
+  - status: 403
+    name: Forbidden
+    title: The client is not authorized to perform the requested operation.
+    remediation: Verify the credentials are scoped to the target organization/legal entity.
+  - status: 404
+    name: NotFound
+    title: The specified resource was not found.
+  - status: 409
+    name: Conflict
+    title: Request conflicts with the current state of the target resource.
+  - status: 422
+    name: InsufficientData
+    title: The request cannot be processed due to insufficient data.
+  - status: 429
+    name: TooManyRequests
+    title: Too many requests — the server is rate limiting the client.
+    remediation: Back off and retry after a delay.
+  - status: 500
+    name: InternalError
+    title: An internal error occurred.
+  - status: 502
+    name: GatewayError
+    title: An issue occurred in a downstream service. Please try again.
+  - status: 503
+    name: ServiceUnavailable
+    title: The server is unavailable. Please try again later.

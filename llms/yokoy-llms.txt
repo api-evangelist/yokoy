@@ -1,0 +1,35 @@
+# Yokoy API
+
+> Yokoy (now part of Perk / TravelPerk) is an AI-powered spend-management platform. Its public REST API (OpenAPI 3.0) imports master and configuration data into Yokoy and exports financial data — expenses, trips, invoices, transactions, journal entries and FX rates — to third-party finance systems. Authentication is OAuth2 client-credentials; all requests are scoped to an organization ID and usually a legal entity (company) ID.
+
+## API
+- [Yokoy API reference](https://developer.yokoy.ai/api-reference/): Full REST API reference (105 operations across expenses, invoices, trips, transactions, cards, users, suppliers, cost centers, tax rates, exports).
+- [OpenAPI (Swagger) spec](https://api.yokoy.ai/v1/swagger.json): Machine-readable OpenAPI 3.0 definition.
+
+## Getting started
+- [Getting started](https://developer.yokoy.ai/docs/overview/getting-started): Overview and first steps.
+- [Authentication](https://developer.yokoy.ai/docs/overview/authentication): OAuth2 client-credentials flow, token endpoint accounts.yokoy.ai/oauth2/token.
+- [Get access credentials](https://help.yokoy.ai/en/articles/110470-get-access-credentials-for-yokoy-api): Generate Client ID / Client secret in Admin > Developer.
+- [Tutorials](https://developer.yokoy.ai/docs/tutorials): Developer tutorials.
+
+## Environments
+- Production: https://api.yokoy.ai/v1/organizations/{organizationId}
+- Test: https://api.test.yokoy.ai/v1/organizations/{organizationId}
+
+## Conventions
+- Auth: OAuth2 client-credentials (no scopes); pass bearer token.
+- Pagination: cursor-based (`cursor` + `count` query params).
+- Filtering: `filter` query param on list endpoints.
+- Tracing: optional `X-Yk-Correlation-Id` request header.
+- Errors: JSON `{ code, message }` envelope; validation errors add `field`.
+
+## Docs
+- [Release notes](https://developer.yokoy.ai/docs/release-notes): Dated changelog.
+- [Yokoy Help Center](https://help.yokoy.ai/): Product + API help.
+- [Perk Help Center](https://support.perk.com/hc): Parent-company support.
+
+## Security
+- [Security](https://www.perk.com/security/): ISMS aligned with ISO 27001, SOC 2, Cyber Essentials; GDPR program.
+- [Trust center](https://trustcenter.perk.com/)
+- [Status page](https://status.perk.com/)
+- [security.txt](https://yokoy.io/.well-known/security.txt): TravelPerk Intigriti vulnerability-disclosure program.

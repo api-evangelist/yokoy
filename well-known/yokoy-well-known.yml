@@ -1,0 +1,30 @@
+generated: '2026-07-21'
+method: searched
+hosts:
+  - host: https://yokoy.io
+    documents:
+      - path: /.well-known/security.txt        # RFC 9116
+        status: 200
+        file: yokoy-security.txt
+  - host: https://yokoy.ai
+    documents:
+      - path: /.well-known/security.txt        # RFC 9116 (identical to yokoy.io)
+        status: 200
+        file: yokoy-security.txt
+  - host: https://api.yokoy.ai
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+  - host: https://accounts.yokoy.ai
+    documents:
+      - path: /.well-known/openid-configuration     # OIDC discovery
+        status: 404
+      - path: /.well-known/oauth-authorization-server  # RFC 8414
+        status: 404
+notes: >-
+  Yokoy is now part of Perk (TravelPerk). The published security.txt points at
+  the TravelPerk Intigriti bug-bounty program. The OAuth2 token endpoint
+  (accounts.yokoy.ai) does not expose OIDC/RFC-8414 discovery documents — the
+  API uses the plain OAuth2 client-credentials grant with no scopes.

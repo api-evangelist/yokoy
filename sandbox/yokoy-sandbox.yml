@@ -1,0 +1,24 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/yokoy-openapi-original.json
+docs: https://help.yokoy.ai/en/articles/110470-get-access-credentials-for-yokoy-api
+environments:
+  - name: test
+    api_base: https://api.test.yokoy.ai/v1/organizations/{organizationId}
+    token_url: https://accounts.test.yokoy.ai/oauth2/token
+  - name: production
+    api_base: https://api.yokoy.ai/v1/organizations/{organizationId}
+    token_url: https://accounts.yokoy.ai/oauth2/token
+credentials:
+  how_to_obtain: >-
+    In the Yokoy web app, a user with the Developer (Admin) role opens
+    Admin > Developer > Access credentials, generates OAuth credentials, and
+    copies the Client ID and Client secret (non-recoverable). The organization
+    ID shown on the same page must be supplied in the API path.
+  key_type: oauth2 client_id / client_secret
+  scope: valid for the entire organization
+notes: >-
+  Yokoy separates test and production via distinct host prefixes
+  (api.test.yokoy.ai / accounts.test.yokoy.ai). No published magic test values,
+  test cards, or fixture tooling were found; test data is created in the test
+  organization. Never invent test credentials.

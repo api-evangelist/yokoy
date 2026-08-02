@@ -1,0 +1,22 @@
+generated: '2026-07-21'
+method: searched
+probe: false
+source: https://www.perk.com/security/
+url: https://trustcenter.perk.com/
+status_page: https://status.perk.com/
+certifications:
+  - ISO 27001
+  - SOC 2
+  - Cyber Essentials
+  - GDPR
+notes: >-
+  Yokoy is now operated under the Perk (TravelPerk) brand; yokoy.io/security
+  301-redirects to www.perk.com/security. Perk states its ISMS is aligned with
+  ISO 27001, SOC 2 and Cyber Essentials, runs a dedicated GDPR data-protection
+  program, and publishes a trust center (trustcenter.perk.com) and a public
+  status page (status.perk.com). AWS Ireland is the hosting provider.
+evidence:
+  - source: https://www.perk.com/security/
+    keywords: [iso 27001, soc 2, cyber essentials, gdpr, trust center]
+  - source: https://trustcenter.perk.com/
+    keywords: [trust center]

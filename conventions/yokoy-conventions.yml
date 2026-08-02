@@ -1,0 +1,46 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/yokoy-openapi-original.json
+docs: https://developer.yokoy.ai/docs/overview/getting-started
+authentication:
+  style: oauth2-client-credentials
+  token_url: https://accounts.yokoy.ai/oauth2/token
+  test_token_url: https://accounts.test.yokoy.ai/oauth2/token
+  bearer: true
+  scopes: none
+  see: authentication/yokoy-authentication.yml
+base_url:
+  production: https://api.yokoy.ai/v1/organizations/{organizationId}
+  test: https://api.test.yokoy.ai/v1/organizations/{organizationId}
+  scoping: >-
+    All requests are scoped to a Yokoy organization ID in the path; most
+    resources are further nested under a legal entity (company) ID.
+idempotency:
+  supported: false
+  notes: No Idempotency-Key header or idempotency contract documented in the OpenAPI.
+pagination:
+  style: cursor
+  params:
+    cursor: cursor       # opaque cursor for the next page
+    count: count         # optional page size
+  response_field: nextCursor
+  notes: Cursor-based pagination via `cursor` + `count` query parameters; the response carries the next cursor.
+filtering:
+  param: filter
+  notes: List endpoints accept a `filter` query string to restrict returned data.
+request_tracing:
+  header: X-Yk-Correlation-Id
+  notes: Optional correlation ID header that can be supplied to trace a request through the flow.
+headers:
+  auth_method: X-Yk-Auth-Method   # required, enum [yokoy]
+versioning:
+  scheme: uri-path
+  current: v1
+  see: lifecycle/yokoy-lifecycle.yml
+error_envelope:
+  shape: "{ code: integer, message: string }"
+  validation_shape: "{ field: string, message: string }"
+  see: errors/yokoy-error-codes.yml
+rate_limiting:
+  documented_headers: none
+  signal: HTTP 429 TooManyRequests

@@ -1,0 +1,29 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Yokoy API
+  version: 1.0.0
+extends: openapi/yokoy-openapi-original.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: yokoy
+      x-apievangelist-auth: oauth2-client-credentials
+      x-apievangelist-pagination: cursor
+      x-apievangelist-environments:
+        production: https://api.yokoy.ai/v1/organizations/{organizationId}
+        test: https://api.test.yokoy.ai/v1/organizations/{organizationId}
+      x-apievangelist-artifacts:
+        authentication: authentication/yokoy-authentication.yml
+        conventions: conventions/yokoy-conventions.yml
+        errors: errors/yokoy-error-codes.yml
+        lifecycle: lifecycle/yokoy-lifecycle.yml
+        data-model: data-model/yokoy-data-model.yml
+  - target: $.info
+    update:
+      x-apievangelist-domain: spend-management
+      x-apievangelist-tags:
+        - Expense Management
+        - Invoice Management
+        - Spend Management
+        - Finance Automation
+        - Corporate Cards

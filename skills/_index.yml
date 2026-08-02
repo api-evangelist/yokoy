@@ -1,0 +1,15 @@
+generated: '2026-07-21'
+method: generated
+skills:
+  - file: yokoy-export-expenses.md
+    name: Export approved expenses to a finance system
+    api: openapi/yokoy-openapi-original.json
+    operations: [listExpenses, getExpense, triggerExpenseExport, getExportStatus, getExportArefacts]
+  - file: yokoy-ingest-invoices.md
+    name: Ingest and export supplier invoices
+    api: openapi/yokoy-openapi-original.json
+    operations: [createInvoice, uploadAiInvoice, listInvoices, getInvoice, triggerInvoiceExport]
+  - file: yokoy-sync-master-data.md
+    name: Sync users and cost-center master data
+    api: openapi/yokoy-openapi-original.json
+    operations: [listUsers, createUser, listCostObjects, createCostObject]

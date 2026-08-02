@@ -1,0 +1,62 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/yokoy-openapi-original.json
+schemes:
+- name: OAuth2
+  source: openapi/yokoy-openapi-original.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+scopes: []
