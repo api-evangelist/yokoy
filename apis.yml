@@ -795,6 +795,8 @@ apis:
   - type: Conformance
     url: conformance/yokoy-conformance.yml
 common:
+- type: Overlay
+  url: overlays/yokoy-openapi-overlay.yaml
 - type: DeveloperPortal
   url: https://developer.yokoy.ai/
 - type: Documentation
