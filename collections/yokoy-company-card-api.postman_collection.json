@@ -1,0 +1,3924 @@
+{
+  "item": [
+    {
+      "id": "2d958a46-9f04-4c81-8b12-856834649dec",
+      "name": "Company card",
+      "description": {
+        "content": "Company card entity in Yokoy. Company cards can be Yokoy Pay cards or external cards.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f89e4099-1b23-4fcb-9d42-862d0dddf8d5",
+          "name": "List all company cards",
+          "request": {
+            "name": "List all company cards",
+            "description": {
+              "content": "Retrieves all company cards for the legal entity specified by its Yokoy unique ID in the path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "company-cards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0da849f8-c076-4c74-bf12-440220df1bfa",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"companyCards\": [\n    {\n      \"name\": \"Card for Alex Perez.\",\n      \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"statusActive\": true,\n      \"accountReference\": \"string\",\n      \"number\": \"string\",\n      \"currency\": \"CHF\",\n      \"cardReference\": \"card01\",\n      \"description\": \"Company card for IT department.\",\n      \"id\": \"Y6c2p3G0x\"\n    },\n    {\n      \"name\": \"Card for Alex Perez.\",\n      \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"statusActive\": true,\n      \"accountReference\": \"string\",\n      \"number\": \"string\",\n      \"currency\": \"CHF\",\n      \"cardReference\": \"card01\",\n      \"description\": \"Company card for IT department.\",\n      \"id\": \"Y6c2p3G0x\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b8c5ac41-3de0-4955-8cec-f35d3a0ee0dc",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid filter string: foo e bar\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3ca65ce-6022-4c2d-97d6-17de33b7ad61",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7574068-e2fc-462d-82be-f44f548b8ff8",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66dc68c3-518e-4000-9799-118e8d189022",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f24126e4-687b-438b-86ad-12b06b8a86be",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d46c979-7703-4350-8f8a-7a4b02ad4e02",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb59fd4e-9e9f-48be-993c-a4d460d76e5e",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a0f3bfc-f45b-4f17-9f9a-d80d165e7623",
+          "name": "Create a company card",
+          "request": {
+            "name": "Create a company card",
+            "description": {
+              "content": "Creates a new company card for the legal entity specified by the unique ID in the path. It returns the created entity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "company-cards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"ownerId\": \"<string>\",\n  \"statusActive\": \"<boolean>\",\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"cardReference\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7d62b571-862a-4e0d-a135-a956a53890ee",
+              "name": "Created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\",\n  \"id\": \"Y6c2p3G0x\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd9419d9-084b-44f1-a9ad-3ec97161eb89",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"ValidationError: name is mandatory\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6bd6a496-e432-4fe7-ae5c-3dd1887800d3",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9af64c2e-e602-4c76-b839-2f400f8b203f",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d0a0853-fdcb-48b9-a664-cd8db6d0f3ef",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9d04ce9-a22a-443a-9cbb-c4b63ea80da6",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77bb9fb1-239e-40b7-83f8-200291c79d20",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe53bf27-029d-42a8-b477-6b48db8eb295",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e605456-00ce-47ad-ab05-dddd95bc7ae8",
+          "name": "Get a company card by ID",
+          "request": {
+            "name": "Get a company card by ID",
+            "description": {
+              "content": "Retrieves a company card for a specific legal entity as specified by their unique IDs in the path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "company-cards",
+                ":companyCardId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyCardId",
+                  "description": "(Required) Yokoy unique ID for the company card."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6bf217f7-0f0d-48e4-967e-4c1263a04488",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\",\n  \"id\": \"Y6c2p3G0x\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3a70664-60f5-422d-8199-ba5d38107a21",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c5877834-5696-44af-a8a3-cd17103e41e3",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2950cdfa-0a2c-4417-a45a-652d986314fa",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31f9e326-d6a5-4c86-b791-06315965be5a",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c974e68-9f8f-4c1c-a180-33dce44c6d9e",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c3f6a3e-2aaa-4157-879b-1d94342f07bf",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be84bdbc-c5ec-495f-b1bc-a165bd1ee70a",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4cc5d7de-4a69-45bb-b21a-02b37497b4ab",
+          "name": "Modify a company card",
+          "request": {
+            "name": "Modify a company card",
+            "description": {
+              "content": "Updates a company card by replacing some attributes. Only attributes specified in the request body are updated. The other attributes remain unchanged. The whole entity is returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "company-cards",
+                ":companyCardId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyCardId",
+                  "description": "(Required) Yokoy unique ID for the company card."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": 1370.5503536901597\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2174c324-ae57-4c6f-b57f-9a38eeda8f92",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\",\n  \"id\": \"Y6c2p3G0x\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c9a2860-f219-4485-889f-f0e46ef17e59",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"ValidationError: name is mandatory\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fed3d926-d4df-485d-83bc-4c92879c9bec",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10e0a2b9-838d-4d89-a65c-6735513bb0d7",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f5a6eb9-57c2-410a-b43e-5232600858ad",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c5ea93f-57eb-46dc-93dc-818a34c34930",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "997edcf4-0d3e-4aba-8627-fd372668292b",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58a360ae-24fa-4d60-a79c-1b2c6a1c5402",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "966dde7e-65d5-4edb-81c3-663d4dbd4480",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b739a5c-56cc-43b3-a8db-8334f51b6479",
+          "name": "Update a company card",
+          "request": {
+            "name": "Update a company card",
+            "description": {
+              "content": "Updates a specific company card for a legal entity by replacing all attributes. The legal entity and card are specified by their unique IDs in the path. Any card attributes that are not specified in the request body are updated with null or \"\". If any required attributes are updated as null, the card is marked as inactive. The whole entity is returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "company-cards",
+                ":companyCardId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "companyCardId",
+                  "description": "(Required) Yokoy unique ID for the company card."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"ownerId\": \"<string>\",\n  \"statusActive\": \"<boolean>\",\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"cardReference\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f07def3c-7605-45ae-8b9a-7a3f3f208a1a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\",\n  \"id\": \"Y6c2p3G0x\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96e304a6-b4ba-4fa5-9725-951956b64802",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"ValidationError: name is mandatory\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe9240d3-a70a-484b-9852-275b1fde4e13",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9863029b-ff5d-4ce0-9e1a-39738a97e3e3",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f0ba492-1a0f-4f6d-b1ad-c09a2e04f14c",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1e5d9c8-545f-40b0-976a-ede081ee6a6a",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d793ceac-166a-4c76-90f1-62030c2f0c4b",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e519b0c9-f2ec-4668-a06d-dbbcd7b8f99a",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3341e699-0d36-4cd6-8401-9f1da1e510ed",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "company-cards",
+                    ":companyCardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "companyCardId",
+                      "description": "(Required) Yokoy unique ID for the company card."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Card for Alex Perez.\",\n  \"ownerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"statusActive\": true,\n  \"accountReference\": \"<string>\",\n  \"number\": \"<string>\",\n  \"currency\": \"CHF\",\n  \"cardReference\": \"card01\",\n  \"description\": \"Company card for IT department.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Yokoy organization ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "AbcDeF1234",
+      "key": "organizationId"
+    },
+    {
+      "type": "string",
+      "value": "https://api.yokoy.ai/v1/organizations/{{organizationId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "38f0f538-e263-46d9-975e-1138f35b6563",
+    "name": "Yokoy Card account Company card API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public API of the Yokoy Application",
+      "type": "text/plain"
+    }
+  }
+}

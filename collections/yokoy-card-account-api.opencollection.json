@@ -1,0 +1,120 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yokoy Card account API",
+    "version": "1.41.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Card account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all card accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/card-accounts",
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "filter",
+                "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo",
+                "type": "query",
+                "description": "Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves all card accounts for the legal entity."
+        },
+        {
+          "info": {
+            "name": "Get card account by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/card-accounts/:cardAccountId",
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "cardAccountId",
+                "value": "ZwdGXln3gohDDdMeDUsW",
+                "type": "path",
+                "description": "Yokoy unique ID of the card account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves a card account identified by its Yokoy unique ID."
+        },
+        {
+          "info": {
+            "name": "Get card account balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/card-accounts/:cardAccountId/balance",
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "cardAccountId",
+                "value": "ZwdGXln3gohDDdMeDUsW",
+                "type": "path",
+                "description": "Yokoy unique ID of the card account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves the current balance of a card account identified by its Yokoy unique ID. Only available for Yokoy Platinum Visa."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

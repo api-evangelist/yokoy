@@ -1,0 +1,244 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yokoy Card account Tax rates API",
+    "version": "1.41.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tax rates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all tax rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/tax-rates",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "filter",
+                "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo",
+                "type": "query",
+                "description": "Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves all tax rates for the legal entity identified by its Yokoy unique ID in the path."
+        },
+        {
+          "info": {
+            "name": "Create a tax rate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/tax-rates",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a new tax rate and returns the created entity."
+        },
+        {
+          "info": {
+            "name": "Get a tax rate by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/tax-rates/:taxRateId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "taxRateId",
+                "value": "06x2u4nagAMEq3gGMoch",
+                "type": "path",
+                "description": "Yokoy unique ID of the tax rate."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves a tax rate by its Yokoy unique ID."
+        },
+        {
+          "info": {
+            "name": "Update a tax rate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/tax-rates/:taxRateId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "taxRateId",
+                "value": "06x2u4nagAMEq3gGMoch",
+                "type": "path",
+                "description": "Yokoy unique ID of the tax rate."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Updates a tax rate identified by replacing all attributes. The legal entity and the tax rate are specified by their unique IDs in the path. Any attributes that are not specified in the request body are updated with null or \"\" and is flagged as inactive. The whole entity is returned."
+        },
+        {
+          "info": {
+            "name": "Modify a tax rate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/tax-rates/:taxRateId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "taxRateId",
+                "value": "06x2u4nagAMEq3gGMoch",
+                "type": "path",
+                "description": "Yokoy unique ID of the tax rate."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Updates a tax rate by replacing some attributes. The legal entity and the tax rate are specified by their unique IDs in the path. The whole entity is returned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

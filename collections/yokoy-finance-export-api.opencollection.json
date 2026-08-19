@@ -1,0 +1,228 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yokoy Card account Finance export API",
+    "version": "1.41.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Finance export",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Trigger expense export",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/expense-export-facilities/:exportFacility/export-tasks",
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "exportFacility",
+                "value": "",
+                "type": "path",
+                "description": "Type of expense that determines the export facility to be used. There are three standard types:\n- `expense` for single expenses, per diems and mileage expenses,\n- `card` for card transactions,\n- `travel` for travel expenses from third-party solutions.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Triggers an expense export in Yokoy. It returns the ID of the export job."
+        },
+        {
+          "info": {
+            "name": "List all export jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/export-tasks",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "filter",
+                "value": "created ge 2025-01-23 and facilityId eq expense",
+                "type": "query",
+                "description": "Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters. The fields to filter differ from other endpoints. The filterable attributes for this endpoint are `created`, `fullDate`, `postingDate`, `type`, `facilityId` and `exportMethod`."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns information on all the export jobs that have been triggered for a legal entity. Use query filters to restrict the number of export jobs returned."
+        },
+        {
+          "info": {
+            "name": "Get export job status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/export-tasks/:exportTaskId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "exportTaskId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Export job ID that identifies the task when triggering the export."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns the status of the asynchronous export job."
+        },
+        {
+          "info": {
+            "name": "Get export artefacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/export-tasks/:exportTaskId/artefacts",
+            "headers": [
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "exportTaskId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the export job task."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves the export artefacts where the selected export facility supports this feature."
+        },
+        {
+          "info": {
+            "name": "Trigger invoice export",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/invoice-export-facilities/:exportFacility/export-tasks",
+            "headers": [
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "exportFacility",
+                "value": "dfP59n4vLVvO6KWj27pS",
+                "type": "path",
+                "description": "ID of the invoice export facility. The ID can be found in **Admin > Integrations** in the **Invoice export** tab by opening the wizard for the required export facility.\n\nThis export facility must be active in Yokoy.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Triggers an invoice export in Yokoy. It returns the ID of the export job."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

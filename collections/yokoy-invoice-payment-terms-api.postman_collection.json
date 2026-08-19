@@ -1,0 +1,3924 @@
+{
+  "item": [
+    {
+      "id": "a57bc87b-f8d1-4944-9603-b7a314085f72",
+      "name": "Invoice payment terms",
+      "description": {
+        "content": "Payment terms determine the expectation of payment agreed between the company and the supplier. By default, all payment terms can be used with any supplier of the legal entity. However, you can restrict a payment term to a specific supplier by setting `supplierSpecific` to `true` and associating the payment term ID in the Supplier master data.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fffe68cb-6544-4c94-b3d1-0caa7e4633de",
+          "name": "List all payment terms",
+          "request": {
+            "name": "List all payment terms",
+            "description": {
+              "content": "Returns all payment terms for the legal entity identified in the path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "invoice-payment-terms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "989b4df7-f0ba-4d9e-afed-64c9de6fd3d8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"invoice-payment-terms\": [\n    {\n      \"id\": \"06x2u4nagAMEq3gGoMch\",\n      \"name\": \"Supplier payment term - 90 days\",\n      \"discounts\": [\n        {\n          \"days\": 3,\n          \"discount\": 5\n        },\n        {\n          \"days\": 3,\n          \"discount\": 5\n        }\n      ],\n      \"externalId\": \"externalId1\",\n      \"netPaymentPeriod\": 90,\n      \"supplierSpecific\": false\n    },\n    {\n      \"id\": \"06x2u4nagAMEq3gGoMch\",\n      \"name\": \"Supplier payment term - 90 days\",\n      \"discounts\": [\n        {\n          \"days\": 3,\n          \"discount\": 5\n        },\n        {\n          \"days\": 3,\n          \"discount\": 5\n        }\n      ],\n      \"externalId\": \"externalId1\",\n      \"netPaymentPeriod\": 90,\n      \"supplierSpecific\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25bcb282-eba2-4419-8b2d-bdcdd7b0386d",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid filter string: foo e bar\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5fbd1127-3340-493e-8f97-68e2c55fb2f0",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6feac442-b86c-44a2-9887-e998632b2f3d",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb9c7769-d2fb-4fa9-9cd9-a2553d3f67d9",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2d53090-2b88-4fbc-9180-9bff6616bb64",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8f66fef-b710-4e0a-ad25-b6c14de41656",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df6b935a-a9cd-49a8-a1a9-e96f2e39f3f2",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ab3e985-411e-4b28-bd6d-77f691c4f81d",
+          "name": "Create a payment term",
+          "request": {
+            "name": "Create a payment term",
+            "description": {
+              "content": "Creates a new invoice payment term and returns the created entity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "invoice-payment-terms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"discounts\": [\n    {\n      \"days\": \"<number>\",\n      \"discount\": \"<number>\"\n    },\n    {\n      \"days\": \"<number>\",\n      \"discount\": \"<number>\"\n    }\n  ],\n  \"externalId\": \"<string>\",\n  \"netPaymentPeriod\": \"<number>\",\n  \"supplierSpecific\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b6c1970c-5de3-487e-b6a5-b940b042cbd0",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"id\": \"06x2u4nagAMEq3gGoMch\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57b20c61-6efc-46b9-bd4c-94b3af826ea2",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"errors\": [\n    {\n      \"field\": \"Yokoy Field\",\n      \"message\": \"Yokoy Field is mandatory\"\n    }\n  ],\n  \"message\": \"Validation Error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c319ac52-1201-4fa3-811e-ca0d3c62f69e",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c538803-a044-42ed-9055-149f6ce10fe7",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17b61d60-592c-42da-86f9-d81695bfd607",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "255ba067-8d37-4438-a43f-c348ed96f4d6",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "104f13a3-67eb-46e8-ab19-090e6193ff29",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70437449-76cf-4691-8076-56b4c81923a3",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "028699a8-7a60-4551-9fa7-3df6f350272c",
+          "name": "Get a payment term by ID",
+          "request": {
+            "name": "Get a payment term by ID",
+            "description": {
+              "content": "Retrieves an invoice payment term identified by its Yokoy unique ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "invoice-payment-terms",
+                ":paymentTermId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentTermId",
+                  "description": "(Required) Yokoy unique ID of the invoice payment term."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0dcee6d9-1cc8-4210-83e0-c9f29a68242f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"id\": \"06x2u4nagAMEq3gGoMch\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7fc08891-56ae-4f73-8f6c-54e5cc6e75b0",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16fb14c8-d1ac-4252-b0cf-f5752214b1b7",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb62b7b4-5047-49c8-904a-02bad20f3384",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf5e92a5-8b68-40a5-a61f-c7e86b237ee2",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed852cb5-8fa7-416a-a998-3d82ba422a68",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c5d1f73-29a7-4f8d-a01e-841027d66c2a",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0150941-4ef8-4287-814f-0831d4bff836",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a6595a1-78ed-4149-b6bd-6109f045f965",
+          "name": "Modify a payment term",
+          "request": {
+            "name": "Modify a payment term",
+            "description": {
+              "content": "Updates an invoice payment term by replacing some attributes. The payment term is specified by its Yokoy unique ID. The whole entity is returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "invoice-payment-terms",
+                ":paymentTermId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentTermId",
+                  "description": "(Required) Yokoy unique ID of the invoice payment term."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "79a05bca-a482-4eb7-a6b1-f34b853fad7e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"id\": \"06x2u4nagAMEq3gGoMch\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2734ec9-b272-4b2f-9caf-0f43270087b0",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"errors\": [\n    {\n      \"field\": \"Yokoy Field\",\n      \"message\": \"Yokoy Field is mandatory\"\n    }\n  ],\n  \"message\": \"Validation Error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a3fea3b-0d3a-4e95-ae3a-53307316bba8",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b90808f-6a38-4a53-a1b7-d4a2bb117f69",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d57c531-67bd-4110-b4db-2f22c6c61e1b",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6fb70ac0-9f82-467b-afaa-40f6b4bb2303",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b3356de-582f-4a19-9109-822688bfda1a",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ffee622b-9b7a-4936-a90e-bac0d29645f3",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "606916db-f28b-4d85-b226-43bdc013a822",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ddeace81-afd9-4fe0-8d2e-0670dccbafd6",
+          "name": "Update a payment term",
+          "request": {
+            "name": "Update a payment term",
+            "description": {
+              "content": "Updates an invoice payment term, identified by its Yokoy unique ID, by replacing all attributes. The whole entity is returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "invoice-payment-terms",
+                ":paymentTermId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentTermId",
+                  "description": "(Required) Yokoy unique ID of the invoice payment term."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"discounts\": [\n    {\n      \"days\": \"<number>\",\n      \"discount\": \"<number>\"\n    },\n    {\n      \"days\": \"<number>\",\n      \"discount\": \"<number>\"\n    }\n  ],\n  \"externalId\": \"<string>\",\n  \"netPaymentPeriod\": \"<number>\",\n  \"supplierSpecific\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1a9bcfdd-59f3-448a-8194-7de1d73f836a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"id\": \"06x2u4nagAMEq3gGoMch\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58582e9e-89c4-42e4-ba88-420828eada5a",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"errors\": [\n    {\n      \"field\": \"Yokoy Field\",\n      \"message\": \"Yokoy Field is mandatory\"\n    }\n  ],\n  \"message\": \"Validation Error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17defb82-f4b3-4fd4-af7c-420eee41fa55",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54c336fc-e00f-4d68-820d-27b0b803aca8",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4710aa8f-1707-43cc-b8c3-a96e56a24398",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b0942ccb-7233-49fa-bb9f-6fe28696b9b6",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42b3d338-5618-41f7-b748-692a0bcf451a",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3198d2b-172d-4ea5-a6ec-4379c6f872f0",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5511c48-3a16-43a2-927c-9001ddd2d7ba",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-payment-terms",
+                    ":paymentTermId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentTermId",
+                      "description": "(Required) Yokoy unique ID of the invoice payment term."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Supplier payment term - 90 days\",\n  \"discounts\": [\n    {\n      \"days\": 3,\n      \"discount\": 5\n    },\n    {\n      \"days\": 3,\n      \"discount\": 5\n    }\n  ],\n  \"externalId\": \"externalId1\",\n  \"netPaymentPeriod\": 90,\n  \"supplierSpecific\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Yokoy organization ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "AbcDeF1234",
+      "key": "organizationId"
+    },
+    {
+      "type": "string",
+      "value": "https://api.yokoy.ai/v1/organizations/{{organizationId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "64762179-002b-4287-8d1f-983fd9542a34",
+    "name": "Yokoy Card account Invoice payment terms API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public API of the Yokoy Application",
+      "type": "text/plain"
+    }
+  }
+}

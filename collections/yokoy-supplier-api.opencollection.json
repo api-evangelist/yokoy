@@ -1,0 +1,438 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yokoy Card account Supplier API",
+    "version": "1.41.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Supplier",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all suppliers (legal entity)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/suppliers",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "filter",
+                "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo",
+                "type": "query",
+                "description": "Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves all suppliers for a legal entity."
+        },
+        {
+          "info": {
+            "name": "Add a supplier (legal entity)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/suppliers",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Adds an organization supplier to a legal entity, specifying entity-specific information."
+        },
+        {
+          "info": {
+            "name": "Get a supplier by ID (legal entity)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/suppliers/:supplierId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "supplierId",
+                "value": "bbebb9a0-87ef-439c-9ac3-e320e47d85d5",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity supplier."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves a legal entity supplier identified by its Yokoy legal entity supplier ID."
+        },
+        {
+          "info": {
+            "name": "Update a supplier (legal entity)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/suppliers/:supplierId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "supplierId",
+                "value": "bbebb9a0-87ef-439c-9ac3-e320e47d85d5",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity supplier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Updates a legal entity supplier that is identified by its Yokoy unique ID, replacing all entity-specific attributes. The whole entity is returned. To change the name, address, or contact person for a legal entity supplier, you must update the organization level supplier. Changes to the legal entity supplier are made automatically from the organization supplier."
+        },
+        {
+          "info": {
+            "name": "Modify a supplier (legal entity)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/suppliers/:supplierId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "supplierId",
+                "value": "bbebb9a0-87ef-439c-9ac3-e320e47d85d5",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity supplier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Updates a legal entity supplier that is identified by its Yokoy legal entity supplier ID, replacing some entity specific attributes. The whole entity is returned. To change the name, address, or contact person for a legal entity supplier, you must update the organization level supplier. Changes to the legal entity supplier are made automatically from the organization supplier."
+        },
+        {
+          "info": {
+            "name": "List all suppliers (organization)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/suppliers",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "filter",
+                "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo",
+                "type": "query",
+                "description": "Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns all suppliers set up in the organization. Organization suppliers provide the basic details of the supplier, such as name, address, and contacts. To create, update or modify a legal entity supplier (for example, to include the name of the supplier, contact or banking information), you need to first call the organization suppliers endpoint.\nWith a subsequent call to the legal entity supplier endpoint, you can then update the default settings of the supplier at legal entity level.\n**NOTE**:"
+        },
+        {
+          "info": {
+            "name": "Create a supplier (organization)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/suppliers",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Companies that supply your company with goods, services, and/or items. The supplier contains general\ninformation of the supplier (ie. name, address, bank accounts, payment terms, etc.) and can be set up with\ndefault settings that are specific per legal entity. Suppliers need to be created first at an organization\nlevel and then added at a company (legal entity) level. Without creating a legal entity supplier, the\nsupplier does not appear in Yokoy (in **Invoice processor > Suppliers**). For more "
+        },
+        {
+          "info": {
+            "name": "Get an organization supplier by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/suppliers/:supplierId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "supplierId",
+                "value": "8ef7a04a-ce91-4b60-a624-e209f748f86a",
+                "type": "path",
+                "description": "Yokoy unique ID of the organization-level supplier."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves an organization-level supplier identified by its Yokoy unique ID."
+        },
+        {
+          "info": {
+            "name": "Update a supplier (organization)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/suppliers/:supplierId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "supplierId",
+                "value": "8ef7a04a-ce91-4b60-a624-e209f748f86a",
+                "type": "path",
+                "description": "Yokoy unique ID of the organization-level supplier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Updates an organization supplier by replacing all attributes. The organization supplier is identified by its Yokoy unique ID. The whole entity is returned.\n**NOTE**: When the `Enable InternalSupplierID` setting is active at organization level, the `internalSupplierId` attribute is mandatory to point the right supplier.\nIt must use this pattern: `externalId` of the organization supplier + '_' + Yokoy `legalEntityId`. For example, `S33998_aB9jQoE3HE`.\n"
+        },
+        {
+          "info": {
+            "name": "Modify a supplier (organization)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/suppliers/:supplierId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "supplierId",
+                "value": "8ef7a04a-ce91-4b60-a624-e209f748f86a",
+                "type": "path",
+                "description": "Yokoy unique ID of the organization-level supplier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Updates a organization supplier by replacing some attributes. The supplier is identified by its Yokoy unique ID. The whole entity is returned.\n**NOTE**: When the `Enable InternalSupplierID` setting is active at organization level, the `internalSupplierId` attribute is mandatory to point the right supplier.\nIt must use this format: `externalId` of the organization supplier + '_' + Yokoy `legalEntityId`. For example, `S33998_aB9jQoE3HE`\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

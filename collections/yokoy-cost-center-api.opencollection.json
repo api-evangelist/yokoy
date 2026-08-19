@@ -1,0 +1,300 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yokoy Card account Cost center API",
+    "version": "1.41.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cost center",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all cost objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/cost-centers",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "filter",
+                "value": "customInformation.customField eq foo and approvalLimit le 1000",
+                "type": "query",
+                "description": "Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters. All public fields are supported, except `created`, `lastModified`, `accessType` and `scopes`."
+              },
+              {
+                "name": "count",
+                "value": "30",
+                "type": "query",
+                "description": "Optional count for paginating. When provided, the results are paginated. Without `count`, no pagination is provided.\nThe maximum number of items that can be included in a paginated response is `100`.\nWhen paginated, the response includes the `itemsPerPage` attribute.\nIf the number of items available is greater than or equal to `count`, it also includes the `nextCursor` attribute, which can be used to fetch the subsequent page of items.\n"
+              },
+              {
+                "name": "cursor",
+                "value": "06x2u4nagAMEq3gGMoch",
+                "type": "query",
+                "description": "Optional cursor for paginating. When provided, the API fetches a subsequent page of items.\nThe subsequent page is identified by the value given in `nextCursor` in the previous response.\n`cursor` can only be used if the `count` attribute is passed as a query parameter.\n"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves all cost objects for the legal entity (company) specified by its Yokoy unique ID in the path."
+        },
+        {
+          "info": {
+            "name": "Create a cost object",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/cost-centers",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a new cost object for the legal entity specified by its Yokoy unique ID in the path and returns the created entity.\nThe request body should contain `code`, `name`, and `statusActive` attributes. If you don‘t include these attributes, the cost object is created with `Draft` status. You can use the `statusActive` attribute to activate a cost object afterwards.\nTo set an expiry date for the delegate, edit the cost object in Yokoy (**Admin > Cost objects**).\n"
+        },
+        {
+          "info": {
+            "name": "Get a cost object by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/cost-centers/:costCenterId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "costCenterId",
+                "value": "Mt34DVcI8R2sdLutWViu",
+                "type": "path",
+                "description": "Yokoy unique ID of the cost object."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns a cost object specified by its Yokoy unique ID in the path."
+        },
+        {
+          "info": {
+            "name": "Update a cost object",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/cost-centers/:costCenterId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "costCenterId",
+                "value": "Mt34DVcI8R2sdLutWViu",
+                "type": "path",
+                "description": "Yokoy unique ID of the cost object."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Updates a specific cost object by replacing all attributes. The legal entity and cost object are specified in the path by their unique IDs. The request body should contain `code`, `name`, and `statusActive` attributes. Otherwise, the cost object is flagged as inactive. Any other cost object attributes that are not specified in the request body are updated with null. The whole entity is returned."
+        },
+        {
+          "info": {
+            "name": "Modify a cost object",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/cost-centers/:costCenterId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "costCenterId",
+                "value": "Mt34DVcI8R2sdLutWViu",
+                "type": "path",
+                "description": "Yokoy unique ID of the cost object."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update a cost object by replacing some attributes. The cost object and legal entity are specified in the path by their unique IDs. Only attributes specified in the request body are updated. The whole entity is returned. Optionally, you can specify a list of users that should be explicitly granted access to this cost object via the `userAccessGrants` property."
+        },
+        {
+          "info": {
+            "name": "Remove a cost object by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/cost-centers/:costCenterId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "costCenterId",
+                "value": "Mt34DVcI8R2sdLutWViu",
+                "type": "path",
+                "description": "Yokoy unique ID of the cost object."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Deletes a cost cobject specified by its Yokoy unique ID in the path."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

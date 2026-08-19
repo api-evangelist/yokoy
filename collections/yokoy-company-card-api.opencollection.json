@@ -1,0 +1,244 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yokoy Card account Company card API",
+    "version": "1.41.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Company card",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all company cards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/company-cards",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "filter",
+                "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo",
+                "type": "query",
+                "description": "Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves all company cards for the legal entity specified by its Yokoy unique ID in the path."
+        },
+        {
+          "info": {
+            "name": "Create a company card",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/company-cards",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a new company card for the legal entity specified by the unique ID in the path. It returns the created entity."
+        },
+        {
+          "info": {
+            "name": "Get a company card by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/company-cards/:companyCardId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "companyCardId",
+                "value": "Y6c2p3G0x",
+                "type": "path",
+                "description": "Yokoy unique ID for the company card."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves a company card for a specific legal entity as specified by their unique IDs in the path."
+        },
+        {
+          "info": {
+            "name": "Update a company card",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/company-cards/:companyCardId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "companyCardId",
+                "value": "Y6c2p3G0x",
+                "type": "path",
+                "description": "Yokoy unique ID for the company card."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Updates a specific company card for a legal entity by replacing all attributes. The legal entity and card are specified by their unique IDs in the path. Any card attributes that are not specified in the request body are updated with null or \"\". If any required attributes are updated as null, the card is marked as inactive. The whole entity is returned."
+        },
+        {
+          "info": {
+            "name": "Modify a company card",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/legal-entities/:legalEntityId/company-cards/:companyCardId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "legalEntityId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the legal entity (company)."
+              },
+              {
+                "name": "companyCardId",
+                "value": "Y6c2p3G0x",
+                "type": "path",
+                "description": "Yokoy unique ID for the company card."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Updates a company card by replacing some attributes. Only attributes specified in the request body are updated. The other attributes remain unchanged. The whole entity is returned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

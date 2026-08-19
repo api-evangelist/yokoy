@@ -1,0 +1,4798 @@
+{
+  "item": [
+    {
+      "id": "8f28a1f3-64f4-4ecf-b030-e912afb0c161",
+      "name": "Cost center",
+      "description": {
+        "content": "Cost objects (also called cost centers) is a hierarchical construct to which costs that occur within a company can be assigned. Cost objects are created at legal entity level and can be used for expenses, trips, and invoices.\nApprovers and delegates should be specified using the Yokoy user ID. For any unrecognized IDs, Yokoy creates or updates the cost object attribute with the value `null`. For example, if you pass `Y6cp2G30M` as the `approverId` and no user exists for that ID, Yokoy updates the approver ID attribute as `null`.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d83bfb48-5dd4-4112-9b76-0a1081d5937c",
+          "name": "List all cost objects",
+          "request": {
+            "name": "List all cost objects",
+            "description": {
+              "content": "Retrieves all cost objects for the legal entity (company) specified by its Yokoy unique ID in the path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "cost-centers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters. All public fields are supported, except `created`, `lastModified`, `accessType` and `scopes`."
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<number>",
+                  "description": "Optional count for paginating. When provided, the results are paginated. Without `count`, no pagination is provided.\nThe maximum number of items that can be included in a paginated response is `100`.\nWhen paginated, the response includes the `itemsPerPage` attribute.\nIf the number of items available is greater than or equal to `count`, it also includes the `nextCursor` attribute, which can be used to fetch the subsequent page of items.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Optional cursor for paginating. When provided, the API fetches a subsequent page of items.\nThe subsequent page is identified by the value given in `nextCursor` in the previous response.\n`cursor` can only be used if the `count` attribute is passed as a query parameter.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bac2811a-ff95-49a6-a60d-abdc028a3bf7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "customInformation.customField eq foo and approvalLimit le 1000"
+                    },
+                    {
+                      "key": "count",
+                      "value": "30"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "06x2u4nagAMEq3gGMoch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"costCenters\": [\n    {\n      \"code\": \"C33998\",\n      \"name\": \"IT department\",\n      \"accessType\": \"specificUsers\",\n      \"approvalLimit\": 999999,\n      \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"autoApprovalLimit\": 100000,\n      \"customInformation\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"delegateExpiry\": \"Fri, 14 Aug 2020 21:59:59 GMT\",\n      \"delegateId\": \"h9cQajbG\",\n      \"description\": \"IT costs related to employees, hardware, and software.\",\n      \"id\": \"uhmkC9zMzn\",\n      \"parentId\": \"9rL5X8PJ\",\n      \"scopes\": [\n        \"travel\",\n        \"expenses\",\n        \"invoices\"\n      ],\n      \"statusActive\": true\n    },\n    {\n      \"code\": \"C33998\",\n      \"name\": \"IT department\",\n      \"accessType\": \"specificUsers\",\n      \"approvalLimit\": 999999,\n      \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"autoApprovalLimit\": 100000,\n      \"customInformation\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"delegateExpiry\": \"Fri, 14 Aug 2020 21:59:59 GMT\",\n      \"delegateId\": \"h9cQajbG\",\n      \"description\": \"IT costs related to employees, hardware, and software.\",\n      \"id\": \"uhmkC9zMzn\",\n      \"parentId\": \"9rL5X8PJ\",\n      \"scopes\": [\n        \"travel\",\n        \"expenses\",\n        \"invoices\"\n      ],\n      \"statusActive\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ffd2a2a-789f-4466-9557-aa2816ca776c",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "customInformation.customField eq foo and approvalLimit le 1000"
+                    },
+                    {
+                      "key": "count",
+                      "value": "30"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "06x2u4nagAMEq3gGMoch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid filter string: foo e bar\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e65fcf83-a971-4084-bd54-f7813cc0b8a7",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "customInformation.customField eq foo and approvalLimit le 1000"
+                    },
+                    {
+                      "key": "count",
+                      "value": "30"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "06x2u4nagAMEq3gGMoch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "224684c7-babd-42cd-b514-dcb06d8abd66",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "customInformation.customField eq foo and approvalLimit le 1000"
+                    },
+                    {
+                      "key": "count",
+                      "value": "30"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "06x2u4nagAMEq3gGMoch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df4626bc-91e0-4181-b02b-943141af3e92",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "customInformation.customField eq foo and approvalLimit le 1000"
+                    },
+                    {
+                      "key": "count",
+                      "value": "30"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "06x2u4nagAMEq3gGMoch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d7f272f-643f-4020-b4fa-f97b1dbdd2c4",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "customInformation.customField eq foo and approvalLimit le 1000"
+                    },
+                    {
+                      "key": "count",
+                      "value": "30"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "06x2u4nagAMEq3gGMoch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6209935f-00c3-4904-94f8-b8cb7f71e3bb",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "customInformation.customField eq foo and approvalLimit le 1000"
+                    },
+                    {
+                      "key": "count",
+                      "value": "30"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "06x2u4nagAMEq3gGMoch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5287f831-9368-4533-aa53-8d387153bfef",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "customInformation.customField eq foo and approvalLimit le 1000"
+                    },
+                    {
+                      "key": "count",
+                      "value": "30"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "06x2u4nagAMEq3gGMoch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b4c0b29c-a406-40a9-a9e5-9b7539fc01ef",
+          "name": "Create a cost object",
+          "request": {
+            "name": "Create a cost object",
+            "description": {
+              "content": "Creates a new cost object for the legal entity specified by its Yokoy unique ID in the path and returns the created entity.\nThe request body should contain `code`, `name`, and `statusActive` attributes. If you don‘t include these attributes, the cost object is created with `Draft` status. You can use the `statusActive` attribute to activate a cost object afterwards.\nTo set an expiry date for the delegate, edit the cost object in Yokoy (**Admin > Cost objects**).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "cost-centers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"<string>\",\n  \"name\": \"<string>\",\n  \"accessType\": \"<string>\",\n  \"approvalLimit\": \"<number>\",\n  \"approverId\": \"<string>\",\n  \"autoApprovalLimit\": \"<number>\",\n  \"customInformation\": {\n    \"key_0\": \"<string>\"\n  },\n  \"delegateId\": \"<string>\",\n  \"description\": \"<string>\",\n  \"parentId\": \"<string>\",\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"statusActive\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a8c8ff74-75e7-4836-8b05-f830e42705ec",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateExpiry\": \"Fri, 14 Aug 2020 21:59:59 GMT\",\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"id\": \"uhmkC9zMzn\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8209963-c70c-4a87-bea8-0fd102077312",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"ValidationError: name is mandatory\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe3a7914-88f2-4691-ab88-e1df48b445c4",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c0ae337-9b69-42a0-b41f-5b5ea3b61a18",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a18d8e2-99db-413b-bfcf-d7223d064dc8",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a476013-a1a0-48db-84a2-37aa4480e068",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ab8e023-331c-4a59-ba7c-573ae479a348",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e6c93b8e-8f30-4e9c-938f-3c5e8a3cc261",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9280520a-97f7-467e-88c3-f212a027a8ba",
+          "name": "Remove a cost object by ID",
+          "request": {
+            "name": "Remove a cost object by ID",
+            "description": {
+              "content": "Deletes a cost cobject specified by its Yokoy unique ID in the path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "cost-centers",
+                ":costCenterId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "costCenterId",
+                  "description": "(Required) Yokoy unique ID of the cost object."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9aa148fa-a00b-4fb8-98ca-10e904b811c0",
+              "name": "Cost object deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3e9fd6d0-4438-4d4e-a77c-54c5b4c74ba9",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1437e22b-c8cc-4b3f-b0e8-d38e0615569c",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "000a5990-fded-40e0-a662-9682b2c392b3",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1553ffcd-c859-4537-945c-d2d2986326f6",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "763bc52b-8cac-41e8-ac17-57237961e389",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9876af8-b631-4769-bb3c-b5c19bf492e9",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28be9e50-4e42-4192-adbb-28f1fddee688",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f910bc6d-3ff0-407d-9a16-d7c078a59b44",
+          "name": "Get a cost object by ID",
+          "request": {
+            "name": "Get a cost object by ID",
+            "description": {
+              "content": "Returns a cost object specified by its Yokoy unique ID in the path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "cost-centers",
+                ":costCenterId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "costCenterId",
+                  "description": "(Required) Yokoy unique ID of the cost object."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "486d036e-152c-447e-b796-8bfdea82576a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateExpiry\": \"Fri, 14 Aug 2020 21:59:59 GMT\",\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"id\": \"uhmkC9zMzn\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d69c6f9-0e98-408b-8de1-fc8bfea26be1",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28f900ee-3907-4a54-89ca-b19c521a19cf",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e7c2e9c-4eea-4447-a12b-f4fc986a7387",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77d5dbb9-9cf0-4c2a-993a-b68cd6173be9",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f378a3f1-0b68-45db-90fb-e57d05f549ea",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50b6e84e-ed83-4ad2-8d1e-6401982b3be6",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d17f2caa-4451-4324-90d4-ba5b16b26995",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8564c0c3-06d9-4e4a-af4a-15f0b754f31b",
+          "name": "Modify a cost object",
+          "request": {
+            "name": "Modify a cost object",
+            "description": {
+              "content": "Update a cost object by replacing some attributes. The cost object and legal entity are specified in the path by their unique IDs. Only attributes specified in the request body are updated. The whole entity is returned. Optionally, you can specify a list of users that should be explicitly granted access to this cost object via the `userAccessGrants` property.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "cost-centers",
+                ":costCenterId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "costCenterId",
+                  "description": "(Required) Yokoy unique ID of the cost object."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userAccessGrants\": [\n    {\n      \"userId\": \"<string>\"\n    },\n    {\n      \"userId\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4b8b70c0-788c-4c11-baff-1f2f5749a8a4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userAccessGrants\": [\n    {\n      \"userId\": \"9L7rovNzNhTCsJSTkbfq\"\n    },\n    {\n      \"userId\": \"0bbdZUtXFDD74cQVq5Mb\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateExpiry\": \"Fri, 14 Aug 2020 21:59:59 GMT\",\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"id\": \"uhmkC9zMzn\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a0f5687-0714-4b68-bf75-5a767b535df8",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userAccessGrants\": [\n    {\n      \"userId\": \"9L7rovNzNhTCsJSTkbfq\"\n    },\n    {\n      \"userId\": \"0bbdZUtXFDD74cQVq5Mb\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"ValidationError: name is mandatory\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f71eebca-c600-4686-a108-818122a37fa0",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userAccessGrants\": [\n    {\n      \"userId\": \"9L7rovNzNhTCsJSTkbfq\"\n    },\n    {\n      \"userId\": \"0bbdZUtXFDD74cQVq5Mb\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64d1d706-3472-496a-8e0c-bee2053f4f2b",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userAccessGrants\": [\n    {\n      \"userId\": \"9L7rovNzNhTCsJSTkbfq\"\n    },\n    {\n      \"userId\": \"0bbdZUtXFDD74cQVq5Mb\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e0d49b9-7332-492d-b06a-6501e6394d3b",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userAccessGrants\": [\n    {\n      \"userId\": \"9L7rovNzNhTCsJSTkbfq\"\n    },\n    {\n      \"userId\": \"0bbdZUtXFDD74cQVq5Mb\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90bfe5f3-8778-4df8-bb73-1ba29b958ad2",
+              "name": "Request conflict with the current state of the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userAccessGrants\": [\n    {\n      \"userId\": \"9L7rovNzNhTCsJSTkbfq\"\n    },\n    {\n      \"userId\": \"0bbdZUtXFDD74cQVq5Mb\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 409,\n  \"message\": \"Request conflict with the current state of the target resource.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f5dae17-4a86-4a38-abcb-bafb6a137699",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userAccessGrants\": [\n    {\n      \"userId\": \"9L7rovNzNhTCsJSTkbfq\"\n    },\n    {\n      \"userId\": \"0bbdZUtXFDD74cQVq5Mb\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cea61340-21b2-48d5-9ad4-4c1e8eeaf1e6",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userAccessGrants\": [\n    {\n      \"userId\": \"9L7rovNzNhTCsJSTkbfq\"\n    },\n    {\n      \"userId\": \"0bbdZUtXFDD74cQVq5Mb\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78fea4f0-74ed-456d-bcc6-9ab73668ae1e",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userAccessGrants\": [\n    {\n      \"userId\": \"9L7rovNzNhTCsJSTkbfq\"\n    },\n    {\n      \"userId\": \"0bbdZUtXFDD74cQVq5Mb\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f96883a-eb5e-4e9c-bc4c-e9e2a4512a89",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userAccessGrants\": [\n    {\n      \"userId\": \"9L7rovNzNhTCsJSTkbfq\"\n    },\n    {\n      \"userId\": \"0bbdZUtXFDD74cQVq5Mb\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9c1b9a4-6d7f-4afd-8ca9-58664f3cf808",
+          "name": "Update a cost object",
+          "request": {
+            "name": "Update a cost object",
+            "description": {
+              "content": "Updates a specific cost object by replacing all attributes. The legal entity and cost object are specified in the path by their unique IDs. The request body should contain `code`, `name`, and `statusActive` attributes. Otherwise, the cost object is flagged as inactive. Any other cost object attributes that are not specified in the request body are updated with null. The whole entity is returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "cost-centers",
+                ":costCenterId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "costCenterId",
+                  "description": "(Required) Yokoy unique ID of the cost object."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"<string>\",\n  \"name\": \"<string>\",\n  \"accessType\": \"<string>\",\n  \"approvalLimit\": \"<number>\",\n  \"approverId\": \"<string>\",\n  \"autoApprovalLimit\": \"<number>\",\n  \"customInformation\": {\n    \"key_0\": \"<string>\"\n  },\n  \"delegateId\": \"<string>\",\n  \"description\": \"<string>\",\n  \"parentId\": \"<string>\",\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"statusActive\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d2aa6c46-e509-4436-962e-4367e1b6484e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateExpiry\": \"Fri, 14 Aug 2020 21:59:59 GMT\",\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"id\": \"uhmkC9zMzn\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72e43baf-1aec-469e-96af-96451760632b",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"ValidationError: name is mandatory\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28bcda0c-4334-4281-9819-da5a36d5510f",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df62b0b9-e2bb-40d2-86e0-eae8360f8930",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83d137a4-c5c5-400a-ba76-03e4cc1fd56d",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf6a172a-db40-48a5-99ef-4613bf4a684a",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2118b77b-c514-4400-a9ed-3eab59333358",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0ddb445-b4b6-419c-98ab-1741f7f5e398",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "672d7c63-f6ed-4641-a33a-1a0321d48cdd",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "cost-centers",
+                    ":costCenterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "costCenterId",
+                      "description": "(Required) Yokoy unique ID of the cost object."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"C33998\",\n  \"name\": \"IT department\",\n  \"accessType\": \"specificUsers\",\n  \"approvalLimit\": 999999,\n  \"approverId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"autoApprovalLimit\": 100000,\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"delegateId\": \"h9cQajbG\",\n  \"description\": \"IT costs related to employees, hardware, and software.\",\n  \"parentId\": \"9rL5X8PJ\",\n  \"scopes\": [\n    \"travel\",\n    \"expenses\",\n    \"invoices\"\n  ],\n  \"statusActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Yokoy organization ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "AbcDeF1234",
+      "key": "organizationId"
+    },
+    {
+      "type": "string",
+      "value": "https://api.yokoy.ai/v1/organizations/{{organizationId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b191322e-5501-4ab1-acc0-bdb9b85d3f2e",
+    "name": "Yokoy Card account Cost center API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public API of the Yokoy Application",
+      "type": "text/plain"
+    }
+  }
+}

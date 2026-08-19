@@ -1,0 +1,4207 @@
+{
+  "item": [
+    {
+      "id": "8744e934-0787-4aea-aaec-eb2219abc1e5",
+      "name": "User",
+      "description": {
+        "content": "Users in Yokoy reflect the fundamental roles of submitter, approver, and finance user. Mandatory user information depends on the specific organization requirements and Yokoy features enabled.\nEmail addresses must be unique for the organization. You cannot create two users with the same email address. If the email address provided already exists in the organization, the API returns an error.\n\nBank information can be provided as part of POST, PUT, and PATCH requests, however, the response does not return this information for security reasons.\n\n**Note**: You can‘t use the User endpoints to determine the roles and permissions assigned to a user. You can only use the endpoints to create a new user.\nRoles and permissions are granted to a user in Yokoy (**Admin > Finance/HR roles**). You must have previously created the user before assigning roles and permissions.\n\n- **Booking strategy**: You can export expenses based on the user selected currency (instead of the company currency or the original expense currency). If you choose this option, you need to provide the user's currency.\n- **Approval strategy**: If you plan to approve expenses using a line manager approval strategy, then you need to enter a line manager for each user.\n- **Expense accounting**: If expenses are to be posted via the employee vendor account, the field `employeeId` should reflect employee vendor account number. If you want to track the employee number, you should set up a custom field to add this information.\n- **User policy**: You can assign rank-specific expense policies to certain users and user groups to determine applicable expense rules, per diem and mileage rates, as well as expense categories. If you choose this option, then you need to enter the policy ID.\n\nFor any unrecognized IDs, Yokoy creates or updates the user attribute with the value `null`. For example, if you pass `Y6cp2G30M` as the `lineManagerId` and no user exists for that ID, Yokoy updates the line manager ID attribute as `null`.\n\nTo guarantee spend data traceability, when you delete a user via the Yokoy API, the email is changed to an email address with the format: `deleted_user_` + user ID. For example, `deleted_user_lK6jo1GmSkXJzSyZSA2f@localhost.invalid`. The user is still displayed in **HR > User management** with a deleted tag and can’t be re-activated or edited. The user can still be retrieved via the Yokoy API using the Yokoy user ID. However, the user is not returned if you retrieve all users using a GET method. Deleted users can’t be re-activated in any way.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0da7d12e-1d62-4f51-b824-b86ead55de68",
+          "name": "List all users for the organization",
+          "request": {
+            "name": "List all users for the organization",
+            "description": {
+              "content": "Retrieves all users for the organization ID passed as a parameter in the path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters."
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<number>",
+                  "description": "Optional count for paginating. When provided, the results are paginated. Without `count`, no pagination is provided.\nThe maximum number of items that can be included in a paginated response is `100`.\nWhen paginated, the response includes the `itemsPerPage` attribute.\nIf the number of items available is greater than or equal to `count`, it also includes the `nextCursor` attribute, which can be used to fetch the subsequent page of items.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Optional cursor for paginating. When provided, the API fetches a subsequent page of items.\nThe subsequent page is identified by the value given in `nextCursor` in the previous response.\n`cursor` can only be used if the `count` attribute is passed as a query parameter.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c1b9ce41-cfeb-476b-9ea4-4963f1a321e2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    },
+                    {
+                      "key": "count",
+                      "value": "30"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "06x2u4nagAMEq3gGMoch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"users\": [\n    {\n      \"firstName\": \"Alex\",\n      \"lastName\": \"Perez\",\n      \"legalEntityId\": \"aB9jQoE3HE\",\n      \"email\": \"alex.perez@example.com\",\n      \"employeeId\": \"string\",\n      \"statusActive\": true,\n      \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n      \"created\": \"2022-11-15T17:08:45.478Z\",\n      \"currency\": \"CHF\",\n      \"customInformation\": {\n        \"externalId\": \"E111\"\n      },\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"invitationOnCreation\": false,\n      \"language\": \"en\",\n      \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n      \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n      \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n      \"lineManagerThreshold\": 1000,\n      \"notifyAssistant\": true,\n      \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n      \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\"\n    },\n    {\n      \"firstName\": \"Alex\",\n      \"lastName\": \"Perez\",\n      \"legalEntityId\": \"aB9jQoE3HE\",\n      \"email\": \"alex.perez@example.com\",\n      \"employeeId\": \"string\",\n      \"statusActive\": true,\n      \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n      \"created\": \"2022-11-15T17:08:45.478Z\",\n      \"currency\": \"CHF\",\n      \"customInformation\": {\n        \"externalId\": \"E111\"\n      },\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"invitationOnCreation\": false,\n      \"language\": \"en\",\n      \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n      \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n      \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n      \"lineManagerThreshold\": 1000,\n      \"notifyAssistant\": true,\n      \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n      \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65556a31-70cb-4898-9b74-1f79646f192c",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    },
+                    {
+                      "key": "count",
+                      "value": "30"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "06x2u4nagAMEq3gGMoch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid filter string: foo e bar\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57a492a5-dcf5-4be3-8be1-2633905077c5",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    },
+                    {
+                      "key": "count",
+                      "value": "30"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "06x2u4nagAMEq3gGMoch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3cc2e8c-8296-4d4e-9592-bfa22154e754",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    },
+                    {
+                      "key": "count",
+                      "value": "30"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "06x2u4nagAMEq3gGMoch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8055f2a-d7ba-4e3b-80a1-05fcffdacd55",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    },
+                    {
+                      "key": "count",
+                      "value": "30"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "06x2u4nagAMEq3gGMoch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2715e316-90c6-4711-aa55-0e57b9421e55",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    },
+                    {
+                      "key": "count",
+                      "value": "30"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "06x2u4nagAMEq3gGMoch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1178fdef-0c79-4250-b391-a196088923be",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    },
+                    {
+                      "key": "count",
+                      "value": "30"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "06x2u4nagAMEq3gGMoch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d2822f1-4513-4a55-8d13-a492d7150634",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    },
+                    {
+                      "key": "count",
+                      "value": "30"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "06x2u4nagAMEq3gGMoch"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57a3b288-3d61-47a1-a17e-c87d32fddcc1",
+          "name": "Create a user",
+          "request": {
+            "name": "Create a user",
+            "description": {
+              "content": "Creates a new user for the organization and returns the created entity (excluding bank information).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"legalEntityId\": \"<string>\",\n  \"email\": \"<email>\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": \"<boolean>\",\n  \"costCenterId\": \"<string>\",\n  \"created\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"customInformation\": {\n    \"key_0\": \"<string>\"\n  },\n  \"invitationOnCreation\": \"<boolean>\",\n  \"language\": \"<string>\",\n  \"lastModified\": \"<dateTime>\",\n  \"lineManagerDelegateId\": \"<string>\",\n  \"lineManagerId\": \"<string>\",\n  \"lineManagerThreshold\": \"<number>\",\n  \"notifyAssistant\": \"<boolean>\",\n  \"policyId\": \"<string>\",\n  \"submissionDelegateId\": \"<string>\",\n  \"BIC\": \"<string>\",\n  \"IBAN\": \"<string>\",\n  \"accountHolderName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "26b518ac-c32d-468c-8591-d16b0e728ad4",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\",\n  \"BIC\": \"BARCGB22XXX\",\n  \"IBAN\": \"CH9300762011623852957\",\n  \"accountHolderName\": \"Jo Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ebabc16-17ee-442e-9662-1a5cbfd78a63",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\",\n  \"BIC\": \"BARCGB22XXX\",\n  \"IBAN\": \"CH9300762011623852957\",\n  \"accountHolderName\": \"Jo Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"ValidationError: Email is mandatory\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6b74fed-3b9d-4c8b-a57b-527620edfada",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\",\n  \"BIC\": \"BARCGB22XXX\",\n  \"IBAN\": \"CH9300762011623852957\",\n  \"accountHolderName\": \"Jo Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f623a93-7ddd-4c91-b12a-d555b5eff776",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\",\n  \"BIC\": \"BARCGB22XXX\",\n  \"IBAN\": \"CH9300762011623852957\",\n  \"accountHolderName\": \"Jo Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2a5e5d8-d9cb-4f95-8dc7-6f37eef065aa",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\",\n  \"BIC\": \"BARCGB22XXX\",\n  \"IBAN\": \"CH9300762011623852957\",\n  \"accountHolderName\": \"Jo Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e63c362-7dac-4ff1-bfe0-a5626aa0caee",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\",\n  \"BIC\": \"BARCGB22XXX\",\n  \"IBAN\": \"CH9300762011623852957\",\n  \"accountHolderName\": \"Jo Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19f13bdf-a42f-4a5a-b06a-97238cfb8059",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\",\n  \"BIC\": \"BARCGB22XXX\",\n  \"IBAN\": \"CH9300762011623852957\",\n  \"accountHolderName\": \"Jo Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e8cc233-b71b-408c-805e-21cd7ad4c75f",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\",\n  \"BIC\": \"BARCGB22XXX\",\n  \"IBAN\": \"CH9300762011623852957\",\n  \"accountHolderName\": \"Jo Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5938f7dd-a08d-4a05-bad5-40f840e0acec",
+          "name": "Delete a user",
+          "request": {
+            "name": "Delete a user",
+            "description": {
+              "content": "Deletes a user identified by its Yokoy unique ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) Yokoy unique ID for the user."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ff6549bc-4ff8-4097-a314-16c066ba7021",
+              "name": "User deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "913cb0e6-31eb-4927-9481-91d91a3442cf",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3725e3ee-ddc3-46ea-9995-7c1dc9902751",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2870748e-279e-4584-8562-2429f96d69ab",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80c0adf9-134f-4c97-be21-3640a176dbed",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68f1f874-639a-4e07-8e16-6a49ac074984",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68610efd-53c6-4d36-b94b-af63f49947d6",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74058494-fbd7-4f11-a38e-12347b8e2523",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61238f31-00e2-4c48-a755-c02b3ce5f33e",
+          "name": "Get a user by ID",
+          "request": {
+            "name": "Get a user by ID",
+            "description": {
+              "content": "Retrieves a user identified by its Yokoy unique ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) Yokoy unique ID for the user."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f4633bce-cd71-4f59-ab05-42241ea9eead",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c7707d5-256c-4021-9ed9-dca0de27a24c",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6cd5c09a-2979-48f2-a3b1-72dcf533f1e0",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0cd397c-a808-462c-bbff-173a38d93d19",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62bb2a35-96d8-4dec-9d7e-0f5f23c0a7a9",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97ed7397-618b-43d5-8e38-00233d37c157",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1caa6ab-c7cf-4cba-b17a-82045e0d0527",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37612925-3178-4868-b649-5e7ce0439809",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9244652e-964f-4ceb-9d31-6b029b8bf628",
+          "name": "Modify a user",
+          "request": {
+            "name": "Modify a user",
+            "description": {
+              "content": "Updates a user identified by replacing some attributes. The user is identified by its Yokoy unique ID passed as a path parameter. The whole entity (excluding bank information) is returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) Yokoy unique ID for the user."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "76a61046-97c5-4579-8748-a7ad39a7f461",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49761774-2e60-4904-8a53-bcba0ae57529",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"ValidationError: email is mandatory\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "51383b57-e178-4868-aaad-53d23288df5a",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "15f06d77-77f7-41f9-ac99-e0336a271345",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4501486e-8d6b-4d2e-8166-f073c3a36802",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d380f0e3-b22b-431a-a924-06b51e98a2ab",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64b9ab4a-fc8f-4376-8e16-6e0d1f643b00",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4bec8566-a974-48c8-af89-b89dd3748254",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca330052-333a-416d-b286-5c64ebc8c2ac",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bdc2c8c3-f571-4148-b478-89a1c2ff1f1d",
+          "name": "Update a user",
+          "request": {
+            "name": "Update a user",
+            "description": {
+              "content": "Updates a user, replacing attributes provided in the payload. The whole entity (excluding bank information) is returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) Yokoy unique ID for the user."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"legalEntityId\": \"<string>\",\n  \"email\": \"<email>\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": \"<boolean>\",\n  \"costCenterId\": \"<string>\",\n  \"created\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"customInformation\": {\n    \"key_0\": \"<string>\"\n  },\n  \"invitationOnCreation\": \"<boolean>\",\n  \"language\": \"<string>\",\n  \"lastModified\": \"<dateTime>\",\n  \"lineManagerDelegateId\": \"<string>\",\n  \"lineManagerId\": \"<string>\",\n  \"lineManagerThreshold\": \"<number>\",\n  \"notifyAssistant\": \"<boolean>\",\n  \"policyId\": \"<string>\",\n  \"submissionDelegateId\": \"<string>\",\n  \"BIC\": \"<string>\",\n  \"IBAN\": \"<string>\",\n  \"accountHolderName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "94d387c6-f84b-407a-879e-2172c53b834f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\",\n  \"BIC\": \"BARCGB22XXX\",\n  \"IBAN\": \"CH9300762011623852957\",\n  \"accountHolderName\": \"Jo Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe7016c0-a10a-4ff9-ba95-fca8f9a75f72",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\",\n  \"BIC\": \"BARCGB22XXX\",\n  \"IBAN\": \"CH9300762011623852957\",\n  \"accountHolderName\": \"Jo Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"ValidationError: email is mandatory\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d505f3d2-752b-40d0-86e7-eb6caf745238",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\",\n  \"BIC\": \"BARCGB22XXX\",\n  \"IBAN\": \"CH9300762011623852957\",\n  \"accountHolderName\": \"Jo Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc4350c7-6761-4fc3-ad7b-78df7346b601",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\",\n  \"BIC\": \"BARCGB22XXX\",\n  \"IBAN\": \"CH9300762011623852957\",\n  \"accountHolderName\": \"Jo Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8111ec02-a1b5-48b5-b704-579d878dda50",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\",\n  \"BIC\": \"BARCGB22XXX\",\n  \"IBAN\": \"CH9300762011623852957\",\n  \"accountHolderName\": \"Jo Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c73fd3be-6dc9-4402-b559-700fa425992b",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\",\n  \"BIC\": \"BARCGB22XXX\",\n  \"IBAN\": \"CH9300762011623852957\",\n  \"accountHolderName\": \"Jo Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c64ef90-26d0-4318-a201-ef49da744911",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\",\n  \"BIC\": \"BARCGB22XXX\",\n  \"IBAN\": \"CH9300762011623852957\",\n  \"accountHolderName\": \"Jo Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3affab78-1a21-4524-b162-1f8bf5fcfaca",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\",\n  \"BIC\": \"BARCGB22XXX\",\n  \"IBAN\": \"CH9300762011623852957\",\n  \"accountHolderName\": \"Jo Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "501f4e7a-f3d7-415e-8b1e-79663d9e5bba",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Yokoy unique ID for the user."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Perez\",\n  \"legalEntityId\": \"aB9jQoE3HE\",\n  \"email\": \"alex.perez@example.com\",\n  \"employeeId\": \"<string>\",\n  \"statusActive\": true,\n  \"costCenterId\": \"Mt34DVcI8R2sdLutWViu\",\n  \"created\": \"2022-11-15T17:08:45.478Z\",\n  \"currency\": \"CHF\",\n  \"customInformation\": {\n    \"externalId\": \"E111\"\n  },\n  \"invitationOnCreation\": false,\n  \"language\": \"en\",\n  \"lastModified\": \"2022-11-15T17:08:45.478Z\",\n  \"lineManagerDelegateId\": \"MExmmEkr2KqE9onO0BDN\",\n  \"lineManagerId\": \"OYwMfJJcAdOtUvT292a7\",\n  \"lineManagerThreshold\": 1000,\n  \"notifyAssistant\": true,\n  \"policyId\": \"0QP9qtsCUJ1rkt5s6qtI\",\n  \"submissionDelegateId\": \"IfukBQl9lopuuwJRASnS\",\n  \"BIC\": \"BARCGB22XXX\",\n  \"IBAN\": \"CH9300762011623852957\",\n  \"accountHolderName\": \"Jo Smith\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Yokoy organization ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "AbcDeF1234",
+      "key": "organizationId"
+    },
+    {
+      "type": "string",
+      "value": "https://api.yokoy.ai/v1/organizations/{{organizationId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "08047954-b659-4f8d-b4dd-be7eab78c3d9",
+    "name": "Yokoy Card account User API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public API of the Yokoy Application",
+      "type": "text/plain"
+    }
+  }
+}

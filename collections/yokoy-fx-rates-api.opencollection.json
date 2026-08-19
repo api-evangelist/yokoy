@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yokoy Card account FX rates API",
+    "version": "1.41.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "FX rates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List FX rate sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/fx-rate-sources",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns all foreign exchange rate sources."
+        },
+        {
+          "info": {
+            "name": "Create FX rate source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/fx-rate-sources",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a new foreign exchange rate source and returns the created entity."
+        },
+        {
+          "info": {
+            "name": "Apply FX rate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/fx-rate-sources/:fxRateSourceId/fx-rates/:isoDate",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "fxRateSourceId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy ID of the foreign exchange rate source."
+              },
+              {
+                "name": "isoDate",
+                "value": "",
+                "type": "path",
+                "description": "Effective date of the exchange rate. Expressed in YYYY-MM-DD format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Sets the foreign exchange rates as per the specified source and date."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

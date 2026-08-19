@@ -5,320 +5,325 @@ source: openapi/yokoy-openapi-original.json
 server:
   name: yokoy
   transport: http
-  url: null   # no official hosted MCP server found
-notes: >-
-  Candidate tool list derived one-per-operation from the Yokoy OpenAPI.
-  No official hosted/remote Yokoy MCP server was found as of 2026-07-21.
+  url: null
+notes: Candidate tool list derived one-per-operation from the Yokoy OpenAPI. No official hosted/remote
+  Yokoy MCP server was found as of 2026-07-21.
 tools:
-  - name: listExpenses
-    description: "List all expenses"
-    source_operation: openapi/yokoy-openapi-original.json#listExpenses
-  - name: getExpense
-    description: "Get expense by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getExpense
-  - name: getExpenseAttachment
-    description: "Get expense attachment"
-    source_operation: openapi/yokoy-openapi-original.json#getExpenseAttachment
-  - name: getExpenseReceipt
-    description: "Get expense receipt"
-    source_operation: openapi/yokoy-openapi-original.json#getExpenseReceipt
-  - name: listFxRateSources
-    description: "List FX rate sources"
-    source_operation: openapi/yokoy-openapi-original.json#listFxRateSources
-  - name: createFxRateSource
-    description: "Create FX rate source"
-    source_operation: openapi/yokoy-openapi-original.json#createFxRateSource
-  - name: applyFxRate
-    description: "Apply FX rate"
-    source_operation: openapi/yokoy-openapi-original.json#applyFxRate
-  - name: listLegalEntities
-    description: "List all legal entities"
-    source_operation: openapi/yokoy-openapi-original.json#listLegalEntities
-  - name: getLegalEntity
-    description: "Get a legal entity (company) by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getLegalEntity
-  - name: listCardAccounts
-    description: "List all card accounts"
-    source_operation: openapi/yokoy-openapi-original.json#listCardAccounts
-  - name: getCardAccount
-    description: "Get card account by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getCardAccount
-  - name: getBalance
-    description: "Get card account balance"
-    source_operation: openapi/yokoy-openapi-original.json#getBalance
-  - name: listDailyStatements
-    description: "List daily statements"
-    source_operation: openapi/yokoy-openapi-original.json#listDailyStatements
-  - name: getDailyStatement
-    description: "Download daily statement"
-    source_operation: openapi/yokoy-openapi-original.json#getDailyStatement
-  - name: listExpenseCategories
-    description: "List all expense categories for a legal entity"
-    source_operation: openapi/yokoy-openapi-original.json#listExpenseCategories
-  - name: createExpenseCategory
-    description: "Create an expense category"
-    source_operation: openapi/yokoy-openapi-original.json#createExpenseCategory
-  - name: getExpenseCategory
-    description: "Get an expense category by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getExpenseCategory
-  - name: modifyExpenseCategory
-    description: "Modify an expense category"
-    source_operation: openapi/yokoy-openapi-original.json#modifyExpenseCategory
-  - name: updateExpenseCategory
-    description: "Update an expense category"
-    source_operation: openapi/yokoy-openapi-original.json#updateExpenseCategory
-  - name: listCompanyCards
-    description: "List all company cards"
-    source_operation: openapi/yokoy-openapi-original.json#listCompanyCards
-  - name: createCompanyCard
-    description: "Create a company card"
-    source_operation: openapi/yokoy-openapi-original.json#createCompanyCard
-  - name: getCompanyCard
-    description: "Get a company card by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getCompanyCard
-  - name: modifyCompanyCard
-    description: "Modify a company card"
-    source_operation: openapi/yokoy-openapi-original.json#modifyCompanyCard
-  - name: updateCompanyCard
-    description: "Update a company card"
-    source_operation: openapi/yokoy-openapi-original.json#updateCompanyCard
-  - name: listCostObjects
-    description: "List all cost objects"
-    source_operation: openapi/yokoy-openapi-original.json#listCostObjects
-  - name: createCostObject
-    description: "Create a cost object"
-    source_operation: openapi/yokoy-openapi-original.json#createCostObject
-  - name: deleteCostObject
-    description: "Remove a cost object by ID"
-    source_operation: openapi/yokoy-openapi-original.json#deleteCostObject
-  - name: getCostObject
-    description: "Get a cost object by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getCostObject
-  - name: modifyCostObject
-    description: "Modify a cost object"
-    source_operation: openapi/yokoy-openapi-original.json#modifyCostObject
-  - name: updateCostObject
-    description: "Update a cost object"
-    source_operation: openapi/yokoy-openapi-original.json#updateCostObject
-  - name: triggerExpenseExport
-    description: "Trigger expense export"
-    source_operation: openapi/yokoy-openapi-original.json#triggerExpenseExport
-  - name: listExportJobs
-    description: "List all export jobs"
-    source_operation: openapi/yokoy-openapi-original.json#listExportJobs
-  - name: getExportStatus
-    description: "Get export job status"
-    source_operation: openapi/yokoy-openapi-original.json#getExportStatus
-  - name: getExportArefacts
-    description: "Get export artefacts"
-    source_operation: openapi/yokoy-openapi-original.json#getExportArefacts
-  - name: listExternalInvoices
-    description: "List all external invoices"
-    source_operation: openapi/yokoy-openapi-original.json#listExternalInvoices
-  - name: createExternalInvoice
-    description: "Create an external invoice"
-    source_operation: openapi/yokoy-openapi-original.json#createExternalInvoice
-  - name: getExternalInvoice
-    description: "Get an external invoice by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getExternalInvoice
-  - name: modifyExternalInvoice
-    description: "Modify an external invoice"
-    source_operation: openapi/yokoy-openapi-original.json#modifyExternalInvoice
-  - name: updateExternalInvoice
-    description: "Update an external invoice"
-    source_operation: openapi/yokoy-openapi-original.json#updateExternalInvoice
-  - name: listInvoiceCategories
-    description: "List all invoice categories"
-    source_operation: openapi/yokoy-openapi-original.json#listInvoiceCategories
-  - name: createInvoiceCategory
-    description: "Create an invoice category"
-    source_operation: openapi/yokoy-openapi-original.json#createInvoiceCategory
-  - name: getInvoiceCategory
-    description: "Get an invoice category by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getInvoiceCategory
-  - name: modifyInvoiceCategory
-    description: "Modify an invoice category"
-    source_operation: openapi/yokoy-openapi-original.json#modifyInvoiceCategory
-  - name: updateInvoiceCategory
-    description: "Update an invoice category"
-    source_operation: openapi/yokoy-openapi-original.json#updateInvoiceCategory
-  - name: triggerInvoiceExport
-    description: "Trigger invoice export"
-    source_operation: openapi/yokoy-openapi-original.json#triggerInvoiceExport
-  - name: listGRs
-    description: "List all goods receipts"
-    source_operation: openapi/yokoy-openapi-original.json#listGRs
-  - name: createGR
-    description: "Create a goods receipt"
-    source_operation: openapi/yokoy-openapi-original.json#createGR
-  - name: getGR
-    description: "Get a goods receipt by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getGR
-  - name: modifyGR
-    description: "Modify a goods receipt"
-    source_operation: openapi/yokoy-openapi-original.json#modifyGR
-  - name: UpdateGR
-    description: "Update a goods receipt"
-    source_operation: openapi/yokoy-openapi-original.json#UpdateGR
-  - name: listPaymentTerms
-    description: "List all payment terms"
-    source_operation: openapi/yokoy-openapi-original.json#listPaymentTerms
-  - name: createPaymentTerm
-    description: "Create a payment term"
-    source_operation: openapi/yokoy-openapi-original.json#createPaymentTerm
-  - name: getPaymentTerm
-    description: "Get a payment term by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getPaymentTerm
-  - name: modifyPaymentTerm
-    description: "Modify a payment term"
-    source_operation: openapi/yokoy-openapi-original.json#modifyPaymentTerm
-  - name: listPOs
-    description: "List all purchase orders"
-    source_operation: openapi/yokoy-openapi-original.json#listPOs
-  - name: createPO
-    description: "Create a purchase order"
-    source_operation: openapi/yokoy-openapi-original.json#createPO
-  - name: getPO
-    description: "Get a purchase order by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getPO
-  - name: modifyPO
-    description: "Modify a purchase order"
-    source_operation: openapi/yokoy-openapi-original.json#modifyPO
-  - name: updatePO
-    description: "Update a purchase order"
-    source_operation: openapi/yokoy-openapi-original.json#updatePO
-  - name: listInvoices
-    description: "List all invoices"
-    source_operation: openapi/yokoy-openapi-original.json#listInvoices
-  - name: createInvoice
-    description: "Create an invoice"
-    source_operation: openapi/yokoy-openapi-original.json#createInvoice
-  - name: uploadEinvoice
-    description: "Upload a new e-invoice to Yokoy"
-    source_operation: openapi/yokoy-openapi-original.json#uploadEinvoice
-  - name: uploadAiInvoice
-    description: "Upload a new invoice to be processed by Yokoy AI"
-    source_operation: openapi/yokoy-openapi-original.json#uploadAiInvoice
-  - name: getInvoice
-    description: "Get an invoice"
-    source_operation: openapi/yokoy-openapi-original.json#getInvoice
-  - name: updateInvoice
-    description: "Update an invoice"
-    source_operation: openapi/yokoy-openapi-original.json#updateInvoice
-  - name: getInvoiceBase64
-    description: "Get the invoice PDF file (base64)"
-    source_operation: openapi/yokoy-openapi-original.json#getInvoiceBase64
-  - name: getInvoicePdf
-    description: "Get the invoice file in PDF format"
-    source_operation: openapi/yokoy-openapi-original.json#getInvoicePdf
-  - name: listPolicies
-    description: "List all policies for a legal entity"
-    source_operation: openapi/yokoy-openapi-original.json#listPolicies
-  - name: createPolicy
-    description: "Create a policy"
-    source_operation: openapi/yokoy-openapi-original.json#createPolicy
-  - name: getPolicy
-    description: "Get a policy by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getPolicy
-  - name: modifyPolicy
-    description: "Modify a policy"
-    source_operation: openapi/yokoy-openapi-original.json#modifyPolicy
-  - name: updatePolicy
-    description: "Update a policy"
-    source_operation: openapi/yokoy-openapi-original.json#updatePolicy
-  - name: listEntitySupplier
-    description: "List all suppliers (legal entity)"
-    source_operation: openapi/yokoy-openapi-original.json#listEntitySupplier
-  - name: createEntitySupplier
-    description: "Add a supplier (legal entity)"
-    source_operation: openapi/yokoy-openapi-original.json#createEntitySupplier
-  - name: getEntitySupplier
-    description: "Get a supplier by ID (legal entity)"
-    source_operation: openapi/yokoy-openapi-original.json#getEntitySupplier
-  - name: modifyEntitySupplier
-    description: "Modify a supplier (legal entity)"
-    source_operation: openapi/yokoy-openapi-original.json#modifyEntitySupplier
-  - name: updateEntitySupplier
-    description: "Update a supplier (legal entity)"
-    source_operation: openapi/yokoy-openapi-original.json#updateEntitySupplier
-  - name: listTags
-    description: "List all tags"
-    source_operation: openapi/yokoy-openapi-original.json#listTags
-  - name: createTag
-    description: "Create a tag"
-    source_operation: openapi/yokoy-openapi-original.json#createTag
-  - name: deleteTag
-    description: "Remove a tag"
-    source_operation: openapi/yokoy-openapi-original.json#deleteTag
-  - name: getTag
-    description: "Get tag by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getTag
-  - name: modifyTag
-    description: "Modify a tag"
-    source_operation: openapi/yokoy-openapi-original.json#modifyTag
-  - name: updateTag
-    description: "Update a tag"
-    source_operation: openapi/yokoy-openapi-original.json#updateTag
-  - name: listTaxRates
-    description: "List all tax rates"
-    source_operation: openapi/yokoy-openapi-original.json#listTaxRates
-  - name: createTaxRate
-    description: "Create a tax rate"
-    source_operation: openapi/yokoy-openapi-original.json#createTaxRate
-  - name: getTaxRate
-    description: "Get a tax rate by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getTaxRate
-  - name: modifyTaxRate
-    description: "Modify a tax rate"
-    source_operation: openapi/yokoy-openapi-original.json#modifyTaxRate
-  - name: updateTaxRate
-    description: "Update a tax rate"
-    source_operation: openapi/yokoy-openapi-original.json#updateTaxRate
-  - name: listOrgSuppliers
-    description: "List all suppliers (organization)"
-    source_operation: openapi/yokoy-openapi-original.json#listOrgSuppliers
-  - name: createOrgSupplier
-    description: "Create a supplier (organization)"
-    source_operation: openapi/yokoy-openapi-original.json#createOrgSupplier
-  - name: getOrgSupplier
-    description: "Get an organization supplier by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getOrgSupplier
-  - name: modifyOrgSupplier
-    description: "Modify a supplier (organization)"
-    source_operation: openapi/yokoy-openapi-original.json#modifyOrgSupplier
-  - name: updateOrgSupplier
-    description: "Update a supplier (organization)"
-    source_operation: openapi/yokoy-openapi-original.json#updateOrgSupplier
-  - name: listTransactions
-    description: "List all transactions"
-    source_operation: openapi/yokoy-openapi-original.json#listTransactions
-  - name: addTransaction
-    description: "Create a card transaction"
-    source_operation: openapi/yokoy-openapi-original.json#addTransaction
-  - name: getTransaction
-    description: "Get transaction by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getTransaction
-  - name: listTrips
-    description: "List all trips for the organization"
-    source_operation: openapi/yokoy-openapi-original.json#listTrips
-  - name: getTrip
-    description: "Get a trip by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getTrip
-  - name: listUsers
-    description: "List all users for the organization"
-    source_operation: openapi/yokoy-openapi-original.json#listUsers
-  - name: createUser
-    description: "Create a user"
-    source_operation: openapi/yokoy-openapi-original.json#createUser
-  - name: deleteUser
-    description: "Delete a user"
-    source_operation: openapi/yokoy-openapi-original.json#deleteUser
-  - name: getUser
-    description: "Get a user by ID"
-    source_operation: openapi/yokoy-openapi-original.json#getUser
-  - name: modifyUser
-    description: "Modify a user"
-    source_operation: openapi/yokoy-openapi-original.json#modifyUser
-  - name: updateUser
-    description: "Update a user"
-    source_operation: openapi/yokoy-openapi-original.json#updateUser
+- name: listExpenses
+  description: List all expenses
+  source_operation: openapi/yokoy-openapi-original.json#listExpenses
+- name: getExpense
+  description: Get expense by ID
+  source_operation: openapi/yokoy-openapi-original.json#getExpense
+- name: getExpenseAttachment
+  description: Get expense attachment
+  source_operation: openapi/yokoy-openapi-original.json#getExpenseAttachment
+- name: getExpenseReceipt
+  description: Get expense receipt
+  source_operation: openapi/yokoy-openapi-original.json#getExpenseReceipt
+- name: listFxRateSources
+  description: List FX rate sources
+  source_operation: openapi/yokoy-openapi-original.json#listFxRateSources
+- name: createFxRateSource
+  description: Create FX rate source
+  source_operation: openapi/yokoy-openapi-original.json#createFxRateSource
+- name: applyFxRate
+  description: Apply FX rate
+  source_operation: openapi/yokoy-openapi-original.json#applyFxRate
+- name: listLegalEntities
+  description: List all legal entities
+  source_operation: openapi/yokoy-openapi-original.json#listLegalEntities
+- name: getLegalEntity
+  description: Get a legal entity (company) by ID
+  source_operation: openapi/yokoy-openapi-original.json#getLegalEntity
+- name: listCardAccounts
+  description: List all card accounts
+  source_operation: openapi/yokoy-openapi-original.json#listCardAccounts
+- name: getCardAccount
+  description: Get card account by ID
+  source_operation: openapi/yokoy-openapi-original.json#getCardAccount
+- name: getBalance
+  description: Get card account balance
+  source_operation: openapi/yokoy-openapi-original.json#getBalance
+- name: listDailyStatements
+  description: List daily statements
+  source_operation: openapi/yokoy-openapi-original.json#listDailyStatements
+- name: getDailyStatement
+  description: Download daily statement
+  source_operation: openapi/yokoy-openapi-original.json#getDailyStatement
+- name: listExpenseCategories
+  description: List all expense categories for a legal entity
+  source_operation: openapi/yokoy-openapi-original.json#listExpenseCategories
+- name: createExpenseCategory
+  description: Create an expense category
+  source_operation: openapi/yokoy-openapi-original.json#createExpenseCategory
+- name: getExpenseCategory
+  description: Get an expense category by ID
+  source_operation: openapi/yokoy-openapi-original.json#getExpenseCategory
+- name: modifyExpenseCategory
+  description: Modify an expense category
+  source_operation: openapi/yokoy-openapi-original.json#modifyExpenseCategory
+- name: updateExpenseCategory
+  description: Update an expense category
+  source_operation: openapi/yokoy-openapi-original.json#updateExpenseCategory
+- name: listCompanyCards
+  description: List all company cards
+  source_operation: openapi/yokoy-openapi-original.json#listCompanyCards
+- name: createCompanyCard
+  description: Create a company card
+  source_operation: openapi/yokoy-openapi-original.json#createCompanyCard
+- name: getCompanyCard
+  description: Get a company card by ID
+  source_operation: openapi/yokoy-openapi-original.json#getCompanyCard
+- name: modifyCompanyCard
+  description: Modify a company card
+  source_operation: openapi/yokoy-openapi-original.json#modifyCompanyCard
+- name: updateCompanyCard
+  description: Update a company card
+  source_operation: openapi/yokoy-openapi-original.json#updateCompanyCard
+- name: listCostObjects
+  description: List all cost objects
+  source_operation: openapi/yokoy-openapi-original.json#listCostObjects
+- name: createCostObject
+  description: Create a cost object
+  source_operation: openapi/yokoy-openapi-original.json#createCostObject
+- name: deleteCostObject
+  description: Remove a cost object by ID
+  source_operation: openapi/yokoy-openapi-original.json#deleteCostObject
+- name: getCostObject
+  description: Get a cost object by ID
+  source_operation: openapi/yokoy-openapi-original.json#getCostObject
+- name: modifyCostObject
+  description: Modify a cost object
+  source_operation: openapi/yokoy-openapi-original.json#modifyCostObject
+- name: updateCostObject
+  description: Update a cost object
+  source_operation: openapi/yokoy-openapi-original.json#updateCostObject
+- name: triggerExpenseExport
+  description: Trigger expense export
+  source_operation: openapi/yokoy-openapi-original.json#triggerExpenseExport
+- name: listExportJobs
+  description: List all export jobs
+  source_operation: openapi/yokoy-openapi-original.json#listExportJobs
+- name: getExportStatus
+  description: Get export job status
+  source_operation: openapi/yokoy-openapi-original.json#getExportStatus
+- name: getExportArefacts
+  description: Get export artefacts
+  source_operation: openapi/yokoy-openapi-original.json#getExportArefacts
+- name: listExternalInvoices
+  description: List all external invoices
+  source_operation: openapi/yokoy-openapi-original.json#listExternalInvoices
+- name: createExternalInvoice
+  description: Create an external invoice
+  source_operation: openapi/yokoy-openapi-original.json#createExternalInvoice
+- name: getExternalInvoice
+  description: Get an external invoice by ID
+  source_operation: openapi/yokoy-openapi-original.json#getExternalInvoice
+- name: modifyExternalInvoice
+  description: Modify an external invoice
+  source_operation: openapi/yokoy-openapi-original.json#modifyExternalInvoice
+- name: updateExternalInvoice
+  description: Update an external invoice
+  source_operation: openapi/yokoy-openapi-original.json#updateExternalInvoice
+- name: listInvoiceCategories
+  description: List all invoice categories
+  source_operation: openapi/yokoy-openapi-original.json#listInvoiceCategories
+- name: createInvoiceCategory
+  description: Create an invoice category
+  source_operation: openapi/yokoy-openapi-original.json#createInvoiceCategory
+- name: getInvoiceCategory
+  description: Get an invoice category by ID
+  source_operation: openapi/yokoy-openapi-original.json#getInvoiceCategory
+- name: modifyInvoiceCategory
+  description: Modify an invoice category
+  source_operation: openapi/yokoy-openapi-original.json#modifyInvoiceCategory
+- name: updateInvoiceCategory
+  description: Update an invoice category
+  source_operation: openapi/yokoy-openapi-original.json#updateInvoiceCategory
+- name: triggerInvoiceExport
+  description: Trigger invoice export
+  source_operation: openapi/yokoy-openapi-original.json#triggerInvoiceExport
+- name: listGRs
+  description: List all goods receipts
+  source_operation: openapi/yokoy-openapi-original.json#listGRs
+- name: createGR
+  description: Create a goods receipt
+  source_operation: openapi/yokoy-openapi-original.json#createGR
+- name: getGR
+  description: Get a goods receipt by ID
+  source_operation: openapi/yokoy-openapi-original.json#getGR
+- name: modifyGR
+  description: Modify a goods receipt
+  source_operation: openapi/yokoy-openapi-original.json#modifyGR
+- name: UpdateGR
+  description: Update a goods receipt
+  source_operation: openapi/yokoy-openapi-original.json#UpdateGR
+- name: listPaymentTerms
+  description: List all payment terms
+  source_operation: openapi/yokoy-openapi-original.json#listPaymentTerms
+- name: createPaymentTerm
+  description: Create a payment term
+  source_operation: openapi/yokoy-openapi-original.json#createPaymentTerm
+- name: getPaymentTerm
+  description: Get a payment term by ID
+  source_operation: openapi/yokoy-openapi-original.json#getPaymentTerm
+- name: modifyPaymentTerm
+  description: Modify a payment term
+  source_operation: openapi/yokoy-openapi-original.json#modifyPaymentTerm
+- name: listPOs
+  description: List all purchase orders
+  source_operation: openapi/yokoy-openapi-original.json#listPOs
+- name: createPO
+  description: Create a purchase order
+  source_operation: openapi/yokoy-openapi-original.json#createPO
+- name: getPO
+  description: Get a purchase order by ID
+  source_operation: openapi/yokoy-openapi-original.json#getPO
+- name: modifyPO
+  description: Modify a purchase order
+  source_operation: openapi/yokoy-openapi-original.json#modifyPO
+- name: updatePO
+  description: Update a purchase order
+  source_operation: openapi/yokoy-openapi-original.json#updatePO
+- name: listInvoices
+  description: List all invoices
+  source_operation: openapi/yokoy-openapi-original.json#listInvoices
+- name: createInvoice
+  description: Create an invoice
+  source_operation: openapi/yokoy-openapi-original.json#createInvoice
+- name: uploadEinvoice
+  description: Upload a new e-invoice to Yokoy
+  source_operation: openapi/yokoy-openapi-original.json#uploadEinvoice
+- name: uploadAiInvoice
+  description: Upload a new invoice to be processed by Yokoy AI
+  source_operation: openapi/yokoy-openapi-original.json#uploadAiInvoice
+- name: getInvoice
+  description: Get an invoice
+  source_operation: openapi/yokoy-openapi-original.json#getInvoice
+- name: updateInvoice
+  description: Update an invoice
+  source_operation: openapi/yokoy-openapi-original.json#updateInvoice
+- name: getInvoiceBase64
+  description: Get the invoice PDF file (base64)
+  source_operation: openapi/yokoy-openapi-original.json#getInvoiceBase64
+- name: getInvoicePdf
+  description: Get the invoice file in PDF format
+  source_operation: openapi/yokoy-openapi-original.json#getInvoicePdf
+- name: listPolicies
+  description: List all policies for a legal entity
+  source_operation: openapi/yokoy-openapi-original.json#listPolicies
+- name: createPolicy
+  description: Create a policy
+  source_operation: openapi/yokoy-openapi-original.json#createPolicy
+- name: getPolicy
+  description: Get a policy by ID
+  source_operation: openapi/yokoy-openapi-original.json#getPolicy
+- name: modifyPolicy
+  description: Modify a policy
+  source_operation: openapi/yokoy-openapi-original.json#modifyPolicy
+- name: updatePolicy
+  description: Update a policy
+  source_operation: openapi/yokoy-openapi-original.json#updatePolicy
+- name: listEntitySupplier
+  description: List all suppliers (legal entity)
+  source_operation: openapi/yokoy-openapi-original.json#listEntitySupplier
+- name: createEntitySupplier
+  description: Add a supplier (legal entity)
+  source_operation: openapi/yokoy-openapi-original.json#createEntitySupplier
+- name: getEntitySupplier
+  description: Get a supplier by ID (legal entity)
+  source_operation: openapi/yokoy-openapi-original.json#getEntitySupplier
+- name: modifyEntitySupplier
+  description: Modify a supplier (legal entity)
+  source_operation: openapi/yokoy-openapi-original.json#modifyEntitySupplier
+- name: updateEntitySupplier
+  description: Update a supplier (legal entity)
+  source_operation: openapi/yokoy-openapi-original.json#updateEntitySupplier
+- name: listTags
+  description: List all tags
+  source_operation: openapi/yokoy-openapi-original.json#listTags
+- name: createTag
+  description: Create a tag
+  source_operation: openapi/yokoy-openapi-original.json#createTag
+- name: deleteTag
+  description: Remove a tag
+  source_operation: openapi/yokoy-openapi-original.json#deleteTag
+- name: getTag
+  description: Get tag by ID
+  source_operation: openapi/yokoy-openapi-original.json#getTag
+- name: modifyTag
+  description: Modify a tag
+  source_operation: openapi/yokoy-openapi-original.json#modifyTag
+- name: updateTag
+  description: Update a tag
+  source_operation: openapi/yokoy-openapi-original.json#updateTag
+- name: listTaxRates
+  description: List all tax rates
+  source_operation: openapi/yokoy-openapi-original.json#listTaxRates
+- name: createTaxRate
+  description: Create a tax rate
+  source_operation: openapi/yokoy-openapi-original.json#createTaxRate
+- name: getTaxRate
+  description: Get a tax rate by ID
+  source_operation: openapi/yokoy-openapi-original.json#getTaxRate
+- name: modifyTaxRate
+  description: Modify a tax rate
+  source_operation: openapi/yokoy-openapi-original.json#modifyTaxRate
+- name: updateTaxRate
+  description: Update a tax rate
+  source_operation: openapi/yokoy-openapi-original.json#updateTaxRate
+- name: listOrgSuppliers
+  description: List all suppliers (organization)
+  source_operation: openapi/yokoy-openapi-original.json#listOrgSuppliers
+- name: createOrgSupplier
+  description: Create a supplier (organization)
+  source_operation: openapi/yokoy-openapi-original.json#createOrgSupplier
+- name: getOrgSupplier
+  description: Get an organization supplier by ID
+  source_operation: openapi/yokoy-openapi-original.json#getOrgSupplier
+- name: modifyOrgSupplier
+  description: Modify a supplier (organization)
+  source_operation: openapi/yokoy-openapi-original.json#modifyOrgSupplier
+- name: updateOrgSupplier
+  description: Update a supplier (organization)
+  source_operation: openapi/yokoy-openapi-original.json#updateOrgSupplier
+- name: listTransactions
+  description: List all transactions
+  source_operation: openapi/yokoy-openapi-original.json#listTransactions
+- name: addTransaction
+  description: Create a card transaction
+  source_operation: openapi/yokoy-openapi-original.json#addTransaction
+- name: getTransaction
+  description: Get transaction by ID
+  source_operation: openapi/yokoy-openapi-original.json#getTransaction
+- name: listTrips
+  description: List all trips for the organization
+  source_operation: openapi/yokoy-openapi-original.json#listTrips
+- name: getTrip
+  description: Get a trip by ID
+  source_operation: openapi/yokoy-openapi-original.json#getTrip
+- name: listUsers
+  description: List all users for the organization
+  source_operation: openapi/yokoy-openapi-original.json#listUsers
+- name: createUser
+  description: Create a user
+  source_operation: openapi/yokoy-openapi-original.json#createUser
+- name: deleteUser
+  description: Delete a user
+  source_operation: openapi/yokoy-openapi-original.json#deleteUser
+- name: getUser
+  description: Get a user by ID
+  source_operation: openapi/yokoy-openapi-original.json#getUser
+- name: modifyUser
+  description: Modify a user
+  source_operation: openapi/yokoy-openapi-original.json#modifyUser
+- name: updateUser
+  description: Update a user
+  source_operation: openapi/yokoy-openapi-original.json#updateUser
+deployment:
+  mode: none
+  verified: derived
+  tools: 104
+  checked: '2026-08-12'
+  source: catalog MCP census

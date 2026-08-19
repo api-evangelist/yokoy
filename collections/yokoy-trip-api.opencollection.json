@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yokoy Card account Trip API",
+    "version": "1.41.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Trip",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all trips for the organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/trips",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "filter",
+                "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo",
+                "type": "query",
+                "description": "Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters."
+              },
+              {
+                "name": "count",
+                "value": "30",
+                "type": "query",
+                "description": "Optional count for paginating. When provided, the results are paginated. Without `count`, no pagination is provided.\nThe maximum number of items that can be included in a paginated response is `100`.\nWhen paginated, the response includes the `itemsPerPage` attribute.\nIf the number of items available is greater than or equal to `count`, it also includes the `nextCursor` attribute, which can be used to fetch the subsequent page of items.\n"
+              },
+              {
+                "name": "cursor",
+                "value": "06x2u4nagAMEq3gGMoch",
+                "type": "query",
+                "description": "Optional cursor for paginating. When provided, the API fetches a subsequent page of items.\nThe subsequent page is identified by the value given in `nextCursor` in the previous response.\n`cursor` can only be used if the `count` attribute is passed as a query parameter.\n"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns all trips for the organization identified by its Yokoy unique ID passed as a path parameter."
+        },
+        {
+          "info": {
+            "name": "Get a trip by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yokoy.ai/v1/organizations/{organizationId}/trips/:tripId",
+            "headers": [
+              {
+                "name": "X-Yk-Auth-Method",
+                "value": "yokoy"
+              },
+              {
+                "name": "X-Yk-Correlation-Id",
+                "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+              }
+            ],
+            "params": [
+              {
+                "name": "tripId",
+                "value": "aB9jQoE3HE",
+                "type": "path",
+                "description": "Yokoy unique ID of the trip."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://accounts[.test].yokoy.ai/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves a trip identified by its Yokoy unique ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

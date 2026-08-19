@@ -1,0 +1,3924 @@
+{
+  "item": [
+    {
+      "id": "aecee619-a8ef-4ba9-b9da-b5d4810a37dc",
+      "name": "External invoice",
+      "description": {
+        "content": "Invoices that are not present in Yokoy, but that are used for matching in purchase orders and goods receipts.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f3898ae3-eb74-4f80-b6c3-4a80aae275e3",
+          "name": "List all external invoices",
+          "request": {
+            "name": "List all external invoices",
+            "description": {
+              "content": "Retrieves all external invoices for the legal entity specified by its Yokoy unique ID in the path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "external-invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f95da8a2-a017-45f8-a631-f25391d0e778",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"external-invoices\": [\n    {\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"invoiceNumber\": \"EXT-001\",\n      \"externalId\": \"external-1234567890\",\n      \"items\": [\n        {\n          \"amount\": 35,\n          \"purchaseOrderId\": \"BEzLd_35sh\",\n          \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n          \"currency\": \"EUR\",\n          \"externalId\": \"external-1234567890\",\n          \"goodsReceiptId\": \"cKrD9ni5D8\",\n          \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n          \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n          \"itemNumber\": \"126\",\n          \"itemPrice\": 5,\n          \"quantity\": 7,\n          \"status\": \"active\",\n          \"unit\": \"kg\"\n        },\n        {\n          \"amount\": 35,\n          \"purchaseOrderId\": \"BEzLd_35sh\",\n          \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n          \"currency\": \"EUR\",\n          \"externalId\": \"external-1234567890\",\n          \"goodsReceiptId\": \"cKrD9ni5D8\",\n          \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n          \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n          \"itemNumber\": \"126\",\n          \"itemPrice\": 5,\n          \"quantity\": 7,\n          \"status\": \"active\",\n          \"unit\": \"kg\"\n        }\n      ],\n      \"description\": \"Services for Project A\",\n      \"postingDate\": \"2024-02-21\"\n    },\n    {\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"invoiceNumber\": \"EXT-001\",\n      \"externalId\": \"external-1234567890\",\n      \"items\": [\n        {\n          \"amount\": 35,\n          \"purchaseOrderId\": \"BEzLd_35sh\",\n          \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n          \"currency\": \"EUR\",\n          \"externalId\": \"external-1234567890\",\n          \"goodsReceiptId\": \"cKrD9ni5D8\",\n          \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n          \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n          \"itemNumber\": \"126\",\n          \"itemPrice\": 5,\n          \"quantity\": 7,\n          \"status\": \"active\",\n          \"unit\": \"kg\"\n        },\n        {\n          \"amount\": 35,\n          \"purchaseOrderId\": \"BEzLd_35sh\",\n          \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n          \"currency\": \"EUR\",\n          \"externalId\": \"external-1234567890\",\n          \"goodsReceiptId\": \"cKrD9ni5D8\",\n          \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n          \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n          \"itemNumber\": \"126\",\n          \"itemPrice\": 5,\n          \"quantity\": 7,\n          \"status\": \"active\",\n          \"unit\": \"kg\"\n        }\n      ],\n      \"description\": \"Services for Project A\",\n      \"postingDate\": \"2024-02-21\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b78d0e9-c70d-40a1-99be-ef0d4c438f64",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid filter string: foo e bar\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4927d93-77a6-4558-b083-b709bb59b94b",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a16c510-4e10-4a0b-b507-ebce206e2400",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5c1729a-be25-426a-bce6-598cae4a7236",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aebf83ae-3772-43d9-9acc-6d112d740b8c",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f747fb43-c916-4454-aad4-1ffacf13e9b7",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4913a581-8c70-4d03-91a6-9addc737fb6d",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "078ea69f-ecce-4682-a1d3-60574beabb91",
+          "name": "Create an external invoice",
+          "request": {
+            "name": "Create an external invoice",
+            "description": {
+              "content": "Creates a new external invoice for the legal entity specified by its Yokoy unique ID and returns the created entity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "external-invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"invoiceNumber\": \"<string>\",\n  \"externalId\": \"<string>\",\n  \"items\": [\n    {\n      \"amount\": \"<number>\",\n      \"purchaseOrderId\": \"<string>\",\n      \"purchaseOrderItemId\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"externalId\": \"<string>\",\n      \"goodsReceiptId\": \"<string>\",\n      \"goodsReceiptItemId\": \"<string>\",\n      \"id\": \"<string>\",\n      \"itemNumber\": \"<string>\",\n      \"itemPrice\": \"<number>\",\n      \"quantity\": \"<number>\",\n      \"status\": \"active\",\n      \"unit\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"purchaseOrderId\": \"<string>\",\n      \"purchaseOrderItemId\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"externalId\": \"<string>\",\n      \"goodsReceiptId\": \"<string>\",\n      \"goodsReceiptItemId\": \"<string>\",\n      \"id\": \"<string>\",\n      \"itemNumber\": \"<string>\",\n      \"itemPrice\": \"<number>\",\n      \"quantity\": \"<number>\",\n      \"status\": \"active\",\n      \"unit\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"postingDate\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9552d979-591c-4e44-80d7-9c28ed66e885",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"postingDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"postingDate\": \"2024-02-21\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b8c1677-805c-470d-84a9-503144601af1",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"postingDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"errors\": [\n    {\n      \"field\": \"Yokoy Field\",\n      \"message\": \"Yokoy Field is mandatory\"\n    }\n  ],\n  \"message\": \"Validation Error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "501c07ea-4c6a-4814-bd04-f28c8ebe8766",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"postingDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e1ff108-c6c6-490e-a846-aec8862f00a7",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"postingDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36d0ad40-fc04-4e66-a112-af94fe85e1f3",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"postingDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5615a44c-bb51-4597-81d2-953ffe52d92f",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"postingDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4bcde641-f5da-4bcb-8c88-416372f21bed",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"postingDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e76e06d-c610-4b05-bdef-6db25d03578f",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"postingDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1582c819-5daf-42be-9a5f-8125950ad089",
+          "name": "Get an external invoice by ID",
+          "request": {
+            "name": "Get an external invoice by ID",
+            "description": {
+              "content": "Retrieves an external invoice specified by its Yokoy unique ID in the path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "external-invoices",
+                ":externalInvoiceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "externalInvoiceId",
+                  "description": "(Required) Yokoy unique ID of the external invoice."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "10b62417-29ad-4ca4-883b-9a49224f0a5c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"postingDate\": \"2024-02-21\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81eab143-9620-428d-a738-772c6efd6326",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bfe1eaeb-73a5-44e1-8367-f4c31ed44789",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0d96cb70-4c1c-4807-9b71-00c24f7bfa1e",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f61173a-c212-405e-85ab-a9d24e67b5e1",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75593a5c-e866-466f-b1d4-f31d17bbe445",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c603066-c5ff-4729-8b88-1bd78e7843a4",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2442458-d434-4721-b11c-bf6182371221",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c98f590c-6638-45a5-a829-e8ba385005d6",
+          "name": "Modify an external invoice",
+          "request": {
+            "name": "Modify an external invoice",
+            "description": {
+              "content": "Updates a external invoice by replacing some attributes. The external invoice is specified in the path by its Yokoy unique ID. The whole entity is returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "external-invoices",
+                ":externalInvoiceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "externalInvoiceId",
+                  "description": "(Required) Yokoy unique ID of the external invoice."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": 7068,\n  \"key_1\": \"string\",\n  \"key_2\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8c382652-f06f-489e-bf49-eb9cc4787bfd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true,\n  \"key_1\": \"string\",\n  \"key_2\": \"string\",\n  \"key_3\": 4037\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"postingDate\": \"2024-02-21\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a806610e-175f-4136-ad74-fae235748c90",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true,\n  \"key_1\": \"string\",\n  \"key_2\": \"string\",\n  \"key_3\": 4037\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"errors\": [\n    {\n      \"field\": \"Yokoy Field\",\n      \"message\": \"Yokoy Field is mandatory\"\n    }\n  ],\n  \"message\": \"Validation Error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e900e29-9358-4c41-8543-6922474c9766",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true,\n  \"key_1\": \"string\",\n  \"key_2\": \"string\",\n  \"key_3\": 4037\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "817673e3-454f-486e-873f-4709ebca7f3e",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true,\n  \"key_1\": \"string\",\n  \"key_2\": \"string\",\n  \"key_3\": 4037\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f625d93-f13e-4920-bb1b-de94acd60c1a",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true,\n  \"key_1\": \"string\",\n  \"key_2\": \"string\",\n  \"key_3\": 4037\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "335f7bd9-64e3-4542-a140-83b8bcd21992",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true,\n  \"key_1\": \"string\",\n  \"key_2\": \"string\",\n  \"key_3\": 4037\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a5c0d2b0-ab72-4a24-9dd1-353ebce78cfb",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true,\n  \"key_1\": \"string\",\n  \"key_2\": \"string\",\n  \"key_3\": 4037\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4791c932-d8ea-4fb6-9aa4-5592a8356e8d",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true,\n  \"key_1\": \"string\",\n  \"key_2\": \"string\",\n  \"key_3\": 4037\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ba72dcc-241e-460d-b38a-970621e4be3a",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": true,\n  \"key_1\": \"string\",\n  \"key_2\": \"string\",\n  \"key_3\": 4037\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c6276c44-b069-4e7a-9025-2808f2df25dc",
+          "name": "Update an external invoice",
+          "request": {
+            "name": "Update an external invoice",
+            "description": {
+              "content": "Updates a specific external invoice by replacing all attributes. The external invoice is specified by its Yokoy unique ID. The whole entity is returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "external-invoices",
+                ":externalInvoiceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "externalInvoiceId",
+                  "description": "(Required) Yokoy unique ID of the external invoice."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"invoiceNumber\": \"<string>\",\n  \"externalId\": \"<string>\",\n  \"items\": [\n    {\n      \"amount\": \"<number>\",\n      \"purchaseOrderId\": \"<string>\",\n      \"purchaseOrderItemId\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"externalId\": \"<string>\",\n      \"goodsReceiptId\": \"<string>\",\n      \"goodsReceiptItemId\": \"<string>\",\n      \"id\": \"<string>\",\n      \"itemNumber\": \"<string>\",\n      \"itemPrice\": \"<number>\",\n      \"quantity\": \"<number>\",\n      \"status\": \"active\",\n      \"unit\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"purchaseOrderId\": \"<string>\",\n      \"purchaseOrderItemId\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"externalId\": \"<string>\",\n      \"goodsReceiptId\": \"<string>\",\n      \"goodsReceiptItemId\": \"<string>\",\n      \"id\": \"<string>\",\n      \"itemNumber\": \"<string>\",\n      \"itemPrice\": \"<number>\",\n      \"quantity\": \"<number>\",\n      \"status\": \"active\",\n      \"unit\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"postingDate\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5f9dff7b-ed52-465d-9b7c-a354700c9683",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"postingDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"postingDate\": \"2024-02-21\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad23c8cb-f52c-4bb1-bf59-37d74d9740aa",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"postingDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"errors\": [\n    {\n      \"field\": \"Yokoy Field\",\n      \"message\": \"Yokoy Field is mandatory\"\n    }\n  ],\n  \"message\": \"Validation Error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bff3af6f-6b1e-4517-8a82-c8e492574966",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"postingDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43eeb28f-6f7b-4709-9414-38245c741cde",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"postingDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e7f98e4-019f-4db4-8732-dfcfc642578d",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"postingDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b169c0d4-65fa-48ca-a61c-ee0050912417",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"postingDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56972fed-a973-4f35-bfd6-a030349916b4",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"postingDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f810473-dbc5-4bc6-b541-4f2d4af2be04",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"postingDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c04266a0-962e-4454-bc71-496b7e8394b3",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "external-invoices",
+                    ":externalInvoiceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "externalInvoiceId",
+                      "description": "(Required) Yokoy unique ID of the external invoice."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"EXT-001\",\n  \"externalId\": \"external-1234567890\",\n  \"items\": [\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"amount\": 35,\n      \"purchaseOrderId\": \"BEzLd_35sh\",\n      \"purchaseOrderItemId\": \"6GgTvlKSc0\",\n      \"currency\": \"EUR\",\n      \"externalId\": \"external-1234567890\",\n      \"goodsReceiptId\": \"cKrD9ni5D8\",\n      \"goodsReceiptItemId\": \"-QkwYQo0ij\",\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"126\",\n      \"itemPrice\": 5,\n      \"quantity\": 7,\n      \"status\": \"active\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"description\": \"Services for Project A\",\n  \"postingDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Yokoy organization ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "AbcDeF1234",
+      "key": "organizationId"
+    },
+    {
+      "type": "string",
+      "value": "https://api.yokoy.ai/v1/organizations/{{organizationId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "bb6ccfd3-6243-4da3-b034-e53cf20e8349",
+    "name": "Yokoy Card account External invoice API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public API of the Yokoy Application",
+      "type": "text/plain"
+    }
+  }
+}

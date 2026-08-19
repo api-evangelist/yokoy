@@ -1,0 +1,3924 @@
+{
+  "item": [
+    {
+      "id": "e08c9084-ba19-4b01-bd40-61d8daad3820",
+      "name": "Purchase order",
+      "description": {
+        "content": "Purchase orders are legal orders that companies send to their suppliers to buy items, services, products. Yokoy uses purchase orders to perform two-way and three-way matching (matching invoice line items with purchase order line items).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bbf57425-0177-418c-b989-ef90207c84b0",
+          "name": "List all purchase orders",
+          "request": {
+            "name": "List all purchase orders",
+            "description": {
+              "content": "Retrieves all purchase orders for the legal entity identified in the path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "invoice-purchase-orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9b792275-ba49-422c-b466-dda760125904",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"invoice-purchase-orders\": [\n    {\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"purchaseOrderNumber\": \"PO-1234567890\",\n      \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n      \"statusActive\": true,\n      \"currency\": \"CHF\",\n      \"items\": [\n        {\n          \"categoryId\": \"hm0qUnb8s\",\n          \"costObjectId\": \"Y6cp2G30M\",\n          \"customInformation\": {\n            \"externalId\": \"I123\"\n          },\n          \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n          \"eanupc\": \"1234 5678 90\",\n          \"externalId\": \"external-1234567890\",\n          \"grossAmount\": 226.06,\n          \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n          \"itemNumber\": \"1234567890\",\n          \"itemPrice\": 6,\n          \"materialId\": \"45678952\",\n          \"netAmount\": 186,\n          \"quantity\": 31,\n          \"requireGoodsReceipt\": true,\n          \"status\": \"active\",\n          \"statusActive\": true,\n          \"supplierMaterialId\": \"SCREW X1231\",\n          \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n          \"unit\": \"kg\"\n        },\n        {\n          \"categoryId\": \"hm0qUnb8s\",\n          \"costObjectId\": \"Y6cp2G30M\",\n          \"customInformation\": {\n            \"externalId\": \"I123\"\n          },\n          \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n          \"eanupc\": \"1234 5678 90\",\n          \"externalId\": \"external-1234567890\",\n          \"grossAmount\": 226.06,\n          \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n          \"itemNumber\": \"1234567890\",\n          \"itemPrice\": 6,\n          \"materialId\": \"45678952\",\n          \"netAmount\": 186,\n          \"quantity\": 31,\n          \"requireGoodsReceipt\": true,\n          \"status\": \"active\",\n          \"statusActive\": true,\n          \"supplierMaterialId\": \"SCREW X1231\",\n          \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n          \"unit\": \"kg\"\n        }\n      ],\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"PO - Metal rod supply for Company A.\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 466.82,\n      \"netAmount\": 421.96,\n      \"paymentTermsId\": \"44UX9MYYP\",\n      \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"quantity\": 123,\n      \"status\": \"active\",\n      \"validityEndDate\": \"2024-02-21\",\n      \"validityStartDate\": \"2024-02-21\"\n    },\n    {\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"purchaseOrderNumber\": \"PO-1234567890\",\n      \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n      \"statusActive\": true,\n      \"currency\": \"CHF\",\n      \"items\": [\n        {\n          \"categoryId\": \"hm0qUnb8s\",\n          \"costObjectId\": \"Y6cp2G30M\",\n          \"customInformation\": {\n            \"externalId\": \"I123\"\n          },\n          \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n          \"eanupc\": \"1234 5678 90\",\n          \"externalId\": \"external-1234567890\",\n          \"grossAmount\": 226.06,\n          \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n          \"itemNumber\": \"1234567890\",\n          \"itemPrice\": 6,\n          \"materialId\": \"45678952\",\n          \"netAmount\": 186,\n          \"quantity\": 31,\n          \"requireGoodsReceipt\": true,\n          \"status\": \"active\",\n          \"statusActive\": true,\n          \"supplierMaterialId\": \"SCREW X1231\",\n          \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n          \"unit\": \"kg\"\n        },\n        {\n          \"categoryId\": \"hm0qUnb8s\",\n          \"costObjectId\": \"Y6cp2G30M\",\n          \"customInformation\": {\n            \"externalId\": \"I123\"\n          },\n          \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n          \"eanupc\": \"1234 5678 90\",\n          \"externalId\": \"external-1234567890\",\n          \"grossAmount\": 226.06,\n          \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n          \"itemNumber\": \"1234567890\",\n          \"itemPrice\": 6,\n          \"materialId\": \"45678952\",\n          \"netAmount\": 186,\n          \"quantity\": 31,\n          \"requireGoodsReceipt\": true,\n          \"status\": \"active\",\n          \"statusActive\": true,\n          \"supplierMaterialId\": \"SCREW X1231\",\n          \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n          \"unit\": \"kg\"\n        }\n      ],\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"PO - Metal rod supply for Company A.\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 466.82,\n      \"netAmount\": 421.96,\n      \"paymentTermsId\": \"44UX9MYYP\",\n      \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"quantity\": 123,\n      \"status\": \"active\",\n      \"validityEndDate\": \"2024-02-21\",\n      \"validityStartDate\": \"2024-02-21\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "292d8f01-f59b-4bd8-b4ba-5b126b4b1dda",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid filter string: foo e bar\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23f9f5b6-030c-49e3-b8b5-597fc84c2287",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1ff56b2-c6d7-47c3-9bfa-4a0135a5e453",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81510e07-294e-4b97-91d6-8ccb658bf1b6",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb6fa08b-a10d-456b-b41e-81d546a9377a",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1eb8067c-f9e9-4f30-930e-fbaea69637b2",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7c0478a-b6a9-4421-8708-fafc503420a3",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7e3ef0d1-33d7-41f5-9d1f-dcd0dc9223c8",
+          "name": "Create a purchase order",
+          "request": {
+            "name": "Create a purchase order",
+            "description": {
+              "content": "Creates a new purchase order and returns the created entity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "invoice-purchase-orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"purchaseOrderNumber\": \"<string>\",\n  \"supplierId\": \"<string>\",\n  \"statusActive\": \"<boolean>\",\n  \"currency\": \"<string>\",\n  \"items\": [\n    {\n      \"categoryId\": \"<string>\",\n      \"costObjectId\": \"<string>\",\n      \"customInformation\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      },\n      \"description\": \"<string>\",\n      \"eanupc\": \"<string>\",\n      \"externalId\": \"<string>\",\n      \"grossAmount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"itemNumber\": \"<string>\",\n      \"itemPrice\": \"<number>\",\n      \"materialId\": \"<string>\",\n      \"netAmount\": \"<number>\",\n      \"quantity\": \"<number>\",\n      \"requireGoodsReceipt\": \"<boolean>\",\n      \"status\": \"active\",\n      \"statusActive\": \"<boolean>\",\n      \"supplierMaterialId\": \"<string>\",\n      \"taxRateId\": \"<string>\",\n      \"unit\": \"<string>\"\n    },\n    {\n      \"categoryId\": \"<string>\",\n      \"costObjectId\": \"<string>\",\n      \"customInformation\": {\n        \"key_0\": \"<string>\"\n      },\n      \"description\": \"<string>\",\n      \"eanupc\": \"<string>\",\n      \"externalId\": \"<string>\",\n      \"grossAmount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"itemNumber\": \"<string>\",\n      \"itemPrice\": \"<number>\",\n      \"materialId\": \"<string>\",\n      \"netAmount\": \"<number>\",\n      \"quantity\": \"<number>\",\n      \"requireGoodsReceipt\": \"<boolean>\",\n      \"status\": \"active\",\n      \"statusActive\": \"<boolean>\",\n      \"supplierMaterialId\": \"<string>\",\n      \"taxRateId\": \"<string>\",\n      \"unit\": \"<string>\"\n    }\n  ],\n  \"customInformation\": {\n    \"key_0\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"externalId\": \"<string>\",\n  \"paymentTermsId\": \"<string>\",\n  \"purchaseOrderOwnerId\": \"<string>\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"<date>\",\n  \"validityStartDate\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c168e0f2-13ef-42da-8143-71cad1e227e8",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"grossAmount\": 466.82,\n  \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"netAmount\": 421.96,\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"quantity\": 123,\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "308df4f5-9af6-41fe-a18d-a736d3eff879",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"errors\": [\n    {\n      \"field\": \"Yokoy Field\",\n      \"message\": \"Yokoy Field is mandatory\"\n    }\n  ],\n  \"message\": \"Validation Error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a068b8a-14ba-4bf2-b042-5918c6055f61",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16b9ef86-d42a-4283-ae12-52a8b6ae6db9",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8273c73-14d0-4ada-a129-1732b1cb31ea",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbd8e11d-be62-4b4d-b3df-fb32384b23e7",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6cd2f4fe-5dc0-4dd6-b8be-2f7f8e1e75ef",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e7662eb-fac9-4c97-8d16-0849086499cc",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4aa1c3e9-49d6-4553-b5e9-933ea114c977",
+          "name": "Get a purchase order by ID",
+          "request": {
+            "name": "Get a purchase order by ID",
+            "description": {
+              "content": "Retrieves a purchase order identified by its Yokoy unique ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "invoice-purchase-orders",
+                ":purchaseOrderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "purchaseOrderId",
+                  "description": "(Required) Yokoy unique ID of the purchase order."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d1a0b28e-8e3c-43b9-846f-471ad9b38f7c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"grossAmount\": 466.82,\n  \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"netAmount\": 421.96,\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"quantity\": 123,\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98f0a41d-f5fb-4c09-af7b-26c0dded99d9",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5b121e6-e030-4013-b843-b528eeab21a1",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de6ae945-9d46-4cd0-afe8-55b21ec4d5fc",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42967d98-ee25-4a0f-85ca-f24ac419dd76",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "372ef9e2-dc39-432d-bbdc-bb74396f93f2",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c49fc3c9-f8ac-4a22-b48a-6d51f100bf12",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c3d0d31e-ecd5-4e1f-95a8-bd2c9c601787",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cbc2e48d-9537-4662-a89f-ddcc4df65cbc",
+          "name": "Modify a purchase order",
+          "request": {
+            "name": "Modify a purchase order",
+            "description": {
+              "content": "Updates a invoice purchase order by replacing some attributes. The purchase order is specified by its Yokoy unique ID. The whole entity is returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "invoice-purchase-orders",
+                ":purchaseOrderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "purchaseOrderId",
+                  "description": "(Required) Yokoy unique ID of the purchase order."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": 9087,\n  \"key_1\": 2716,\n  \"key_2\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4420168a-b6a3-40b9-a95d-aab450096fa8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 4786.270053750293,\n  \"key_1\": 5988\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"grossAmount\": 466.82,\n  \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"netAmount\": 421.96,\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"quantity\": 123,\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "efe8cea1-1d0c-4bcb-b4b6-935aa3da8ff6",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 4786.270053750293,\n  \"key_1\": 5988\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"errors\": [\n    {\n      \"field\": \"Yokoy Field\",\n      \"message\": \"Yokoy Field is mandatory\"\n    }\n  ],\n  \"message\": \"Validation Error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9b74ae5-4fe2-4279-93f4-1b2e01807265",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 4786.270053750293,\n  \"key_1\": 5988\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e6362cf1-5dde-43cd-a9ed-7487aea7a8cf",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 4786.270053750293,\n  \"key_1\": 5988\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d79b079-dbbe-49a1-a914-8e71235b7ebb",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 4786.270053750293,\n  \"key_1\": 5988\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31cdbc98-5668-4209-8cad-a365dc354cb9",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 4786.270053750293,\n  \"key_1\": 5988\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd3ce2a2-acfd-4101-aea4-00252a400c85",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 4786.270053750293,\n  \"key_1\": 5988\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3012c9ff-26d4-439d-ace3-af674a6b22f9",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 4786.270053750293,\n  \"key_1\": 5988\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a66c9c2-695c-4879-a64e-4d87311498e3",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 4786.270053750293,\n  \"key_1\": 5988\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "487d3354-d221-4873-837f-deb2a8b7e5db",
+          "name": "Update a purchase order",
+          "request": {
+            "name": "Update a purchase order",
+            "description": {
+              "content": "Updates an invoice purchase order by replacing all attributes. The purchase order is specified by its Yokoy unique ID. The whole entity is returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legal-entities",
+                ":legalEntityId",
+                "invoice-purchase-orders",
+                ":purchaseOrderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legalEntityId",
+                  "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "purchaseOrderId",
+                  "description": "(Required) Yokoy unique ID of the purchase order."
+                },
+                {
+                  "description": "Yokoy organization ID",
+                  "type": "any",
+                  "value": "{{organizationId}}",
+                  "key": "organizationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "X-Yk-Auth-Method",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Correlation ID that can be used to trace a request in the flow.",
+                "key": "X-Yk-Correlation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://accounts[.test].yokoy.ai/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"purchaseOrderNumber\": \"<string>\",\n  \"supplierId\": \"<string>\",\n  \"statusActive\": \"<boolean>\",\n  \"currency\": \"<string>\",\n  \"items\": [\n    {\n      \"categoryId\": \"<string>\",\n      \"costObjectId\": \"<string>\",\n      \"customInformation\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\",\n        \"key_2\": \"<string>\"\n      },\n      \"description\": \"<string>\",\n      \"eanupc\": \"<string>\",\n      \"externalId\": \"<string>\",\n      \"grossAmount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"itemNumber\": \"<string>\",\n      \"itemPrice\": \"<number>\",\n      \"materialId\": \"<string>\",\n      \"netAmount\": \"<number>\",\n      \"quantity\": \"<number>\",\n      \"requireGoodsReceipt\": \"<boolean>\",\n      \"status\": \"active\",\n      \"statusActive\": \"<boolean>\",\n      \"supplierMaterialId\": \"<string>\",\n      \"taxRateId\": \"<string>\",\n      \"unit\": \"<string>\"\n    },\n    {\n      \"categoryId\": \"<string>\",\n      \"costObjectId\": \"<string>\",\n      \"customInformation\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      },\n      \"description\": \"<string>\",\n      \"eanupc\": \"<string>\",\n      \"externalId\": \"<string>\",\n      \"grossAmount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"itemNumber\": \"<string>\",\n      \"itemPrice\": \"<number>\",\n      \"materialId\": \"<string>\",\n      \"netAmount\": \"<number>\",\n      \"quantity\": \"<number>\",\n      \"requireGoodsReceipt\": \"<boolean>\",\n      \"status\": \"active\",\n      \"statusActive\": \"<boolean>\",\n      \"supplierMaterialId\": \"<string>\",\n      \"taxRateId\": \"<string>\",\n      \"unit\": \"<string>\"\n    }\n  ],\n  \"customInformation\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"externalId\": \"<string>\",\n  \"paymentTermsId\": \"<string>\",\n  \"purchaseOrderOwnerId\": \"<string>\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"<date>\",\n  \"validityStartDate\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d3723cb3-b534-4f99-b38e-e0df74a10ade",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"grossAmount\": 466.82,\n  \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"netAmount\": 421.96,\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"quantity\": 123,\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e11dbd9e-9839-4b43-b799-132ada7b0fde",
+              "name": "The request was not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"errors\": [\n    {\n      \"field\": \"Yokoy Field\",\n      \"message\": \"Yokoy Field is mandatory\"\n    }\n  ],\n  \"message\": \"Validation Error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "027e91f2-accb-4f8c-b5f1-fc49eed473b7",
+              "name": "The server was unable to establish the identity of the client.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Token expired\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c79b603-498b-41d9-8b3e-8f1628788d61",
+              "name": "The client is not authorized to perform the requested operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"User not authorized to access organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b0d645cb-27f3-412f-9860-0d6994eab357",
+              "name": "The specified resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aad888f4-84f0-4c32-b39f-75ca454f9116",
+              "name": "The request cannot be processed by the server due to too many concurrent requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 429,\n  \"message\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68f8438e-7cea-4f55-92f6-4f9195260bfd",
+              "name": "An internal error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8be38c11-497a-41ec-82b2-952feed03859",
+              "name": "An issue occurred in a downstream service. Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 502,\n  \"message\": \"Gateway error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e337019-b607-4611-868e-51c834602ba2",
+              "name": "The server is unavailable. Please try again later",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legal-entities",
+                    ":legalEntityId",
+                    "invoice-purchase-orders",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legalEntityId",
+                      "description": "(Required) Yokoy unique ID of the legal entity (company)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) Yokoy unique ID of the purchase order."
+                    },
+                    {
+                      "description": "Yokoy organization ID",
+                      "type": "any",
+                      "value": "{{organizationId}}",
+                      "key": "organizationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "X-Yk-Auth-Method",
+                    "value": "yokoy"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Correlation ID that can be used to trace a request in the flow.",
+                    "key": "X-Yk-Correlation-Id",
+                    "value": "4ea8985e-80a2-40a0-8a40-401a1a1374b3"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchaseOrderNumber\": \"PO-1234567890\",\n  \"supplierId\": \"bbebb9a0-87ef-439c-9ac3-e320e47d85d5\",\n  \"statusActive\": true,\n  \"currency\": \"CHF\",\n  \"items\": [\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    },\n    {\n      \"categoryId\": \"hm0qUnb8s\",\n      \"costObjectId\": \"Y6cp2G30M\",\n      \"customInformation\": {\n        \"externalId\": \"I123\"\n      },\n      \"description\": \"Headless screw (grub screw) Flat End Cl 45H\",\n      \"eanupc\": \"1234 5678 90\",\n      \"externalId\": \"external-1234567890\",\n      \"grossAmount\": 226.06,\n      \"id\": \"9L7rovNzNhTCsJSTkbfq\",\n      \"itemNumber\": \"1234567890\",\n      \"itemPrice\": 6,\n      \"materialId\": \"45678952\",\n      \"netAmount\": 186,\n      \"quantity\": 31,\n      \"requireGoodsReceipt\": true,\n      \"status\": \"active\",\n      \"statusActive\": true,\n      \"supplierMaterialId\": \"SCREW X1231\",\n      \"taxRateId\": \"06x2u4nagAMEq3gGMoch\",\n      \"unit\": \"kg\"\n    }\n  ],\n  \"customInformation\": {\n    \"externalId\": \"I123\"\n  },\n  \"description\": \"PO - Metal rod supply for Company A.\",\n  \"externalId\": \"external-1234567890\",\n  \"paymentTermsId\": \"44UX9MYYP\",\n  \"purchaseOrderOwnerId\": \"9L7rovNzNhTCsJSTkbfq\",\n  \"status\": \"active\",\n  \"validityEndDate\": \"2024-02-21\",\n  \"validityStartDate\": \"2024-02-21\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 503,\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Yokoy organization ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "AbcDeF1234",
+      "key": "organizationId"
+    },
+    {
+      "type": "string",
+      "value": "https://api.yokoy.ai/v1/organizations/{{organizationId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6a5baa88-8dd5-4dc4-8d74-ff6fbd5652f0",
+    "name": "Yokoy Card account Purchase order API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public API of the Yokoy Application",
+      "type": "text/plain"
+    }
+  }
+}
