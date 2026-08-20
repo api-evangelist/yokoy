@@ -43,6 +43,15 @@ tags:
 - Finance Automation
 - Corporate Cards
 - Fintech
+- Software-as-a-Service
+tags_raw:
+- Company
+- Spend Management
+- Expense Management
+- Invoice Management
+- Finance Automation
+- Corporate Cards
+- Fintech
 - SaaS
 maintainers:
 - FN: Kin Lane
@@ -117,6 +126,8 @@ apis:
   humanURL: https://developer.yokoy.ai/api-reference/
   baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
   tags:
+  - Cost Center
+  tags_raw:
   - Cost center
   properties:
   - type: OpenAPI
@@ -309,6 +320,8 @@ apis:
   humanURL: https://developer.yokoy.ai/api-reference/
   baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
   tags:
+  - FX Rates
+  tags_raw:
   - FX rates
   properties:
   - type: OpenAPI
@@ -338,6 +351,8 @@ apis:
   humanURL: https://developer.yokoy.ai/api-reference/
   baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
   tags:
+  - Goods Receipt
+  tags_raw:
   - Goods receipt
   properties:
   - type: OpenAPI
@@ -452,6 +467,8 @@ apis:
   humanURL: https://developer.yokoy.ai/api-reference/
   baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
   tags:
+  - Legal Entity
+  tags_raw:
   - Legal entity
   properties:
   - type: OpenAPI
@@ -524,6 +541,8 @@ apis:
   humanURL: https://developer.yokoy.ai/api-reference/
   baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
   tags:
+  - Purchase Order
+  tags_raw:
   - Purchase order
   properties:
   - type: OpenAPI
@@ -647,6 +666,8 @@ apis:
   humanURL: https://developer.yokoy.ai/api-reference/
   baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
   tags:
+  - Tax Rates
+  tags_raw:
   - Tax rates
   properties:
   - type: OpenAPI
