@@ -11,6 +11,17 @@ description: >-
   entity (company). The API spans expenses, invoices, trips, transactions,
   company cards and card accounts, cost centers, categories, tax rates,
   suppliers, users, policies, tags and finance-export tasks.
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
