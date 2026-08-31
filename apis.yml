@@ -137,7 +137,7 @@ apis:
   humanURL: https://developer.yokoy.ai/api-reference/
   baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
   tags:
-  - Cost Center
+  - Cost center
   tags_raw:
   - Cost center
   properties:
@@ -331,7 +331,7 @@ apis:
   humanURL: https://developer.yokoy.ai/api-reference/
   baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
   tags:
-  - FX Rates
+  - FX rates
   tags_raw:
   - FX rates
   properties:
@@ -362,7 +362,7 @@ apis:
   humanURL: https://developer.yokoy.ai/api-reference/
   baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
   tags:
-  - Goods Receipt
+  - Goods receipt
   tags_raw:
   - Goods receipt
   properties:
@@ -478,7 +478,7 @@ apis:
   humanURL: https://developer.yokoy.ai/api-reference/
   baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
   tags:
-  - Legal Entity
+  - Legal entity
   tags_raw:
   - Legal entity
   properties:
@@ -552,7 +552,7 @@ apis:
   humanURL: https://developer.yokoy.ai/api-reference/
   baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
   tags:
-  - Purchase Order
+  - Purchase order
   tags_raw:
   - Purchase order
   properties:
@@ -677,7 +677,7 @@ apis:
   humanURL: https://developer.yokoy.ai/api-reference/
   baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
   tags:
-  - Tax Rates
+  - Tax rates
   tags_raw:
   - Tax rates
   properties:
