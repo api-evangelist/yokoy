@@ -197,6 +197,8 @@ apis:
   humanURL: https://developer.yokoy.ai/api-reference/
   baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
   tags:
+  - Expenses
+  tags_raw:
   - Expense
   properties:
   - type: OpenAPI
@@ -394,6 +396,8 @@ apis:
   humanURL: https://developer.yokoy.ai/api-reference/
   baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
   tags:
+  - Invoices
+  tags_raw:
   - Invoice
   properties:
   - type: OpenAPI
