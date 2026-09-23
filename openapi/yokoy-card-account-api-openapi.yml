@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: Public API of the Yokoy Application
   title: Yokoy Card account API
@@ -17,9 +17,7 @@ servers:
       default: AbcDeF1234
       description: Yokoy organization ID
 tags:
-- description: 'Card account associated to one of Yokoy''s card programs. Only active card accounts are allowed to order new cards.
-
-    '
+- description: Card account associated to one of Yokoy's card programs. Only active card accounts are allowed to order new cards.
   name: Card account
 paths:
   /legal-entities/{legalEntityId}/card-accounts:
@@ -141,24 +139,90 @@ paths:
       tags:
       - Card account
 components:
-  parameters:
-    QueryFilter:
-      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
-      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
-      in: query
-      name: filter
-      schema:
-        type: string
-    LegalEntityIdInPath:
-      description: Yokoy unique ID of the legal entity (company).
-      example: aB9jQoE3HE
-      in: path
-      name: legalEntityId
-      required: true
-      schema:
-        pattern: '[\w-]+'
-        type: string
+  responses:
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    TooManyRequests:
+      content:
+        application/json:
+          example:
+            code: 429
+            message: Too many requests
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed by the server due to too many concurrent requests.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
   schemas:
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
     CardAccountBalance:
       properties:
         available:
@@ -194,8 +258,9 @@ components:
           description: Timestamp (date and time) when the card account was created. Expressed in ISO 8601 format. Coordinated Universal Time (UTC).
           example: '2024-02-29T11:08:45.478Z'
           format: date-time
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         currency:
           description: Card account currency. ISO 4217 three-letter code.
           example: GBP
@@ -209,8 +274,9 @@ components:
           description: Timestamp (date and time) when the card account was last modified. Expressed in ISO 8601 format. Coordinated Universal Time (UTC).
           example: '2024-03-15T17:08:45.478Z'
           format: date-time
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         provider:
           description: Associated card program
           enum:
@@ -221,8 +287,9 @@ components:
         sortCode:
           description: Exclusive of GBP accounts. It corresponds to account's sort code.
           example: 00-00-00
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         status:
           description: "Status of the card account.\n  - `0`: Account was requested.\n  - `1`: Account is open. Cards can be ordered.\n  - `2`: Account is closed. Cards can no longer be ordered.\n  - `3`: Account request was denied.\n"
           enum:
@@ -238,89 +305,23 @@ components:
       - accountNumber
       - provider
       type: object
-    Error:
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-      type: object
-  responses:
-    Forbidden:
-      content:
-        application/json:
-          example:
-            code: 403
-            message: User not authorized to access organization
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The client is not authorized to perform the requested operation.
-    Unauthorized:
-      content:
-        application/json:
-          example:
-            code: 401
-            message: Token expired
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server was unable to establish the identity of the client.
-    InvalidFilter:
-      content:
-        application/json:
-          example:
-            code: 400
-            message: 'Invalid filter string: foo e bar'
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request was not valid.
-    TooManyRequests:
-      content:
-        application/json:
-          example:
-            code: 429
-            message: Too many requests
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request cannot be processed by the server due to too many concurrent requests.
-    InternalError:
-      content:
-        application/json:
-          example:
-            code: 500
-            message: Server error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An internal error occurred.
-    NotFound:
-      content:
-        application/json:
-          example:
-            code: 404
-            message: Resource not found
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The specified resource was not found.
-    GatewayError:
-      content:
-        application/json:
-          example:
-            code: 502
-            message: Gateway error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An issue occurred in a downstream service. Please try again later.
-    ServiceUnavailable:
-      content:
-        application/json:
-          example:
-            code: 503
-            message: Service unavailable
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server is unavailable. Please try again later
+  parameters:
+    LegalEntityIdInPath:
+      description: Yokoy unique ID of the legal entity (company).
+      example: aB9jQoE3HE
+      in: path
+      name: legalEntityId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
+      in: query
+      name: filter
+      schema:
+        type: string
   securitySchemes:
     OAuth2:
       description: "Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.\n\n**1. Obtain an access token**\n\nPerform a `POST` request to\n`https://accounts.yokoy.ai/oauth2/token`. Pass the client ID\nand client secret as username and password in a basic auth\nheader. Set the content-type to\n`application/x-www-form-urlencoded` and specify\n`grant_type=client_credentials` in the body.\n\n> Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.\n\nExample request for the client ID `ClientId` and client\nsecret `ClientSecret`:\n```\nPOST https://accounts.yokoy.ai/oauth2/token\nAuthorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0\nContent-Type: application/x-www-form-urlencoded\ngrant_type=client_credentials\n```\nIn this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is\nobtained by base64-encoding the string\n`ClientId:ClientSecret`, as required for basic access authentication.\n\n> Note: Yokoy does not require or use scopes.\n\n\nThe JSON response contains the access token in the attribute\n`access_token`. The response also contains the expiration in\nseconds.\n\nExample response:\n```\n{\n    \"access_token\": \"SOME_KEY\",\n    \"expires_in\": 3900,\n    \"token_type\": \"Bearer\"\n}\n```\n\n**2. Pass the bearer token**\n\nPass the access token from step 1 as a bearer token in subsequent requests to the API.\n\nExample header field for the example response from step 1:\n```\nAuthorization: Bearer 4lDvPkrBF87WHuyvlINQD\n```\n\nFor more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].\n"

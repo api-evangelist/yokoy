@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: Public API of the Yokoy Application
-  title: Yokoy Card account Transaction API
+  title: Yokoy Transaction API
   version: 1.41.0
 servers:
 - description: API server scoped to organization with ID `organizationId`
@@ -17,9 +17,7 @@ servers:
       default: AbcDeF1234
       description: Yokoy organization ID
 tags:
-- description: 'A transaction is a cleared payment that is made using a credit, debit, or prepaid card. The card issuer can be either Yokoy or a third party that has been integrated with Yokoy.
-
-    '
+- description: A transaction is a cleared payment that is made using a credit, debit, or prepaid card. The card issuer can be either Yokoy or a third party that has been integrated with Yokoy.
   name: Transaction
 paths:
   /transactions:
@@ -128,15 +126,114 @@ paths:
       tags:
       - Transaction
 components:
+  parameters:
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
+      in: query
+      name: filter
+      schema:
+        type: string
+  responses:
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    TooManyRequests:
+      content:
+        application/json:
+          example:
+            code: 429
+            message: Too many requests
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed by the server due to too many concurrent requests.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
   schemas:
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
     Transaction:
       properties:
         billingAmount:
           description: Amount of the transaction, expressed in the billing currency.
           example: '23.88'
-          exclusiveMinimum: true
-          minimum: 0
           type: number
+          exclusiveMinimum: 0
         billingCurrency:
           description: Billing currency of the transaction. ISO 4217 three-letter code.
           example: EUR
@@ -146,8 +243,9 @@ components:
           description: Date when the transaction was booked, also known as posting date. Expressed in ISO 8601 format. Coordinated Universal Time (UTC).
           example: '2025-02-24T15:38:02Z'
           format: date-time
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         cardId:
           description: Yokoy unique ID of the card to which the transaction is associated.
           example: Y6c2p3G0x
@@ -156,9 +254,10 @@ components:
         country:
           description: Code of the country where the transaction took place. Expressed as an ISO 3166 Alpha-2 code.
           example: CH
-          nullable: true
           pattern: \W{2}
-          type: string
+          type:
+          - string
+          - 'null'
         created:
           description: Timestamp (date and time) when the transaction was created. Expressed in ISO 8601 format. Coordinated Universal Time (UTC).
           example: '2025-03-01T11:08:45.478Z'
@@ -168,10 +267,11 @@ components:
         expenseId:
           description: Yokoy unique ID of the expense to which the transaction is associated.
           example: aB9jQoE3HE
-          nullable: true
           pattern: '[\w-]+'
           readOnly: true
-          type: string
+          type:
+          - string
+          - 'null'
         expenseStatus:
           description: "Read-only field.\nWhenever a transaction is matched to an expense, this attribute indicates the status of the associated expense:\n - `0`: Expense is not ready for export.\n - `1`: Expense is ready for export.\n - `2`: Expense is exported.\n"
           enum:
@@ -179,9 +279,10 @@ components:
           - 1
           - 2
           example: 1
-          nullable: true
           readOnly: true
-          type: number
+          type:
+          - number
+          - 'null'
         id:
           description: Yokoy unique ID of a transaction.
           example: 2OAxBAFT9
@@ -190,7 +291,6 @@ components:
           type: string
         isCreditNote:
           description: Indicates whether the transaction is a credit note or a refund.
-          nullable: false
           type: boolean
         legalEntityId:
           description: Yokoy unique ID of the legal entity to which the transaction is assigned.
@@ -210,9 +310,10 @@ components:
         mccSicCode:
           description: Merchant category transaction classification. ISO 18245.
           example: '9999'
-          nullable: true
           pattern: \d{4}
-          type: string
+          type:
+          - string
+          - 'null'
         merchant:
           description: Merchant or description of the transaction.
           example: Store XYZ. Street 0, City, Country
@@ -221,16 +322,17 @@ components:
         sourceAmount:
           description: Amount of the transaction, expressed in the source currency.
           example: '25.00'
-          exclusiveMinimum: true
-          minimum: 0
-          nullable: true
-          type: number
+          type:
+          - number
+          - 'null'
+          exclusiveMinimum: 0
         sourceCurrency:
           description: Source currency of the transaction (i.e. a foreign currency). ISO 4217 three-letter code.
           example: USD
-          nullable: true
           pattern: \W{3}
-          type: string
+          type:
+          - string
+          - 'null'
         statementReference:
           description: External reference to the associated statement. Depending on the provider, this information may or may not be provided. Not available for Yokoy's Platinum Visa and Business Mastercard products.
           example: abc_ABC-09
@@ -250,106 +352,6 @@ components:
       - billingAmount
       - billingCurrency
       type: object
-    Error:
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-      type: object
-  parameters:
-    QueryFilter:
-      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
-      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
-      in: query
-      name: filter
-      schema:
-        type: string
-    YokoyAuthMethod:
-      example: yokoy
-      in: header
-      name: X-Yk-Auth-Method
-      required: true
-      schema:
-        enum:
-        - yokoy
-        type: string
-  responses:
-    Forbidden:
-      content:
-        application/json:
-          example:
-            code: 403
-            message: User not authorized to access organization
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The client is not authorized to perform the requested operation.
-    Unauthorized:
-      content:
-        application/json:
-          example:
-            code: 401
-            message: Token expired
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server was unable to establish the identity of the client.
-    InvalidFilter:
-      content:
-        application/json:
-          example:
-            code: 400
-            message: 'Invalid filter string: foo e bar'
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request was not valid.
-    TooManyRequests:
-      content:
-        application/json:
-          example:
-            code: 429
-            message: Too many requests
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request cannot be processed by the server due to too many concurrent requests.
-    InternalError:
-      content:
-        application/json:
-          example:
-            code: 500
-            message: Server error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An internal error occurred.
-    NotFound:
-      content:
-        application/json:
-          example:
-            code: 404
-            message: Resource not found
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The specified resource was not found.
-    GatewayError:
-      content:
-        application/json:
-          example:
-            code: 502
-            message: Gateway error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An issue occurred in a downstream service. Please try again later.
-    ServiceUnavailable:
-      content:
-        application/json:
-          example:
-            code: 503
-            message: Service unavailable
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server is unavailable. Please try again later
   securitySchemes:
     OAuth2:
       description: "Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.\n\n**1. Obtain an access token**\n\nPerform a `POST` request to\n`https://accounts.yokoy.ai/oauth2/token`. Pass the client ID\nand client secret as username and password in a basic auth\nheader. Set the content-type to\n`application/x-www-form-urlencoded` and specify\n`grant_type=client_credentials` in the body.\n\n> Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.\n\nExample request for the client ID `ClientId` and client\nsecret `ClientSecret`:\n```\nPOST https://accounts.yokoy.ai/oauth2/token\nAuthorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0\nContent-Type: application/x-www-form-urlencoded\ngrant_type=client_credentials\n```\nIn this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is\nobtained by base64-encoding the string\n`ClientId:ClientSecret`, as required for basic access authentication.\n\n> Note: Yokoy does not require or use scopes.\n\n\nThe JSON response contains the access token in the attribute\n`access_token`. The response also contains the expiration in\nseconds.\n\nExample response:\n```\n{\n    \"access_token\": \"SOME_KEY\",\n    \"expires_in\": 3900,\n    \"token_type\": \"Bearer\"\n}\n```\n\n**2. Pass the bearer token**\n\nPass the access token from step 1 as a bearer token in subsequent requests to the API.\n\nExample header field for the example response from step 1:\n```\nAuthorization: Bearer 4lDvPkrBF87WHuyvlINQD\n```\n\nFor more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].\n"

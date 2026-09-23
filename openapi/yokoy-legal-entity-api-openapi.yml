@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: Public API of the Yokoy Application
-  title: Yokoy Card account Legal entity API
+  title: Yokoy Legal entity API
   version: 1.41.0
 servers:
 - description: API server scoped to organization with ID `organizationId`
@@ -18,7 +18,7 @@ servers:
       description: Yokoy organization ID
 tags:
 - description: Legal entity or company. An organization can have multiple legal entities.
-  name: Legal entity
+  name: Legal Entity
 paths:
   /legal-entities:
     parameters:
@@ -59,7 +59,7 @@ paths:
       - OAuth2: []
       summary: List all legal entities
       tags:
-      - Legal entity
+      - Legal Entity
   /legal-entities/{legalEntityId}:
     parameters:
     - $ref: '#/components/parameters/LegalEntityIdInPath'
@@ -93,16 +93,9 @@ paths:
       - OAuth2: []
       summary: Get a legal entity (company) by ID
       tags:
-      - Legal entity
+      - Legal Entity
 components:
   parameters:
-    QueryFilter:
-      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
-      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
-      in: query
-      name: filter
-      schema:
-        type: string
     YokoyAuthMethod:
       example: yokoy
       in: header
@@ -111,14 +104,6 @@ components:
       schema:
         enum:
         - yokoy
-        type: string
-    YokoyCorrelationId:
-      description: Correlation ID that can be used to trace a request in the flow.
-      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
-      in: header
-      name: X-Yk-Correlation-Id
-      required: false
-      schema:
         type: string
     LegalEntityIdInPath:
       description: Yokoy unique ID of the legal entity (company).
@@ -129,61 +114,22 @@ components:
       schema:
         pattern: '[\w-]+'
         type: string
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
+      in: query
+      name: filter
+      schema:
+        type: string
+    YokoyCorrelationId:
+      description: Correlation ID that can be used to trace a request in the flow.
+      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
+      in: header
+      name: X-Yk-Correlation-Id
+      required: false
+      schema:
+        type: string
   responses:
-    Forbidden:
-      content:
-        application/json:
-          example:
-            code: 403
-            message: User not authorized to access organization
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The client is not authorized to perform the requested operation.
-    Unauthorized:
-      content:
-        application/json:
-          example:
-            code: 401
-            message: Token expired
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server was unable to establish the identity of the client.
-    InvalidFilter:
-      content:
-        application/json:
-          example:
-            code: 400
-            message: 'Invalid filter string: foo e bar'
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request was not valid.
-    TooManyRequests:
-      content:
-        application/json:
-          example:
-            code: 429
-            message: Too many requests
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request cannot be processed by the server due to too many concurrent requests.
-    InternalError:
-      content:
-        application/json:
-          example:
-            code: 500
-            message: Server error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An internal error occurred.
-    NotFound:
-      content:
-        application/json:
-          example:
-            code: 404
-            message: Resource not found
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The specified resource was not found.
     GatewayError:
       content:
         application/json:
@@ -193,6 +139,51 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: An issue occurred in a downstream service. Please try again later.
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    TooManyRequests:
+      content:
+        application/json:
+          example:
+            code: 429
+            message: Too many requests
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed by the server due to too many concurrent requests.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
     ServiceUnavailable:
       content:
         application/json:
@@ -202,7 +193,26 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The server is unavailable. Please try again later
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
   schemas:
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
     LegalEntity:
       properties:
         categories:
@@ -218,8 +228,9 @@ components:
                 description: Dictionary of custom information attributes associated with the expense category.
                 example:
                   externalId: Cat1
-                nullable: true
-                type: object
+                type:
+                - object
+                - 'null'
               id:
                 description: Yokoy unique ID of the expense category.
                 example: 9L7rovNzNhTCsJSTkbfq
@@ -309,8 +320,9 @@ components:
                 description: Dictionary of custom information attributes associated with the tax rate.
                 example:
                   externalId: Tax1
-                nullable: true
-                type: object
+                type:
+                - object
+                - 'null'
               id:
                 description: Yokoy unique ID of the tax rate.
                 example: 06x2u4nagAMEq3gGMoch
@@ -329,23 +341,14 @@ components:
             - code
             - statusActive
             type: object
-          nullable: true
-          type: array
+          type:
+          - array
+          - 'null'
       required:
       - code
       - language
       - policies
       - categories
-      type: object
-    Error:
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
       type: object
   securitySchemes:
     OAuth2:

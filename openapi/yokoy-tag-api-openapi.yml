@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: Public API of the Yokoy Application
-  title: Yokoy Card account Tag API
+  title: Yokoy Tag API
   version: 1.41.0
 servers:
 - description: API server scoped to organization with ID `organizationId`
@@ -17,21 +17,7 @@ servers:
       default: AbcDeF1234
       description: Yokoy organization ID
 tags:
-- description: 'Tag is a custom dimension that can be added to each category that help map additional information to that spend and use it at multiple levels, such as analytics or for accounting purposes.
-
-    Tags are often used to enhance Yokoy’s data model for:
-
-    - **management reporting** along multi-dimensional classifications (matrix model).
-
-    For example, project accounting next to cost accounting (cost centers and cost carriers/projects in a matrix), activity-based controlling (ABC) alongside cost or project accounting, or asset management (e.g. asset capitalisation schedules)
-
-    - **classifications** for processing purposes.
-
-    For example, approval groups independent of cost center or project accounting structure.
-
-    Each tag belongs to a tag dimension. Tag dimensions are created in Yokoy (**Admin > Company**).
-
-    '
+- description: Tag is a custom dimension that can be added to each category that help map additional information to that spend and use it at multiple levels, such as analytics or for accounting purposes.
   name: Tag
 paths:
   /legal-entities/{legalEntityId}/tags:
@@ -257,27 +243,6 @@ paths:
       - Tag
 components:
   parameters:
-    PaginationCursor:
-      description: 'Optional cursor for paginating. When provided, the API fetches a subsequent page of items.
-
-        The subsequent page is identified by the value given in `nextCursor` in the previous response.
-
-        `cursor` can only be used if the `count` attribute is passed as a query parameter.
-
-        '
-      example: 06x2u4nagAMEq3gGMoch
-      in: query
-      name: cursor
-      required: false
-      schema:
-        type: string
-    QueryFilter:
-      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
-      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
-      in: query
-      name: filter
-      schema:
-        type: string
     YokoyAuthMethod:
       example: yokoy
       in: header
@@ -287,14 +252,6 @@ components:
         enum:
         - yokoy
         type: string
-    YokoyCorrelationId:
-      description: Correlation ID that can be used to trace a request in the flow.
-      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
-      in: header
-      name: X-Yk-Correlation-Id
-      required: false
-      schema:
-        type: string
     LegalEntityIdInPath:
       description: Yokoy unique ID of the legal entity (company).
       example: aB9jQoE3HE
@@ -303,6 +260,13 @@ components:
       required: true
       schema:
         pattern: '[\w-]+'
+        type: string
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
+      in: query
+      name: filter
+      schema:
         type: string
     PaginationCount:
       description: 'Optional count for paginating. When provided, the results are paginated. Without `count`, no pagination is provided.
@@ -321,7 +285,47 @@ components:
       schema:
         maximum: 100
         type: number
+    YokoyCorrelationId:
+      description: Correlation ID that can be used to trace a request in the flow.
+      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
+      in: header
+      name: X-Yk-Correlation-Id
+      required: false
+      schema:
+        type: string
+    PaginationCursor:
+      description: 'Optional cursor for paginating. When provided, the API fetches a subsequent page of items.
+
+        The subsequent page is identified by the value given in `nextCursor` in the previous response.
+
+        `cursor` can only be used if the `count` attribute is passed as a query parameter.
+
+        '
+      example: 06x2u4nagAMEq3gGMoch
+      in: query
+      name: cursor
+      required: false
+      schema:
+        type: string
   responses:
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+    ValidationError:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'ValidationError: name is mandatory'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
     Forbidden:
       content:
         application/json:
@@ -340,24 +344,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The server was unable to establish the identity of the client.
-    ValidationError:
-      content:
-        application/json:
-          example:
-            code: 400
-            message: 'ValidationError: name is mandatory'
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request was not valid.
-    InvalidFilter:
-      content:
-        application/json:
-          example:
-            code: 400
-            message: 'Invalid filter string: foo e bar'
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request was not valid.
     TooManyRequests:
       content:
         application/json:
@@ -367,15 +353,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The request cannot be processed by the server due to too many concurrent requests.
-    InternalError:
-      content:
-        application/json:
-          example:
-            code: 500
-            message: Server error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An internal error occurred.
     NotFound:
       content:
         application/json:
@@ -385,15 +362,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The specified resource was not found.
-    GatewayError:
-      content:
-        application/json:
-          example:
-            code: 502
-            message: Gateway error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An issue occurred in a downstream service. Please try again later.
     ServiceUnavailable:
       content:
         application/json:
@@ -403,7 +371,35 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The server is unavailable. Please try again later
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
   schemas:
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
     Tag:
       properties:
         code:
@@ -415,8 +411,9 @@ components:
             type: string
           description: Dictionary of custom information attributes associated with the tag.
           example: '{"requiresEscalation": true, "ledgerCode": "ABC123" }'
-          nullable: true
-          type: object
+          type:
+          - object
+          - 'null'
         dimensionCode:
           description: Dimension code associated with the tag.
           example: miscellaneous
@@ -428,8 +425,9 @@ components:
             example: 9L7rovNzNhTCsJSTkbfq
             pattern: '[\w-]+'
             type: string
-          nullable: true
-          type: array
+          type:
+          - array
+          - 'null'
         id:
           description: Yokoy unique ID of the tag.
           example: CP0YGe9VwzWixLOZdTK8
@@ -443,8 +441,9 @@ components:
             example: 9L7rovNzNhTCsJSTkbfq
             pattern: '[\w-]+'
             type: string
-          nullable: true
-          type: array
+          type:
+          - array
+          - 'null'
         name:
           description: Descriptive name of the tag.
           example: Relocation services
@@ -458,16 +457,6 @@ components:
       - code
       - dimensionCode
       - statusActive
-      type: object
-    Error:
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
       type: object
   securitySchemes:
     OAuth2:

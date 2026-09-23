@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: Public API of the Yokoy Application
-  title: Yokoy Card account FX rates API
+  title: Yokoy FX rates API
   version: 1.41.0
 servers:
 - description: API server scoped to organization with ID `organizationId`
@@ -17,10 +17,8 @@ servers:
       default: AbcDeF1234
       description: Yokoy organization ID
 tags:
-- description: 'Extend the offered and Yokoy-managed foreign exchange rates (Open Exchange Rates, CNB, NPB and NBS national bank rates) with your own customer-specific FX rates. The created FX rate sources are equivalent to Yokoy-managed FX rate sources and can be applied in **Admin > Company**, **General**. Currencies are assigned on a legal entity level.
-
-    '
-  name: FX rates
+- description: Extend the offered and Yokoy-managed foreign exchange rates (Open Exchange Rates, CNB, NPB and NBS national bank rates) with your own customer-specific FX rates. The created FX rate sources are equivalent to Yokoy-managed FX rate sources and can be applied in **Admin > Company**, **General**. Currencies are assigned on a legal entity level.
+  name: FX Rates
 paths:
   /fx-rate-sources:
     parameters:
@@ -66,7 +64,7 @@ paths:
       - OAuth2: []
       summary: List FX rate sources
       tags:
-      - FX rates
+      - FX Rates
     post:
       description: Creates a new foreign exchange rate source and returns the created entity.
       operationId: createFxRateSource
@@ -108,7 +106,7 @@ paths:
       - OAuth2: []
       summary: Create FX rate source
       tags:
-      - FX rates
+      - FX Rates
   /fx-rate-sources/{fxRateSourceId}/fx-rates/{isoDate}:
     parameters:
     - $ref: '#/components/parameters/YokoyAuthMethod'
@@ -170,63 +168,8 @@ paths:
       - OAuth2: []
       summary: Apply FX rate
       tags:
-      - FX rates
+      - FX Rates
 components:
-  responses:
-    Forbidden:
-      content:
-        application/json:
-          example:
-            code: 403
-            message: User not authorized to access organization
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The client is not authorized to perform the requested operation.
-    Unauthorized:
-      content:
-        application/json:
-          example:
-            code: 401
-            message: Token expired
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server was unable to establish the identity of the client.
-    TooManyRequests:
-      content:
-        application/json:
-          example:
-            code: 429
-            message: Too many requests
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request cannot be processed by the server due to too many concurrent requests.
-    InternalError:
-      content:
-        application/json:
-          example:
-            code: 500
-            message: Server error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An internal error occurred.
-    GatewayError:
-      content:
-        application/json:
-          example:
-            code: 502
-            message: Gateway error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An issue occurred in a downstream service. Please try again later.
-    ServiceUnavailable:
-      content:
-        application/json:
-          example:
-            code: 503
-            message: Service unavailable
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server is unavailable. Please try again later
   parameters:
     YokoyAuthMethod:
       example: yokoy
@@ -245,7 +188,72 @@ components:
       required: false
       schema:
         type: string
+  responses:
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    TooManyRequests:
+      content:
+        application/json:
+          example:
+            code: 429
+            message: Too many requests
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed by the server due to too many concurrent requests.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
   schemas:
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
     FxRates:
       properties:
         baseCurrency:
@@ -262,16 +270,6 @@ components:
           type: object
       required:
       - fxRates
-      type: object
-    Error:
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
       type: object
     FxRateSource:
       properties:

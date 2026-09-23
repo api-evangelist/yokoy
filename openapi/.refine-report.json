@@ -1,28 +1,7 @@
 {
   "provider": "yokoy",
   "sources": [
-    "yokoy-card-account-api-openapi.yml",
-    "yokoy-company-card-api-openapi.yml",
-    "yokoy-cost-center-api-openapi.yml",
-    "yokoy-daily-statement-api-openapi.yml",
-    "yokoy-expense-api-openapi.yml",
-    "yokoy-expense-category-api-openapi.yml",
-    "yokoy-external-invoice-api-openapi.yml",
-    "yokoy-finance-export-api-openapi.yml",
-    "yokoy-fx-rates-api-openapi.yml",
-    "yokoy-goods-receipt-api-openapi.yml",
-    "yokoy-invoice-api-openapi.yml",
-    "yokoy-invoice-category-api-openapi.yml",
-    "yokoy-invoice-payment-terms-api-openapi.yml",
-    "yokoy-legal-entity-api-openapi.yml",
-    "yokoy-policy-api-openapi.yml",
-    "yokoy-purchase-order-api-openapi.yml",
-    "yokoy-supplier-api-openapi.yml",
-    "yokoy-tag-api-openapi.yml",
-    "yokoy-tax-rates-api-openapi.yml",
-    "yokoy-transaction-api-openapi.yml",
-    "yokoy-trip-api-openapi.yml",
-    "yokoy-user-api-openapi.yml"
+    "_original/yokoy-openapi-original.json"
   ],
   "outputs": [
     "yokoy-card-account-api-openapi.yml",
@@ -32,8 +11,8 @@
     "yokoy-expense-api-openapi.yml",
     "yokoy-expense-category-api-openapi.yml",
     "yokoy-external-invoice-api-openapi.yml",
-    "yokoy-finance-export-api-openapi.yml",
     "yokoy-fx-rates-api-openapi.yml",
+    "yokoy-finance-export-api-openapi.yml",
     "yokoy-goods-receipt-api-openapi.yml",
     "yokoy-invoice-api-openapi.yml",
     "yokoy-invoice-category-api-openapi.yml",
@@ -51,6 +30,33 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "yokoy-openapi-original.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "yokoy-card-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-company-card-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-cost-center-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-daily-statement-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-expense-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-expense-category-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-external-invoice-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-finance-export-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-fx-rates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-goods-receipt-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-invoice-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-invoice-category-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-invoice-payment-terms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-legal-entity-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-policy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-purchase-order-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-supplier-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-tag-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-tax-rates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-transaction-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-trip-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yokoy-user-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
