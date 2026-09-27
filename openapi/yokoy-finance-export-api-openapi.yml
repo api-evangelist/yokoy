@@ -364,40 +364,6 @@ paths:
       tags:
       - Finance export
 components:
-  parameters:
-    YokoyAuthMethod:
-      example: yokoy
-      in: header
-      name: X-Yk-Auth-Method
-      required: true
-      schema:
-        enum:
-        - yokoy
-        type: string
-    LegalEntityIdInPath:
-      description: Yokoy unique ID of the legal entity (company).
-      example: aB9jQoE3HE
-      in: path
-      name: legalEntityId
-      required: true
-      schema:
-        pattern: '[\w-]+'
-        type: string
-    ExportTaskQueryFilter:
-      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters. The fields to filter differ from other endpoints. The filterable attributes for this endpoint are `created`, `fullDate`, `postingDate`, `type`, `facilityId` and `exportMethod`.
-      example: created ge 2025-01-23 and facilityId eq expense
-      in: query
-      name: filter
-      schema:
-        type: string
-    YokoyCorrelationId:
-      description: Correlation ID that can be used to trace a request in the flow.
-      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
-      in: header
-      name: X-Yk-Correlation-Id
-      required: false
-      schema:
-        type: string
   responses:
     GatewayError:
       content:
@@ -408,33 +374,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: An issue occurred in a downstream service. Please try again later.
-    InsufficientData:
-      content:
-        application/json:
-          example:
-            code: 422
-            message: Insufficient data
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request cannot be processed due to insufficient data.
-    Forbidden:
-      content:
-        application/json:
-          example:
-            code: 403
-            message: User not authorized to access organization
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The client is not authorized to perform the requested operation.
-    Unauthorized:
-      content:
-        application/json:
-          example:
-            code: 401
-            message: Token expired
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server was unable to establish the identity of the client.
     TooManyRequests:
       content:
         application/json:
@@ -444,6 +383,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The request cannot be processed by the server due to too many concurrent requests.
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
     NotFound:
       content:
         application/json:
@@ -462,6 +410,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The server is unavailable. Please try again later
+    InsufficientData:
+      content:
+        application/json:
+          example:
+            code: 422
+            message: Insufficient data
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed due to insufficient data.
     InternalError:
       content:
         application/json:
@@ -471,17 +428,16 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: An internal error occurred.
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
   schemas:
-    Error:
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-      type: object
     ExpenseExportTaskInformation:
       properties:
         resource:
@@ -536,33 +492,15 @@ components:
               type: string
           type: object
       type: object
-    ExpenseExportArtefact:
+    Error:
       properties:
-        generatedFiles:
-          description: List of file names of additional files generated in the context of the export.
-          items:
-            example: summary.pdf
-            type: string
-          type: array
-        id:
-          description: Yokoy unique ID of the artefact.
-          example: q1cOJIRODTjLDwM1aX4B
+        code:
+          type: integer
+        message:
           type: string
-        originalFormat:
-          description: Original format of the serialized artefact.
-          example: application/json
-          type: string
-        relatedDocumentIds:
-          description: List of Yokoy expense IDs contained in the artefact.
-          items:
-            description: Yokoy ID of the exported expense.
-            example: aB9jQoE3HE
-            type: string
-          type: array
-        serializedArtefact:
-          description: Serialized artefact of the form `ExpenseExportPayload`.
-          example: '{"journalEntry":{"journalEntryType":"expense","lineItems":[{"account":"6630","categoryId":"aquNlTt8v2NOqzOruWtE","amountNet":18.5,"amountGross":18.5,"costCenterCode":"1234","costCenterId":"4neg0miskYbpOvKkMBd4","amountGrossOriginalExpenseCurrency":18.5,"amountNetOriginalExpenseCurrency":18.5}],"taxItems":[],"creditorItem":{"account":"123","amount":18.5,"amountOriginalExpenseCurrency":18.5},"currency":"EUR","originalExpenseCurrency":"EUR"}}'
-          type: string
+      required:
+      - code
+      - message
       type: object
     InvoiceExportArtefact:
       properties:
@@ -590,6 +528,34 @@ components:
         serializedArtefact:
           description: Serialized artefact of the form `InvoiceExportPayload`.
           example: '{"journalEntry":{"journalEntryType":"invoice","lineItems":[{"account":"6630","categoryId":"aquNlTt8v2NOqzOruWtE","amountNet":18.5,"amountGross":18.5,"costCenterCode":"1234","costCenterId":"4neg0miskYbpOvKkMBd4","amountGrossOriginalCurrency":18.5,"amountNetOriginalCurrency":18.5}],"taxItems":[],"currency":"EUR","originalCurrency":"EUR","supplierId":"9L7rovNzNhTCsJSTkbfq","postingDate":"2023-01-01"}}'
+          type: string
+      type: object
+    ExpenseExportArtefact:
+      properties:
+        generatedFiles:
+          description: List of file names of additional files generated in the context of the export.
+          items:
+            example: summary.pdf
+            type: string
+          type: array
+        id:
+          description: Yokoy unique ID of the artefact.
+          example: q1cOJIRODTjLDwM1aX4B
+          type: string
+        originalFormat:
+          description: Original format of the serialized artefact.
+          example: application/json
+          type: string
+        relatedDocumentIds:
+          description: List of Yokoy expense IDs contained in the artefact.
+          items:
+            description: Yokoy ID of the exported expense.
+            example: aB9jQoE3HE
+            type: string
+          type: array
+        serializedArtefact:
+          description: Serialized artefact of the form `ExpenseExportPayload`.
+          example: '{"journalEntry":{"journalEntryType":"expense","lineItems":[{"account":"6630","categoryId":"aquNlTt8v2NOqzOruWtE","amountNet":18.5,"amountGross":18.5,"costCenterCode":"1234","costCenterId":"4neg0miskYbpOvKkMBd4","amountGrossOriginalExpenseCurrency":18.5,"amountNetOriginalExpenseCurrency":18.5}],"taxItems":[],"creditorItem":{"account":"123","amount":18.5,"amountOriginalExpenseCurrency":18.5},"currency":"EUR","originalExpenseCurrency":"EUR"}}'
           type: string
       type: object
     InvoiceExportTaskInformation:
@@ -642,6 +608,40 @@ components:
               type: string
           type: object
       type: object
+  parameters:
+    ExportTaskQueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters. The fields to filter differ from other endpoints. The filterable attributes for this endpoint are `created`, `fullDate`, `postingDate`, `type`, `facilityId` and `exportMethod`.
+      example: created ge 2025-01-23 and facilityId eq expense
+      in: query
+      name: filter
+      schema:
+        type: string
+    LegalEntityIdInPath:
+      description: Yokoy unique ID of the legal entity (company).
+      example: aB9jQoE3HE
+      in: path
+      name: legalEntityId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    YokoyCorrelationId:
+      description: Correlation ID that can be used to trace a request in the flow.
+      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
+      in: header
+      name: X-Yk-Correlation-Id
+      required: false
+      schema:
+        type: string
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
   securitySchemes:
     OAuth2:
       description: "Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.\n\n**1. Obtain an access token**\n\nPerform a `POST` request to\n`https://accounts.yokoy.ai/oauth2/token`. Pass the client ID\nand client secret as username and password in a basic auth\nheader. Set the content-type to\n`application/x-www-form-urlencoded` and specify\n`grant_type=client_credentials` in the body.\n\n> Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.\n\nExample request for the client ID `ClientId` and client\nsecret `ClientSecret`:\n```\nPOST https://accounts.yokoy.ai/oauth2/token\nAuthorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0\nContent-Type: application/x-www-form-urlencoded\ngrant_type=client_credentials\n```\nIn this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is\nobtained by base64-encoding the string\n`ClientId:ClientSecret`, as required for basic access authentication.\n\n> Note: Yokoy does not require or use scopes.\n\n\nThe JSON response contains the access token in the attribute\n`access_token`. The response also contains the expiration in\nseconds.\n\nExample response:\n```\n{\n    \"access_token\": \"SOME_KEY\",\n    \"expires_in\": 3900,\n    \"token_type\": \"Bearer\"\n}\n```\n\n**2. Pass the bearer token**\n\nPass the access token from step 1 as a bearer token in subsequent requests to the API.\n\nExample header field for the example response from step 1:\n```\nAuthorization: Bearer 4lDvPkrBF87WHuyvlINQD\n```\n\nFor more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].\n"

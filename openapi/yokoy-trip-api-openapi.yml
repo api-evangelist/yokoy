@@ -104,62 +104,6 @@ paths:
       tags:
       - Trip
 components:
-  parameters:
-    YokoyAuthMethod:
-      example: yokoy
-      in: header
-      name: X-Yk-Auth-Method
-      required: true
-      schema:
-        enum:
-        - yokoy
-        type: string
-    QueryFilter:
-      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
-      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
-      in: query
-      name: filter
-      schema:
-        type: string
-    PaginationCount:
-      description: 'Optional count for paginating. When provided, the results are paginated. Without `count`, no pagination is provided.
-
-        The maximum number of items that can be included in a paginated response is `100`.
-
-        When paginated, the response includes the `itemsPerPage` attribute.
-
-        If the number of items available is greater than or equal to `count`, it also includes the `nextCursor` attribute, which can be used to fetch the subsequent page of items.
-
-        '
-      example: 30
-      in: query
-      name: count
-      required: false
-      schema:
-        maximum: 100
-        type: number
-    YokoyCorrelationId:
-      description: Correlation ID that can be used to trace a request in the flow.
-      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
-      in: header
-      name: X-Yk-Correlation-Id
-      required: false
-      schema:
-        type: string
-    PaginationCursor:
-      description: 'Optional cursor for paginating. When provided, the API fetches a subsequent page of items.
-
-        The subsequent page is identified by the value given in `nextCursor` in the previous response.
-
-        `cursor` can only be used if the `count` attribute is passed as a query parameter.
-
-        '
-      example: 06x2u4nagAMEq3gGMoch
-      in: query
-      name: cursor
-      required: false
-      schema:
-        type: string
   responses:
     GatewayError:
       content:
@@ -170,24 +114,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: An issue occurred in a downstream service. Please try again later.
-    Unauthorized:
-      content:
-        application/json:
-          example:
-            code: 401
-            message: Token expired
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server was unable to establish the identity of the client.
-    Forbidden:
-      content:
-        application/json:
-          example:
-            code: 403
-            message: User not authorized to access organization
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The client is not authorized to perform the requested operation.
     TooManyRequests:
       content:
         application/json:
@@ -206,6 +132,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The specified resource was not found.
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
     ServiceUnavailable:
       content:
         application/json:
@@ -233,6 +168,71 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: An internal error occurred.
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+  parameters:
+    PaginationCursor:
+      description: 'Optional cursor for paginating. When provided, the API fetches a subsequent page of items.
+
+        The subsequent page is identified by the value given in `nextCursor` in the previous response.
+
+        `cursor` can only be used if the `count` attribute is passed as a query parameter.
+
+        '
+      example: 06x2u4nagAMEq3gGMoch
+      in: query
+      name: cursor
+      required: false
+      schema:
+        type: string
+    PaginationCount:
+      description: 'Optional count for paginating. When provided, the results are paginated. Without `count`, no pagination is provided.
+
+        The maximum number of items that can be included in a paginated response is `100`.
+
+        When paginated, the response includes the `itemsPerPage` attribute.
+
+        If the number of items available is greater than or equal to `count`, it also includes the `nextCursor` attribute, which can be used to fetch the subsequent page of items.
+
+        '
+      example: 30
+      in: query
+      name: count
+      required: false
+      schema:
+        maximum: 100
+        type: number
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
+    YokoyCorrelationId:
+      description: Correlation ID that can be used to trace a request in the flow.
+      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
+      in: header
+      name: X-Yk-Correlation-Id
+      required: false
+      schema:
+        type: string
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
+      in: query
+      name: filter
+      schema:
+        type: string
   schemas:
     Error:
       properties:

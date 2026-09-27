@@ -170,24 +170,6 @@ paths:
       tags:
       - FX Rates
 components:
-  parameters:
-    YokoyAuthMethod:
-      example: yokoy
-      in: header
-      name: X-Yk-Auth-Method
-      required: true
-      schema:
-        enum:
-        - yokoy
-        type: string
-    YokoyCorrelationId:
-      description: Correlation ID that can be used to trace a request in the flow.
-      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
-      in: header
-      name: X-Yk-Correlation-Id
-      required: false
-      schema:
-        type: string
   responses:
     GatewayError:
       content:
@@ -198,24 +180,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: An issue occurred in a downstream service. Please try again later.
-    Unauthorized:
-      content:
-        application/json:
-          example:
-            code: 401
-            message: Token expired
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server was unable to establish the identity of the client.
-    Forbidden:
-      content:
-        application/json:
-          example:
-            code: 403
-            message: User not authorized to access organization
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The client is not authorized to perform the requested operation.
     TooManyRequests:
       content:
         application/json:
@@ -225,6 +189,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The request cannot be processed by the server due to too many concurrent requests.
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
     ServiceUnavailable:
       content:
         application/json:
@@ -243,6 +216,33 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: An internal error occurred.
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+  parameters:
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
+    YokoyCorrelationId:
+      description: Correlation ID that can be used to trace a request in the flow.
+      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
+      in: header
+      name: X-Yk-Correlation-Id
+      required: false
+      schema:
+        type: string
   schemas:
     Error:
       properties:

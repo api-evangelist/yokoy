@@ -242,30 +242,101 @@ paths:
       tags:
       - Tag
 components:
+  responses:
+    ValidationError:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'ValidationError: name is mandatory'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    TooManyRequests:
+      content:
+        application/json:
+          example:
+            code: 429
+            message: Too many requests
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed by the server due to too many concurrent requests.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
   parameters:
-    YokoyAuthMethod:
-      example: yokoy
-      in: header
-      name: X-Yk-Auth-Method
-      required: true
-      schema:
-        enum:
-        - yokoy
-        type: string
-    LegalEntityIdInPath:
-      description: Yokoy unique ID of the legal entity (company).
-      example: aB9jQoE3HE
-      in: path
-      name: legalEntityId
-      required: true
-      schema:
-        pattern: '[\w-]+'
-        type: string
-    QueryFilter:
-      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
-      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
+    PaginationCursor:
+      description: 'Optional cursor for paginating. When provided, the API fetches a subsequent page of items.
+
+        The subsequent page is identified by the value given in `nextCursor` in the previous response.
+
+        `cursor` can only be used if the `count` attribute is passed as a query parameter.
+
+        '
+      example: 06x2u4nagAMEq3gGMoch
       in: query
-      name: filter
+      name: cursor
+      required: false
       schema:
         type: string
     PaginationCount:
@@ -285,6 +356,24 @@ components:
       schema:
         maximum: 100
         type: number
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
+    LegalEntityIdInPath:
+      description: Yokoy unique ID of the legal entity (company).
+      example: aB9jQoE3HE
+      in: path
+      name: legalEntityId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
     YokoyCorrelationId:
       description: Correlation ID that can be used to trace a request in the flow.
       example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
@@ -293,102 +382,13 @@ components:
       required: false
       schema:
         type: string
-    PaginationCursor:
-      description: 'Optional cursor for paginating. When provided, the API fetches a subsequent page of items.
-
-        The subsequent page is identified by the value given in `nextCursor` in the previous response.
-
-        `cursor` can only be used if the `count` attribute is passed as a query parameter.
-
-        '
-      example: 06x2u4nagAMEq3gGMoch
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
       in: query
-      name: cursor
-      required: false
+      name: filter
       schema:
         type: string
-  responses:
-    GatewayError:
-      content:
-        application/json:
-          example:
-            code: 502
-            message: Gateway error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An issue occurred in a downstream service. Please try again later.
-    ValidationError:
-      content:
-        application/json:
-          example:
-            code: 400
-            message: 'ValidationError: name is mandatory'
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request was not valid.
-    Forbidden:
-      content:
-        application/json:
-          example:
-            code: 403
-            message: User not authorized to access organization
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The client is not authorized to perform the requested operation.
-    Unauthorized:
-      content:
-        application/json:
-          example:
-            code: 401
-            message: Token expired
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server was unable to establish the identity of the client.
-    TooManyRequests:
-      content:
-        application/json:
-          example:
-            code: 429
-            message: Too many requests
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request cannot be processed by the server due to too many concurrent requests.
-    NotFound:
-      content:
-        application/json:
-          example:
-            code: 404
-            message: Resource not found
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The specified resource was not found.
-    ServiceUnavailable:
-      content:
-        application/json:
-          example:
-            code: 503
-            message: Service unavailable
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server is unavailable. Please try again later
-    InvalidFilter:
-      content:
-        application/json:
-          example:
-            code: 400
-            message: 'Invalid filter string: foo e bar'
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request was not valid.
-    InternalError:
-      content:
-        application/json:
-          example:
-            code: 500
-            message: Server error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An internal error occurred.
   schemas:
     Error:
       properties:
