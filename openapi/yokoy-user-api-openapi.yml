@@ -266,24 +266,6 @@ paths:
       - User
 components:
   responses:
-    GatewayError:
-      content:
-        application/json:
-          example:
-            code: 502
-            message: Gateway error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An issue occurred in a downstream service. Please try again later.
-    InvalidFilter:
-      content:
-        application/json:
-          example:
-            code: 400
-            message: 'Invalid filter string: foo e bar'
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request was not valid.
     TooManyRequests:
       content:
         application/json:
@@ -293,24 +275,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The request cannot be processed by the server due to too many concurrent requests.
-    NotFound:
-      content:
-        application/json:
-          example:
-            code: 404
-            message: Resource not found
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The specified resource was not found.
-    Forbidden:
-      content:
-        application/json:
-          example:
-            code: 403
-            message: User not authorized to access organization
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The client is not authorized to perform the requested operation.
     ServiceUnavailable:
       content:
         application/json:
@@ -329,6 +293,42 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The server was unable to establish the identity of the client.
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
     InternalError:
       content:
         application/json:
@@ -339,20 +339,6 @@ components:
             $ref: '#/components/schemas/Error'
       description: An internal error occurred.
   parameters:
-    PaginationCursor:
-      description: 'Optional cursor for paginating. When provided, the API fetches a subsequent page of items.
-
-        The subsequent page is identified by the value given in `nextCursor` in the previous response.
-
-        `cursor` can only be used if the `count` attribute is passed as a query parameter.
-
-        '
-      example: 06x2u4nagAMEq3gGMoch
-      in: query
-      name: cursor
-      required: false
-      schema:
-        type: string
     PaginationCount:
       description: 'Optional count for paginating. When provided, the results are paginated. Without `count`, no pagination is provided.
 
@@ -370,14 +356,19 @@ components:
       schema:
         maximum: 100
         type: number
-    YokoyAuthMethod:
-      example: yokoy
-      in: header
-      name: X-Yk-Auth-Method
-      required: true
+    PaginationCursor:
+      description: 'Optional cursor for paginating. When provided, the API fetches a subsequent page of items.
+
+        The subsequent page is identified by the value given in `nextCursor` in the previous response.
+
+        `cursor` can only be used if the `count` attribute is passed as a query parameter.
+
+        '
+      example: 06x2u4nagAMEq3gGMoch
+      in: query
+      name: cursor
+      required: false
       schema:
-        enum:
-        - yokoy
         type: string
     YokoyCorrelationId:
       description: Correlation ID that can be used to trace a request in the flow.
@@ -387,6 +378,15 @@ components:
       required: false
       schema:
         type: string
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
     QueryFilter:
       description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
       example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
@@ -395,37 +395,6 @@ components:
       schema:
         type: string
   schemas:
-    Error:
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-      type: object
-    UserBankInformation:
-      properties:
-        BIC:
-          description: Branch Identifier Code of the user‘s bank account.
-          example: BARCGB22XXX
-          type:
-          - string
-          - 'null'
-        IBAN:
-          description: IBAN of the user‘s bank account.
-          example: CH9300762011623852957
-          type:
-          - string
-          - 'null'
-        accountHolderName:
-          description: Account holder name associated with the user‘s bank account.
-          example: Jo Smith
-          type:
-          - string
-          - 'null'
-      type: object
     User:
       properties:
         costCenterId:
@@ -565,6 +534,37 @@ components:
       - email
       - employeeId
       - statusActive
+      type: object
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    UserBankInformation:
+      properties:
+        BIC:
+          description: Branch Identifier Code of the user‘s bank account.
+          example: BARCGB22XXX
+          type:
+          - string
+          - 'null'
+        IBAN:
+          description: IBAN of the user‘s bank account.
+          example: CH9300762011623852957
+          type:
+          - string
+          - 'null'
+        accountHolderName:
+          description: Account holder name associated with the user‘s bank account.
+          example: Jo Smith
+          type:
+          - string
+          - 'null'
       type: object
   securitySchemes:
     OAuth2:

@@ -365,51 +365,6 @@ paths:
       - Finance export
 components:
   responses:
-    GatewayError:
-      content:
-        application/json:
-          example:
-            code: 502
-            message: Gateway error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An issue occurred in a downstream service. Please try again later.
-    TooManyRequests:
-      content:
-        application/json:
-          example:
-            code: 429
-            message: Too many requests
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request cannot be processed by the server due to too many concurrent requests.
-    Forbidden:
-      content:
-        application/json:
-          example:
-            code: 403
-            message: User not authorized to access organization
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The client is not authorized to perform the requested operation.
-    NotFound:
-      content:
-        application/json:
-          example:
-            code: 404
-            message: Resource not found
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The specified resource was not found.
-    ServiceUnavailable:
-      content:
-        application/json:
-          example:
-            code: 503
-            message: Service unavailable
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server is unavailable. Please try again later
     InsufficientData:
       content:
         application/json:
@@ -419,15 +374,24 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The request cannot be processed due to insufficient data.
-    InternalError:
+    TooManyRequests:
       content:
         application/json:
           example:
-            code: 500
-            message: Server error
+            code: 429
+            message: Too many requests
           schema:
             $ref: '#/components/schemas/Error'
-      description: An internal error occurred.
+      description: The request cannot be processed by the server due to too many concurrent requests.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
     Unauthorized:
       content:
         application/json:
@@ -437,71 +401,43 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The server was unable to establish the identity of the client.
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
   schemas:
-    ExpenseExportTaskInformation:
-      properties:
-        resource:
-          properties:
-            created:
-              description: Timestamp (date and time) when the export was triggered. Expressed in ISO 8601 format. Coordinated Universal Time (UTC).
-              example: '2022-04-01T17:08:45.478Z'
-              format: date-time
-              type: string
-            earliestPostingDate:
-              description: Earliest allowed posting date specified for the export. Expressed in `YYYY-MM-DD`.
-              example: '2023-03-31'
-              pattern: \d{4}-\d{2}-\d{2}
-              type: string
-            exporterId:
-              description: Yokoy unique ID of the user on behalf of whom the export is performed.
-              example: 9L7rovNzNhTCsJSTkbfq
-              type: string
-            exporterName:
-              description: Last name of the user on behalf of whom the export is performed.
-              example: Perez
-              type: string
-            facilityId:
-              description: Yokoy unique ID of the export facility (corresponding to the expense type).
-              enum:
-              - expense
-              - card
-              - travel
-              example: expense
-              type: string
-            generatedFiles:
-              description: List of file names of the additional files generated with the export.
-              items:
-                example: summary.pdf
-                type: string
-              type: array
-            id:
-              description: ID of the export job.
-              example: h6tplNlvNxnHUpeAwd7D
-              type: string
-            isPending:
-              description: Status of the export job, whether the export job is still pending.
-              example: true
-              type: boolean
-            method:
-              description: Method used to trigger the export.
-              enum:
-              - api
-              - manual
-              - automatic
-              example: api
-              type: string
-          type: object
-      type: object
-    Error:
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-      type: object
     InvoiceExportArtefact:
       properties:
         generatedFiles:
@@ -558,6 +494,16 @@ components:
           example: '{"journalEntry":{"journalEntryType":"expense","lineItems":[{"account":"6630","categoryId":"aquNlTt8v2NOqzOruWtE","amountNet":18.5,"amountGross":18.5,"costCenterCode":"1234","costCenterId":"4neg0miskYbpOvKkMBd4","amountGrossOriginalExpenseCurrency":18.5,"amountNetOriginalExpenseCurrency":18.5}],"taxItems":[],"creditorItem":{"account":"123","amount":18.5,"amountOriginalExpenseCurrency":18.5},"currency":"EUR","originalExpenseCurrency":"EUR"}}'
           type: string
       type: object
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
     InvoiceExportTaskInformation:
       properties:
         resource:
@@ -608,6 +554,60 @@ components:
               type: string
           type: object
       type: object
+    ExpenseExportTaskInformation:
+      properties:
+        resource:
+          properties:
+            created:
+              description: Timestamp (date and time) when the export was triggered. Expressed in ISO 8601 format. Coordinated Universal Time (UTC).
+              example: '2022-04-01T17:08:45.478Z'
+              format: date-time
+              type: string
+            earliestPostingDate:
+              description: Earliest allowed posting date specified for the export. Expressed in `YYYY-MM-DD`.
+              example: '2023-03-31'
+              pattern: \d{4}-\d{2}-\d{2}
+              type: string
+            exporterId:
+              description: Yokoy unique ID of the user on behalf of whom the export is performed.
+              example: 9L7rovNzNhTCsJSTkbfq
+              type: string
+            exporterName:
+              description: Last name of the user on behalf of whom the export is performed.
+              example: Perez
+              type: string
+            facilityId:
+              description: Yokoy unique ID of the export facility (corresponding to the expense type).
+              enum:
+              - expense
+              - card
+              - travel
+              example: expense
+              type: string
+            generatedFiles:
+              description: List of file names of the additional files generated with the export.
+              items:
+                example: summary.pdf
+                type: string
+              type: array
+            id:
+              description: ID of the export job.
+              example: h6tplNlvNxnHUpeAwd7D
+              type: string
+            isPending:
+              description: Status of the export job, whether the export job is still pending.
+              example: true
+              type: boolean
+            method:
+              description: Method used to trigger the export.
+              enum:
+              - api
+              - manual
+              - automatic
+              example: api
+              type: string
+          type: object
+      type: object
   parameters:
     ExportTaskQueryFilter:
       description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters. The fields to filter differ from other endpoints. The filterable attributes for this endpoint are `created`, `fullDate`, `postingDate`, `type`, `facilityId` and `exportMethod`.
@@ -615,6 +615,15 @@ components:
       in: query
       name: filter
       schema:
+        type: string
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
         type: string
     LegalEntityIdInPath:
       description: Yokoy unique ID of the legal entity (company).
@@ -632,15 +641,6 @@ components:
       name: X-Yk-Correlation-Id
       required: false
       schema:
-        type: string
-    YokoyAuthMethod:
-      example: yokoy
-      in: header
-      name: X-Yk-Auth-Method
-      required: true
-      schema:
-        enum:
-        - yokoy
         type: string
   securitySchemes:
     OAuth2:

@@ -216,15 +216,6 @@ paths:
       - Invoice category
 components:
   responses:
-    GatewayError:
-      content:
-        application/json:
-          example:
-            code: 502
-            message: Gateway error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An issue occurred in a downstream service. Please try again later.
     TooManyRequests:
       content:
         application/json:
@@ -234,6 +225,33 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The request cannot be processed by the server due to too many concurrent requests.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
     NotFound:
       content:
         application/json:
@@ -243,6 +261,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The specified resource was not found.
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
     Forbidden:
       content:
         application/json:
@@ -252,6 +279,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The client is not authorized to perform the requested operation.
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
     HttpValidationError:
       content:
         application/json:
@@ -265,51 +301,13 @@ components:
             $ref: '#/components/schemas/HttpError'
             additionalProperties: true
       description: The request was not valid.
-    ServiceUnavailable:
-      content:
-        application/json:
-          example:
-            code: 503
-            message: Service unavailable
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server is unavailable. Please try again later
-    InvalidFilter:
-      content:
-        application/json:
-          example:
-            code: 400
-            message: 'Invalid filter string: foo e bar'
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request was not valid.
-    InternalError:
-      content:
-        application/json:
-          example:
-            code: 500
-            message: Server error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An internal error occurred.
-    Unauthorized:
-      content:
-        application/json:
-          example:
-            code: 401
-            message: Token expired
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server was unable to establish the identity of the client.
   parameters:
-    YokoyAuthMethod:
-      example: yokoy
-      in: header
-      name: X-Yk-Auth-Method
-      required: true
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
+      in: query
+      name: filter
       schema:
-        enum:
-        - yokoy
         type: string
     LegalEntityIdInPath:
       description: Yokoy unique ID of the legal entity (company).
@@ -328,14 +326,26 @@ components:
       required: false
       schema:
         type: string
-    QueryFilter:
-      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
-      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
-      in: query
-      name: filter
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
       schema:
+        enum:
+        - yokoy
         type: string
   schemas:
+    HttpError:
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - field
+      - message
+      type: object
     Error:
       properties:
         code:
@@ -393,16 +403,6 @@ components:
           description: Status of the invoice category, whether the invoice category is active. Only active categories can be used in an invoice.
           example: true
           type: boolean
-      type: object
-    HttpError:
-      properties:
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - field
-      - message
       type: object
   securitySchemes:
     OAuth2:

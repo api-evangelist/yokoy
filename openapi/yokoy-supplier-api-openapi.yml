@@ -431,99 +431,7 @@ paths:
       tags:
       - Supplier
 components:
-  parameters:
-    YokoyAuthMethod:
-      example: yokoy
-      in: header
-      name: X-Yk-Auth-Method
-      required: true
-      schema:
-        enum:
-        - yokoy
-        type: string
-    LegalEntityIdInPath:
-      description: Yokoy unique ID of the legal entity (company).
-      example: aB9jQoE3HE
-      in: path
-      name: legalEntityId
-      required: true
-      schema:
-        pattern: '[\w-]+'
-        type: string
-    YokoyCorrelationId:
-      description: Correlation ID that can be used to trace a request in the flow.
-      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
-      in: header
-      name: X-Yk-Correlation-Id
-      required: false
-      schema:
-        type: string
-    QueryFilter:
-      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
-      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
-      in: query
-      name: filter
-      schema:
-        type: string
   responses:
-    NotFound:
-      content:
-        application/json:
-          example:
-            code: 404
-            message: Resource not found
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The specified resource was not found.
-    HttpValidationError:
-      content:
-        application/json:
-          example:
-            code: 400
-            errors:
-            - field: Yokoy Field
-              message: Yokoy Field is mandatory
-            message: Validation Error
-          schema:
-            $ref: '#/components/schemas/HttpError'
-            additionalProperties: true
-      description: The request was not valid.
-    ServiceUnavailable:
-      content:
-        application/json:
-          example:
-            code: 503
-            message: Service unavailable
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server is unavailable. Please try again later
-    InternalError:
-      content:
-        application/json:
-          example:
-            code: 500
-            message: Server error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An internal error occurred.
-    Unauthorized:
-      content:
-        application/json:
-          example:
-            code: 401
-            message: Token expired
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server was unable to establish the identity of the client.
-    InvalidFilter:
-      content:
-        application/json:
-          example:
-            code: 400
-            message: 'Invalid filter string: foo e bar'
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request was not valid.
     TooManyRequests:
       content:
         application/json:
@@ -533,6 +441,24 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The request cannot be processed by the server due to too many concurrent requests.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
     GatewayError:
       content:
         application/json:
@@ -551,7 +477,68 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The client is not authorized to perform the requested operation.
+    HttpValidationError:
+      content:
+        application/json:
+          example:
+            code: 400
+            errors:
+            - field: Yokoy Field
+              message: Yokoy Field is mandatory
+            message: Validation Error
+          schema:
+            $ref: '#/components/schemas/HttpError'
+            additionalProperties: true
+      description: The request was not valid.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
   schemas:
+    SupplierAutoSubmissionDocumentSettings:
+      properties:
+        amount:
+          description: 'Threshold amount (**Max. allowed amount**) below which the supplier document is submitted automatically by Yokoy when all other conditions are met.
+
+            The amount is converted to the currency of the legal entity.
+
+            A 0 or `null` amount means that all documents are auto-submitted.
+
+            '
+          example: 1000
+          minimum: 0
+          type:
+          - number
+          - 'null'
+        enabled:
+          example: false
+          type: boolean
+      required:
+      - enabled
+      type: object
     LegalEntitySupplier:
       properties:
         autoSubmissionSettings:
@@ -677,26 +664,100 @@ components:
       - supplierId
       - statusActive
       type: object
-    SupplierAutoSubmissionDocumentSettings:
+    HttpError:
       properties:
-        amount:
-          description: 'Threshold amount (**Max. allowed amount**) below which the supplier document is submitted automatically by Yokoy when all other conditions are met.
-
-            The amount is converted to the currency of the legal entity.
-
-            A 0 or `null` amount means that all documents are auto-submitted.
-
-            '
-          example: 1000
-          minimum: 0
-          type:
-          - number
-          - 'null'
-        enabled:
-          example: false
-          type: boolean
+        field:
+          type: string
+        message:
+          type: string
       required:
-      - enabled
+      - field
+      - message
+      type: object
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    SupplierContact:
+      properties:
+        email:
+          description: Email address of the supplier's contact.
+          example: quinn.leavy@example.com
+          type: string
+        firstName:
+          description: Given name of the supplier's contact.
+          example: Quinn
+          type: string
+        lastName:
+          description: Family name of the supplier's contact.
+          example: Leavy
+          type: string
+        phone:
+          description: Phone number of the supplier's contact.
+          example: +49 12 3456789
+          type: string
+        role:
+          description: Contact's role in the supplier company.
+          example: Sales representative
+          type: string
+      required:
+      - email
+      - firstName
+      - lastName
+      - phone
+      - role
+      type: object
+    InvoiceBankAccount:
+      description: Information related to the payment of the invoice.
+      properties:
+        bankAccount:
+          description: Bank account number. Often used if no IBAN exists.
+          example: '987654321'
+          type:
+          - string
+          - 'null'
+        bankCountry:
+          description: Country of the bank.
+          example: UK
+          type:
+          - string
+          - 'null'
+        bankKey:
+          description: Bank key (also called branch code).
+          example: XXX
+          type:
+          - string
+          - 'null'
+        bankNumber:
+          description: Bank number (also called bank code).
+          example: UBSW
+          type:
+          - string
+          - 'null'
+        externalId:
+          description: External ID of the bank in ERP systems.
+          example: UBS12
+          type:
+          - string
+          - 'null'
+        iban:
+          description: IBAN (International Bank Account Number).
+          example: CH5604835012345678009
+          type:
+          - string
+          - 'null'
+        swiftCode:
+          description: Swift code (also called the BIC).
+          example: UBSWCHZHXXX
+          type:
+          - string
+          - 'null'
       type: object
     SupplierAutoSubmissionSettings:
       properties:
@@ -845,105 +906,44 @@ components:
       - externalId
       - name
       type: object
-    InvoiceBankAccount:
-      description: Information related to the payment of the invoice.
-      properties:
-        bankAccount:
-          description: Bank account number. Often used if no IBAN exists.
-          example: '987654321'
-          type:
-          - string
-          - 'null'
-        bankCountry:
-          description: Country of the bank.
-          example: UK
-          type:
-          - string
-          - 'null'
-        bankKey:
-          description: Bank key (also called branch code).
-          example: XXX
-          type:
-          - string
-          - 'null'
-        bankNumber:
-          description: Bank number (also called bank code).
-          example: UBSW
-          type:
-          - string
-          - 'null'
-        externalId:
-          description: External ID of the bank in ERP systems.
-          example: UBS12
-          type:
-          - string
-          - 'null'
-        iban:
-          description: IBAN (International Bank Account Number).
-          example: CH5604835012345678009
-          type:
-          - string
-          - 'null'
-        swiftCode:
-          description: Swift code (also called the BIC).
-          example: UBSWCHZHXXX
-          type:
-          - string
-          - 'null'
-      type: object
     Supplier:
       allOf:
       - $ref: '#/components/schemas/OrganizationSupplier'
       - $ref: '#/components/schemas/LegalEntitySupplier'
-    Error:
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-      type: object
-    SupplierContact:
-      properties:
-        email:
-          description: Email address of the supplier's contact.
-          example: quinn.leavy@example.com
-          type: string
-        firstName:
-          description: Given name of the supplier's contact.
-          example: Quinn
-          type: string
-        lastName:
-          description: Family name of the supplier's contact.
-          example: Leavy
-          type: string
-        phone:
-          description: Phone number of the supplier's contact.
-          example: +49 12 3456789
-          type: string
-        role:
-          description: Contact's role in the supplier company.
-          example: Sales representative
-          type: string
-      required:
-      - email
-      - firstName
-      - lastName
-      - phone
-      - role
-      type: object
-    HttpError:
-      properties:
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - field
-      - message
-      type: object
+  parameters:
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
+      in: query
+      name: filter
+      schema:
+        type: string
+    LegalEntityIdInPath:
+      description: Yokoy unique ID of the legal entity (company).
+      example: aB9jQoE3HE
+      in: path
+      name: legalEntityId
+      required: true
+      schema:
+        pattern: '[\w-]+'
+        type: string
+    YokoyCorrelationId:
+      description: Correlation ID that can be used to trace a request in the flow.
+      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
+      in: header
+      name: X-Yk-Correlation-Id
+      required: false
+      schema:
+        type: string
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
   securitySchemes:
     OAuth2:
       description: "Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.\n\n**1. Obtain an access token**\n\nPerform a `POST` request to\n`https://accounts.yokoy.ai/oauth2/token`. Pass the client ID\nand client secret as username and password in a basic auth\nheader. Set the content-type to\n`application/x-www-form-urlencoded` and specify\n`grant_type=client_credentials` in the body.\n\n> Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.\n\nExample request for the client ID `ClientId` and client\nsecret `ClientSecret`:\n```\nPOST https://accounts.yokoy.ai/oauth2/token\nAuthorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0\nContent-Type: application/x-www-form-urlencoded\ngrant_type=client_credentials\n```\nIn this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is\nobtained by base64-encoding the string\n`ClientId:ClientSecret`, as required for basic access authentication.\n\n> Note: Yokoy does not require or use scopes.\n\n\nThe JSON response contains the access token in the attribute\n`access_token`. The response also contains the expiration in\nseconds.\n\nExample response:\n```\n{\n    \"access_token\": \"SOME_KEY\",\n    \"expires_in\": 3900,\n    \"token_type\": \"Bearer\"\n}\n```\n\n**2. Pass the bearer token**\n\nPass the access token from step 1 as a bearer token in subsequent requests to the API.\n\nExample header field for the example response from step 1:\n```\nAuthorization: Bearer 4lDvPkrBF87WHuyvlINQD\n```\n\nFor more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].\n"

@@ -187,57 +187,6 @@ paths:
       - Expense
 components:
   responses:
-    Found:
-      description: Redirect URL of a requested resource.
-      headers:
-        Location:
-          schema:
-            type: string
-    NotFound:
-      content:
-        application/json:
-          example:
-            code: 404
-            message: Resource not found
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The specified resource was not found.
-    ServiceUnavailable:
-      content:
-        application/json:
-          example:
-            code: 503
-            message: Service unavailable
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server is unavailable. Please try again later
-    InternalError:
-      content:
-        application/json:
-          example:
-            code: 500
-            message: Server error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An internal error occurred.
-    Unauthorized:
-      content:
-        application/json:
-          example:
-            code: 401
-            message: Token expired
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The server was unable to establish the identity of the client.
-    InvalidFilter:
-      content:
-        application/json:
-          example:
-            code: 400
-            message: 'Invalid filter string: foo e bar'
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request was not valid.
     TooManyRequests:
       content:
         application/json:
@@ -247,6 +196,24 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The request cannot be processed by the server due to too many concurrent requests.
+    ServiceUnavailable:
+      content:
+        application/json:
+          example:
+            code: 503
+            message: Service unavailable
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server is unavailable. Please try again later
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            code: 401
+            message: Token expired
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The server was unable to establish the identity of the client.
     GatewayError:
       content:
         application/json:
@@ -265,29 +232,46 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The client is not authorized to perform the requested operation.
+    NotFound:
+      content:
+        application/json:
+          example:
+            code: 404
+            message: Resource not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The specified resource was not found.
+    Found:
+      description: Redirect URL of a requested resource.
+      headers:
+        Location:
+          schema:
+            type: string
+    InvalidFilter:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'Invalid filter string: foo e bar'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
+    InternalError:
+      content:
+        application/json:
+          example:
+            code: 500
+            message: Server error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An internal error occurred.
   parameters:
-    PaginationCursor:
-      description: 'Optional cursor for paginating. When provided, the API fetches a subsequent page of items.
-
-        The subsequent page is identified by the value given in `nextCursor` in the previous response.
-
-        `cursor` can only be used if the `count` attribute is passed as a query parameter.
-
-        '
-      example: 06x2u4nagAMEq3gGMoch
+    QueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
+      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
       in: query
-      name: cursor
-      required: false
+      name: filter
       schema:
-        type: string
-    YokoyAuthMethod:
-      example: yokoy
-      in: header
-      name: X-Yk-Auth-Method
-      required: true
-      schema:
-        enum:
-        - yokoy
         type: string
     PaginationCount:
       description: 'Optional count for paginating. When provided, the results are paginated. Without `count`, no pagination is provided.
@@ -306,6 +290,20 @@ components:
       schema:
         maximum: 100
         type: number
+    PaginationCursor:
+      description: 'Optional cursor for paginating. When provided, the API fetches a subsequent page of items.
+
+        The subsequent page is identified by the value given in `nextCursor` in the previous response.
+
+        `cursor` can only be used if the `count` attribute is passed as a query parameter.
+
+        '
+      example: 06x2u4nagAMEq3gGMoch
+      in: query
+      name: cursor
+      required: false
+      schema:
+        type: string
     YokoyCorrelationId:
       description: Correlation ID that can be used to trace a request in the flow.
       example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
@@ -314,30 +312,16 @@ components:
       required: false
       schema:
         type: string
-    QueryFilter:
-      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
-      example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
-      in: query
-      name: filter
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
       schema:
+        enum:
+        - yokoy
         type: string
   schemas:
-    TaxItem:
-      properties:
-        gross:
-          description: Gross amount subject to the tax rate in the expense currency.
-          example: 150.0
-          type: number
-        rateId:
-          description: Yokoy's unique ID of the tax rate.
-          example: 06x2u4nagAMEq3gGMoch
-          pattern: '[\w-]+'
-          type: string
-        tax:
-          description: Tax amount in the expense currency.
-          example: 15.0
-          type: number
-      type: object
     AdditionalCategoryItem:
       properties:
         categoryId:
@@ -364,101 +348,15 @@ components:
           - string
           - 'null'
       type: object
-    EventLogEntry:
+    Error:
       properties:
-        actionType:
-          description: Type of event.
-          enum:
-          - approve
-          - archive
-          - backToReview
-          - export
-          - needsRevision
-          - recall
-          - reject
-          - review
-          - submit
-          - revertExport
-          - imported
-          - exportReverted
-          - forwardApproval
-          example: needsRevision
+        code:
+          type: integer
+        message:
           type: string
-        comment:
-          description: Comment made by the user who triggered the event.
-          example: Please re-upload the invoice instead of the payment receipt.
-          pattern: '[\w-]+'
-          type: string
-        name:
-          description: Name of the user who triggered the event.
-          example: Alex Perez
-          type:
-          - string
-          - 'null'
-        timestamp:
-          description: Timestamp (date and time) of the event. Expressed in ISO 8601 format. Coordinated Universal Time (UTC).
-          example: '2022-11-15T17:08:45.478Z'
-          format: date-time
-          type: string
-        userId:
-          description: Yokoy unique ID of the user.
-          example: 9L7rovNzNhTCsJSTkbfq
-          pattern: '[\w-]+'
-          type:
-          - string
-          - 'null'
-      type: object
-    IncomeTaxableAmount:
-      properties:
-        aggregatedExpenses:
-          description: Previously exported expenses included in income tax calculation.
-          example:
-          - amount: 200.0
-            expenseId: 9L7rovNzNhTCsJSTkbfq
-            incomeTaxableAmount: 100.0
-          - amount: 50.0
-            expenseId: 4VrKKvgzVr
-            incomeTaxableAmount: 50.0
-          items:
-            properties:
-              amount:
-                description: Amount of the aggregated expense included in the income tax calculation.
-                example: 150.0
-                type: number
-              expenseId:
-                description: Yokoy unique ID of the expense.
-                example: 9L7rovNzNhTCsJSTkbfq
-                type: string
-              incomeTaxableAmount:
-                description: Taxable amount of the aggregate expense included in the income tax calculation.
-                example: 150.0
-                type: number
-            type: object
-          type: array
-        categoryId:
-          description: Yokoy unique ID of the category.
-          example: Eg4KzzqxpWvjqHE2H7mH
-          type: string
-        currency:
-          description: Currency of the taxable amount subject to income tax. ISO 4217 three-letter code.
-          example: EUR
-          type: string
-        incomeTaxRuleId:
-          description: Unique ID of the income tax rule.
-          example: 8472f8a3-794f-43fa-a886-c3082a74b441
-          type: string
-        incomeTaxableAmount:
-          description: Taxable amount of the expense subject to income tax.
-          example: 150.0
-          type: number
-        payrollCode:
-          description: Payroll code associated to the income tax rule.
-          example: code-0000
-          type: string
-        userId:
-          description: Yokoy unique ID of the user.
-          example: 9L7rovNzNhTCsJSTkbfq
-          type: string
+      required:
+      - code
+      - message
       type: object
     Expense:
       properties:
@@ -814,6 +712,22 @@ components:
       - totalAmount
       - totalClaim
       type: object
+    TaxItem:
+      properties:
+        gross:
+          description: Gross amount subject to the tax rate in the expense currency.
+          example: 150.0
+          type: number
+        rateId:
+          description: Yokoy's unique ID of the tax rate.
+          example: 06x2u4nagAMEq3gGMoch
+          pattern: '[\w-]+'
+          type: string
+        tax:
+          description: Tax amount in the expense currency.
+          example: 15.0
+          type: number
+      type: object
     CostCenterItem:
       properties:
         id:
@@ -827,15 +741,101 @@ components:
           minimum: 0.0
           type: number
       type: object
-    Error:
+    IncomeTaxableAmount:
       properties:
-        code:
-          type: integer
-        message:
+        aggregatedExpenses:
+          description: Previously exported expenses included in income tax calculation.
+          example:
+          - amount: 200.0
+            expenseId: 9L7rovNzNhTCsJSTkbfq
+            incomeTaxableAmount: 100.0
+          - amount: 50.0
+            expenseId: 4VrKKvgzVr
+            incomeTaxableAmount: 50.0
+          items:
+            properties:
+              amount:
+                description: Amount of the aggregated expense included in the income tax calculation.
+                example: 150.0
+                type: number
+              expenseId:
+                description: Yokoy unique ID of the expense.
+                example: 9L7rovNzNhTCsJSTkbfq
+                type: string
+              incomeTaxableAmount:
+                description: Taxable amount of the aggregate expense included in the income tax calculation.
+                example: 150.0
+                type: number
+            type: object
+          type: array
+        categoryId:
+          description: Yokoy unique ID of the category.
+          example: Eg4KzzqxpWvjqHE2H7mH
           type: string
-      required:
-      - code
-      - message
+        currency:
+          description: Currency of the taxable amount subject to income tax. ISO 4217 three-letter code.
+          example: EUR
+          type: string
+        incomeTaxRuleId:
+          description: Unique ID of the income tax rule.
+          example: 8472f8a3-794f-43fa-a886-c3082a74b441
+          type: string
+        incomeTaxableAmount:
+          description: Taxable amount of the expense subject to income tax.
+          example: 150.0
+          type: number
+        payrollCode:
+          description: Payroll code associated to the income tax rule.
+          example: code-0000
+          type: string
+        userId:
+          description: Yokoy unique ID of the user.
+          example: 9L7rovNzNhTCsJSTkbfq
+          type: string
+      type: object
+    EventLogEntry:
+      properties:
+        actionType:
+          description: Type of event.
+          enum:
+          - approve
+          - archive
+          - backToReview
+          - export
+          - needsRevision
+          - recall
+          - reject
+          - review
+          - submit
+          - revertExport
+          - imported
+          - exportReverted
+          - forwardApproval
+          example: needsRevision
+          type: string
+        comment:
+          description: Comment made by the user who triggered the event.
+          example: Please re-upload the invoice instead of the payment receipt.
+          pattern: '[\w-]+'
+          type: string
+        name:
+          description: Name of the user who triggered the event.
+          example: Alex Perez
+          type:
+          - string
+          - 'null'
+        timestamp:
+          description: Timestamp (date and time) of the event. Expressed in ISO 8601 format. Coordinated Universal Time (UTC).
+          example: '2022-11-15T17:08:45.478Z'
+          format: date-time
+          type: string
+        userId:
+          description: Yokoy unique ID of the user.
+          example: 9L7rovNzNhTCsJSTkbfq
+          pattern: '[\w-]+'
+          type:
+          - string
+          - 'null'
       type: object
   securitySchemes:
     OAuth2:
