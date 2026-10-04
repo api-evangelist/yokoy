@@ -1,0 +1,66 @@
+slug: yokoy
+provider: Yokoy
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Purchase Order
+  spec_file: yokoy-purchase-order-api-openapi.yml
+  capability_id: BC-500.30
+  capability_id_l1: BC-500
+  capability_name: Purchase Order Management
+  confidence: 0.9
+  evidence: 'POST /legal-entities/{legalEntityId}/invoice-purchase-orders  createPO  Create a purchase
+    order; schemas: PurchaseOrder, PurchaseOrderItem'
+  reason: Operations create, read and update purchase orders with line items, matched against supplier
+    invoices — plainly Purchase Order Management within procurement.
+- tag: Invoice
+  spec_file: yokoy-invoice-api-openapi.yml
+  capability_id: BC-200.20
+  capability_id_l1: BC-200
+  capability_name: Accounts Payable Management
+  confidence: 0.85
+  evidence: 'POST /legal-entities/{legalEntityId}/invoices/upload  uploadAiInvoice  Upload a new invoice
+    to be processed by Yokoy AI; schemas: OneTimeSupplierInfo, InvoiceBankAccount'
+  reason: Inbound supplier invoice capture (e-invoice and AI-processed upload), retrieval of invoice PDFs,
+    and supplier bank account data — squarely accounts-payable invoice processing, not customer invoicing.
+- tag: Goods Receipt
+  spec_file: yokoy-goods-receipt-api-openapi.yml
+  capability_id: BC-500.40
+  capability_id_l1: BC-500
+  capability_name: Procure-to-Pay Operations Management
+  confidence: 0.7
+  evidence: POST /legal-entities/{legalEntityId}/invoice-goods-receipts  createGR  Create a goods receipt
+  reason: Creation and maintenance of goods receipts tied to invoices, which is the receipt leg of procure-to-pay
+    operations ('requisitions, receipts') used for invoice matching.
+- tag: Supplier
+  spec_file: yokoy-supplier-api-openapi.yml
+  capability_id: BC-510
+  capability_id_l1: BC-510
+  capability_name: Supplier Management
+  confidence: 0.7
+  evidence: 'POST /suppliers  createOrgSupplier  Create a supplier (organization); schemas: OrganizationSupplier,
+    SupplierContact, InvoiceBankAccount'
+  reason: Full CRUD over supplier master records (contacts, bank accounts, submission settings) at organisation
+    and legal-entity level. This is supplier record stewardship; the evidence does not single out onboarding
+    vs performance vs relationship, so only the L1 is asserted.
+- tag: Tax Rates
+  spec_file: yokoy-tax-rates-api-openapi.yml
+  capability_id: BC-220.20
+  capability_id_l1: BC-220
+  capability_name: Indirect Tax Management
+  confidence: 0.7
+  evidence: 'POST /legal-entities/{legalEntityId}/tax-rates  createTaxRate  Create a tax rate; schemas:
+    TaxRate, AdvancedTaxRate, TaxComponents'
+  reason: Configuration of tax rates per legal entity applied to expenses and supplier invoices — i.e.
+    VAT/GST indirect tax determination data. Could also be read as pure configuration master data, hence
+    moderate confidence.

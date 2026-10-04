@@ -831,6 +831,9 @@ apis:
   - type: Conformance
     url: conformance/yokoy-conformance.yml
 common:
+- type: CapabilityMap
+  url: capabilities/yokoy-capability-edges.yml
+  name: Yokoy Business Capability Map
 - type: Overlay
   url: overlays/yokoy-openapi-overlay.yaml
 - type: DeveloperPortal
