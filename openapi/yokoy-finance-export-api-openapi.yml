@@ -365,15 +365,6 @@ paths:
       - Finance export
 components:
   responses:
-    InsufficientData:
-      content:
-        application/json:
-          example:
-            code: 422
-            message: Insufficient data
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request cannot be processed due to insufficient data.
     TooManyRequests:
       content:
         application/json:
@@ -383,6 +374,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The request cannot be processed by the server due to too many concurrent requests.
+    InsufficientData:
+      content:
+        application/json:
+          example:
+            code: 422
+            message: Insufficient data
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request cannot be processed due to insufficient data.
     ServiceUnavailable:
       content:
         application/json:
@@ -419,15 +419,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The specified resource was not found.
-    Forbidden:
-      content:
-        application/json:
-          example:
-            code: 403
-            message: User not authorized to access organization
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The client is not authorized to perform the requested operation.
     InternalError:
       content:
         application/json:
@@ -437,6 +428,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: An internal error occurred.
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
   schemas:
     InvoiceExportArtefact:
       properties:
@@ -466,6 +466,16 @@ components:
           example: '{"journalEntry":{"journalEntryType":"invoice","lineItems":[{"account":"6630","categoryId":"aquNlTt8v2NOqzOruWtE","amountNet":18.5,"amountGross":18.5,"costCenterCode":"1234","costCenterId":"4neg0miskYbpOvKkMBd4","amountGrossOriginalCurrency":18.5,"amountNetOriginalCurrency":18.5}],"taxItems":[],"currency":"EUR","originalCurrency":"EUR","supplierId":"9L7rovNzNhTCsJSTkbfq","postingDate":"2023-01-01"}}'
           type: string
       type: object
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
     ExpenseExportArtefact:
       properties:
         generatedFiles:
@@ -493,16 +503,6 @@ components:
           description: Serialized artefact of the form `ExpenseExportPayload`.
           example: '{"journalEntry":{"journalEntryType":"expense","lineItems":[{"account":"6630","categoryId":"aquNlTt8v2NOqzOruWtE","amountNet":18.5,"amountGross":18.5,"costCenterCode":"1234","costCenterId":"4neg0miskYbpOvKkMBd4","amountGrossOriginalExpenseCurrency":18.5,"amountNetOriginalExpenseCurrency":18.5}],"taxItems":[],"creditorItem":{"account":"123","amount":18.5,"amountOriginalExpenseCurrency":18.5},"currency":"EUR","originalExpenseCurrency":"EUR"}}'
           type: string
-      type: object
-    Error:
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
       type: object
     InvoiceExportTaskInformation:
       properties:
@@ -609,13 +609,6 @@ components:
           type: object
       type: object
   parameters:
-    ExportTaskQueryFilter:
-      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters. The fields to filter differ from other endpoints. The filterable attributes for this endpoint are `created`, `fullDate`, `postingDate`, `type`, `facilityId` and `exportMethod`.
-      example: created ge 2025-01-23 and facilityId eq expense
-      in: query
-      name: filter
-      schema:
-        type: string
     YokoyAuthMethod:
       example: yokoy
       in: header
@@ -625,14 +618,12 @@ components:
         enum:
         - yokoy
         type: string
-    LegalEntityIdInPath:
-      description: Yokoy unique ID of the legal entity (company).
-      example: aB9jQoE3HE
-      in: path
-      name: legalEntityId
-      required: true
+    ExportTaskQueryFilter:
+      description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters. The fields to filter differ from other endpoints. The filterable attributes for this endpoint are `created`, `fullDate`, `postingDate`, `type`, `facilityId` and `exportMethod`.
+      example: created ge 2025-01-23 and facilityId eq expense
+      in: query
+      name: filter
       schema:
-        pattern: '[\w-]+'
         type: string
     YokoyCorrelationId:
       description: Correlation ID that can be used to trace a request in the flow.
@@ -641,6 +632,15 @@ components:
       name: X-Yk-Correlation-Id
       required: false
       schema:
+        type: string
+    LegalEntityIdInPath:
+      description: Yokoy unique ID of the legal entity (company).
+      example: aB9jQoE3HE
+      in: path
+      name: legalEntityId
+      required: true
+      schema:
+        pattern: '[\w-]+'
         type: string
   securitySchemes:
     OAuth2:

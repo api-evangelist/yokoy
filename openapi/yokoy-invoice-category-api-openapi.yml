@@ -225,6 +225,19 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The request cannot be processed by the server due to too many concurrent requests.
+    HttpValidationError:
+      content:
+        application/json:
+          example:
+            code: 400
+            errors:
+            - field: Yokoy Field
+              message: Yokoy Field is mandatory
+            message: Validation Error
+          schema:
+            $ref: '#/components/schemas/HttpError'
+            additionalProperties: true
+      description: The request was not valid.
     ServiceUnavailable:
       content:
         application/json:
@@ -270,15 +283,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The request was not valid.
-    Forbidden:
-      content:
-        application/json:
-          example:
-            code: 403
-            message: User not authorized to access organization
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The client is not authorized to perform the requested operation.
     InternalError:
       content:
         application/json:
@@ -288,25 +292,38 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: An internal error occurred.
-    HttpValidationError:
+    Forbidden:
       content:
         application/json:
           example:
-            code: 400
-            errors:
-            - field: Yokoy Field
-              message: Yokoy Field is mandatory
-            message: Validation Error
+            code: 403
+            message: User not authorized to access organization
           schema:
-            $ref: '#/components/schemas/HttpError'
-            additionalProperties: true
-      description: The request was not valid.
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
   parameters:
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
     QueryFilter:
       description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
       example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
       in: query
       name: filter
+      schema:
+        type: string
+    YokoyCorrelationId:
+      description: Correlation ID that can be used to trace a request in the flow.
+      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
+      in: header
+      name: X-Yk-Correlation-Id
+      required: false
       schema:
         type: string
     LegalEntityIdInPath:
@@ -318,34 +335,7 @@ components:
       schema:
         pattern: '[\w-]+'
         type: string
-    YokoyCorrelationId:
-      description: Correlation ID that can be used to trace a request in the flow.
-      example: 4ea8985e-80a2-40a0-8a40-401a1a1374b3
-      in: header
-      name: X-Yk-Correlation-Id
-      required: false
-      schema:
-        type: string
-    YokoyAuthMethod:
-      example: yokoy
-      in: header
-      name: X-Yk-Auth-Method
-      required: true
-      schema:
-        enum:
-        - yokoy
-        type: string
   schemas:
-    HttpError:
-      properties:
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - field
-      - message
-      type: object
     Error:
       properties:
         code:
@@ -354,6 +344,16 @@ components:
           type: string
       required:
       - code
+      - message
+      type: object
+    HttpError:
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - field
       - message
       type: object
     InvoiceCategory:

@@ -225,6 +225,19 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The request cannot be processed by the server due to too many concurrent requests.
+    HttpValidationError:
+      content:
+        application/json:
+          example:
+            code: 400
+            errors:
+            - field: Yokoy Field
+              message: Yokoy Field is mandatory
+            message: Validation Error
+          schema:
+            $ref: '#/components/schemas/HttpError'
+            additionalProperties: true
+      description: The request was not valid.
     ServiceUnavailable:
       content:
         application/json:
@@ -234,15 +247,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The server is unavailable. Please try again later
-    GatewayError:
-      content:
-        application/json:
-          example:
-            code: 502
-            message: Gateway error
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: An issue occurred in a downstream service. Please try again later.
     Unauthorized:
       content:
         application/json:
@@ -252,6 +256,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The server was unable to establish the identity of the client.
+    GatewayError:
+      content:
+        application/json:
+          example:
+            code: 502
+            message: Gateway error
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An issue occurred in a downstream service. Please try again later.
     NotFound:
       content:
         application/json:
@@ -270,15 +283,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The request was not valid.
-    Forbidden:
-      content:
-        application/json:
-          example:
-            code: 403
-            message: User not authorized to access organization
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The client is not authorized to perform the requested operation.
     InternalError:
       content:
         application/json:
@@ -288,20 +292,25 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: An internal error occurred.
-    HttpValidationError:
+    Forbidden:
       content:
         application/json:
           example:
-            code: 400
-            errors:
-            - field: Yokoy Field
-              message: Yokoy Field is mandatory
-            message: Validation Error
+            code: 403
+            message: User not authorized to access organization
           schema:
-            $ref: '#/components/schemas/HttpError'
-            additionalProperties: true
-      description: The request was not valid.
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
   parameters:
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
     QueryFilter:
       description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
       example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
@@ -317,15 +326,6 @@ components:
       required: false
       schema:
         type: string
-    YokoyAuthMethod:
-      example: yokoy
-      in: header
-      name: X-Yk-Auth-Method
-      required: true
-      schema:
-        enum:
-        - yokoy
-        type: string
     LegalEntityIdInPath:
       description: Yokoy unique ID of the legal entity (company).
       example: aB9jQoE3HE
@@ -336,6 +336,16 @@ components:
         pattern: '[\w-]+'
         type: string
   schemas:
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
     HttpError:
       properties:
         field:
@@ -467,21 +477,6 @@ components:
           - string
           - 'null'
       type: object
-    DateString:
-      example: '2024-02-21'
-      format: date
-      pattern: ^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$
-      type: string
-    Error:
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-      type: object
     PurchaseOrder:
       properties:
         currency:
@@ -595,6 +590,11 @@ components:
       - currency
       - items
       type: object
+    DateString:
+      example: '2024-02-21'
+      format: date
+      pattern: ^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$
+      type: string
   securitySchemes:
     OAuth2:
       description: "Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.\n\n**1. Obtain an access token**\n\nPerform a `POST` request to\n`https://accounts.yokoy.ai/oauth2/token`. Pass the client ID\nand client secret as username and password in a basic auth\nheader. Set the content-type to\n`application/x-www-form-urlencoded` and specify\n`grant_type=client_credentials` in the body.\n\n> Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.\n\nExample request for the client ID `ClientId` and client\nsecret `ClientSecret`:\n```\nPOST https://accounts.yokoy.ai/oauth2/token\nAuthorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0\nContent-Type: application/x-www-form-urlencoded\ngrant_type=client_credentials\n```\nIn this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is\nobtained by base64-encoding the string\n`ClientId:ClientSecret`, as required for basic access authentication.\n\n> Note: Yokoy does not require or use scopes.\n\n\nThe JSON response contains the access token in the attribute\n`access_token`. The response also contains the expiration in\nseconds.\n\nExample response:\n```\n{\n    \"access_token\": \"SOME_KEY\",\n    \"expires_in\": 3900,\n    \"token_type\": \"Bearer\"\n}\n```\n\n**2. Pass the bearer token**\n\nPass the access token from step 1 as a bearer token in subsequent requests to the API.\n\nExample header field for the example response from step 1:\n```\nAuthorization: Bearer 4lDvPkrBF87WHuyvlINQD\n```\n\nFor more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].\n"

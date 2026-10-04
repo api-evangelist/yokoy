@@ -225,6 +225,19 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The request cannot be processed by the server due to too many concurrent requests.
+    HttpValidationError:
+      content:
+        application/json:
+          example:
+            code: 400
+            errors:
+            - field: Yokoy Field
+              message: Yokoy Field is mandatory
+            message: Validation Error
+          schema:
+            $ref: '#/components/schemas/HttpError'
+            additionalProperties: true
+      description: The request was not valid.
     ServiceUnavailable:
       content:
         application/json:
@@ -270,15 +283,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The request was not valid.
-    Forbidden:
-      content:
-        application/json:
-          example:
-            code: 403
-            message: User not authorized to access organization
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The client is not authorized to perform the requested operation.
     InternalError:
       content:
         application/json:
@@ -288,20 +292,25 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: An internal error occurred.
-    HttpValidationError:
+    Forbidden:
       content:
         application/json:
           example:
-            code: 400
-            errors:
-            - field: Yokoy Field
-              message: Yokoy Field is mandatory
-            message: Validation Error
+            code: 403
+            message: User not authorized to access organization
           schema:
-            $ref: '#/components/schemas/HttpError'
-            additionalProperties: true
-      description: The request was not valid.
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
   parameters:
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
     QueryFilter:
       description: Filter string used to restrict the data returned. You can use [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) filters.
       example: created ge 2024-03-02T09:00.000Z and customInformation.customField eq foo
@@ -317,15 +326,6 @@ components:
       required: false
       schema:
         type: string
-    YokoyAuthMethod:
-      example: yokoy
-      in: header
-      name: X-Yk-Auth-Method
-      required: true
-      schema:
-        enum:
-        - yokoy
-        type: string
     LegalEntityIdInPath:
       description: Yokoy unique ID of the legal entity (company).
       example: aB9jQoE3HE
@@ -336,6 +336,58 @@ components:
         pattern: '[\w-]+'
         type: string
   schemas:
+    Error:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    GoodsReceipt:
+      properties:
+        amount:
+          description: The goods receipt's amount. Calculated from the inner items.
+          example: 35
+          minimum: 0
+          readOnly: true
+          type: number
+        currency:
+          description: Currency of the goods receipt. ISO 4217 three-letter code.
+          example: CHF
+          type: string
+        externalId:
+          description: External ID of the goods receipt, displayed as delivery note in the invoice matcher.
+          example: external-1234567890
+          type:
+          - string
+          - 'null'
+        goodsReceiptNumber:
+          description: Goods receipt number.
+          example: '1234567890'
+          type: string
+        id:
+          description: Yokoy unique ID of the goods receipt.
+          example: cKrD9ni5D8
+          pattern: '[\w-]+'
+          readOnly: true
+          type: string
+        items:
+          items:
+            $ref: '#/components/schemas/GoodsReceiptItem'
+          type: array
+        postingDate:
+          allOf:
+          - $ref: '#/components/schemas/DateString'
+          - description: Posting date of the goods receipt. Expressed in `YYYY-MM-DD` format.
+      required:
+      - id
+      - goodsReceiptNumber
+      - currency
+      - items
+      type: object
     HttpError:
       properties:
         field:
@@ -346,6 +398,11 @@ components:
       - field
       - message
       type: object
+    DateString:
+      example: '2024-02-21'
+      format: date
+      pattern: ^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$
+      type: string
     GoodsReceiptItem:
       properties:
         amount:
@@ -413,63 +470,6 @@ components:
       - purchaseOrderId
       - purchaseOrderItemId
       - amount
-      type: object
-    DateString:
-      example: '2024-02-21'
-      format: date
-      pattern: ^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$
-      type: string
-    Error:
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-      type: object
-    GoodsReceipt:
-      properties:
-        amount:
-          description: The goods receipt's amount. Calculated from the inner items.
-          example: 35
-          minimum: 0
-          readOnly: true
-          type: number
-        currency:
-          description: Currency of the goods receipt. ISO 4217 three-letter code.
-          example: CHF
-          type: string
-        externalId:
-          description: External ID of the goods receipt, displayed as delivery note in the invoice matcher.
-          example: external-1234567890
-          type:
-          - string
-          - 'null'
-        goodsReceiptNumber:
-          description: Goods receipt number.
-          example: '1234567890'
-          type: string
-        id:
-          description: Yokoy unique ID of the goods receipt.
-          example: cKrD9ni5D8
-          pattern: '[\w-]+'
-          readOnly: true
-          type: string
-        items:
-          items:
-            $ref: '#/components/schemas/GoodsReceiptItem'
-          type: array
-        postingDate:
-          allOf:
-          - $ref: '#/components/schemas/DateString'
-          - description: Posting date of the goods receipt. Expressed in `YYYY-MM-DD` format.
-      required:
-      - id
-      - goodsReceiptNumber
-      - currency
-      - items
       type: object
   securitySchemes:
     OAuth2:

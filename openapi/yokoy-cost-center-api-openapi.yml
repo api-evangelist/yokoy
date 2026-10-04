@@ -288,15 +288,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The server is unavailable. Please try again later
-    Conflict:
-      content:
-        application/json:
-          example:
-            code: 409
-            message: Request conflict with the current state of the target resource.
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: Request conflict with the current state of the target resource.
     Unauthorized:
       content:
         application/json:
@@ -306,6 +297,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The server was unable to establish the identity of the client.
+    Conflict:
+      content:
+        application/json:
+          example:
+            code: 409
+            message: Request conflict with the current state of the target resource.
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: Request conflict with the current state of the target resource.
     GatewayError:
       content:
         application/json:
@@ -333,24 +333,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: The request was not valid.
-    ValidationError:
-      content:
-        application/json:
-          example:
-            code: 400
-            message: 'ValidationError: name is mandatory'
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The request was not valid.
-    Forbidden:
-      content:
-        application/json:
-          example:
-            code: 403
-            message: User not authorized to access organization
-          schema:
-            $ref: '#/components/schemas/Error'
-      description: The client is not authorized to perform the requested operation.
     InternalError:
       content:
         application/json:
@@ -360,7 +342,34 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
       description: An internal error occurred.
+    Forbidden:
+      content:
+        application/json:
+          example:
+            code: 403
+            message: User not authorized to access organization
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The client is not authorized to perform the requested operation.
+    ValidationError:
+      content:
+        application/json:
+          example:
+            code: 400
+            message: 'ValidationError: name is mandatory'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request was not valid.
   parameters:
+    YokoyAuthMethod:
+      example: yokoy
+      in: header
+      name: X-Yk-Auth-Method
+      required: true
+      schema:
+        enum:
+        - yokoy
+        type: string
     PaginationCount:
       description: 'Optional count for paginating. When provided, the results are paginated. Without `count`, no pagination is provided.
 
@@ -399,15 +408,6 @@ components:
       name: X-Yk-Correlation-Id
       required: false
       schema:
-        type: string
-    YokoyAuthMethod:
-      example: yokoy
-      in: header
-      name: X-Yk-Auth-Method
-      required: true
-      schema:
-        enum:
-        - yokoy
         type: string
     LegalEntityIdInPath:
       description: Yokoy unique ID of the legal entity (company).
