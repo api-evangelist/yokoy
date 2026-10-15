@@ -1,9 +1,1213 @@
-generated: '2026-07-21'
-method: derived
-source: openapi/yokoy-openapi-original.json
+generated: '2026-10-14'
+method: none
+source: openapi/yokoy-card-account-api-openapi.yml, openapi/yokoy-company-card-api-openapi.yml,
+  openapi/yokoy-cost-center-api-openapi.yml, openapi/yokoy-daily-statement-api-openapi.yml,
+  openapi/yokoy-expense-api-openapi.yml, openapi/yokoy-expense-category-api-openapi.yml, openapi/yokoy-external-invoice-api-openapi.yml,
+  openapi/yokoy-finance-export-api-openapi.yml, openapi/yokoy-fx-rates-api-openapi.yml, openapi/yokoy-goods-receipt-api-openapi.yml,
+  openapi/yokoy-invoice-api-openapi.yml, openapi/yokoy-invoice-category-api-openapi.yml, openapi/yokoy-invoice-payment-terms-api-openapi.yml,
+  openapi/yokoy-legal-entity-api-openapi.yml, openapi/yokoy-policy-api-openapi.yml, openapi/yokoy-purchase-order-api-openapi.yml,
+  openapi/yokoy-supplier-api-openapi.yml, openapi/yokoy-tag-api-openapi.yml, openapi/yokoy-tax-rates-api-openapi.yml,
+  openapi/yokoy-transaction-api-openapi.yml, openapi/yokoy-trip-api-openapi.yml, openapi/yokoy-user-api-openapi.yml
 schemes:
 - name: OAuth2
-  source: openapi/yokoy-openapi-original.json
+  source: openapi/yokoy-card-account-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-company-card-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-cost-center-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-daily-statement-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-expense-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-expense-category-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-external-invoice-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-finance-export-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-fx-rates-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-goods-receipt-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-invoice-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-invoice-category-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-invoice-payment-terms-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-legal-entity-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-policy-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-purchase-order-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-supplier-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-tag-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-tax-rates-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-transaction-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-trip-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
+  description: |-
+    Authentication to the Yokoy API relies on the standard OAuth2 client credentials flow.
+
+    **1. Obtain an access token**
+
+    Perform a `POST` request to
+    `https://accounts.yokoy.ai/oauth2/token`. Pass the client ID
+    and client secret as username and password in a basic auth
+    header. Set the content-type to
+    `application/x-www-form-urlencoded` and specify
+    `grant_type=client_credentials` in the body.
+
+    > Note: For the Yokoy test environment, use `https://accounts.test.yokoy.ai/oauth2/token` instead.
+
+    Example request for the client ID `ClientId` and client
+    secret `ClientSecret`:
+    ```
+    POST https://accounts.yokoy.ai/oauth2/token
+    Authorization: Basic Q2xpZW50SWQ6Q2xpZW50U2VjcmV0
+    Content-Type: application/x-www-form-urlencoded
+    grant_type=client_credentials
+    ```
+    In this example, the string `Q2xpZW50SWQ6Q2xpZW50U2VjcmV0` is
+    obtained by base64-encoding the string
+    `ClientId:ClientSecret`, as required for basic access authentication.
+
+    > Note: Yokoy does not require or use scopes.
+
+
+    The JSON response contains the access token in the attribute
+    `access_token`. The response also contains the expiration in
+    seconds.
+
+    Example response:
+    ```
+    {
+        "access_token": "SOME_KEY",
+        "expires_in": 3900,
+        "token_type": "Bearer"
+    }
+    ```
+
+    **2. Pass the bearer token**
+
+    Pass the access token from step 1 as a bearer token in subsequent requests to the API.
+
+    Example header field for the example response from step 1:
+    ```
+    Authorization: Bearer 4lDvPkrBF87WHuyvlINQD
+    ```
+
+    For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
+- name: OAuth2
+  source: openapi/yokoy-user-api-openapi.yml
   flows:
   - flow: clientCredentials
     tokenUrl: https://accounts[.test].yokoy.ai/oauth2/token
@@ -60,3 +1264,5 @@ schemes:
 
     For more information, see (Authentication & authorization)[https://developer.yokoy.ai/docs/overview/authentication].
 scopes: []
+note: The OAuth2 security scheme(s) in the OpenAPI declare no scopes, and no security requirement
+  references one.
