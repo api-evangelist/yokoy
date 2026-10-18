@@ -78,6 +78,8 @@ apis:
   humanURL: https://developer.yokoy.ai/api-reference/
   baseURL: https://api.yokoy.ai/v1/organizations/{organizationId}
   tags:
+  - Card Account
+  tags_raw:
   - Card account
   properties:
   - type: OpenAPI
